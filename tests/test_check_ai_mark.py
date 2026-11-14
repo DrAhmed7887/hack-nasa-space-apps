@@ -81,6 +81,53 @@ class CheckAiMarkTest(unittest.TestCase):
     def test_empty_repo_passes(self):
         self.assertEqual(check(self.root, []), [])
 
+    # Review round 1 (PR #1): edge cases.
+    def test_mark_on_line_ten_passes_and_line_eleven_fails(self):
+        ok = self.write("a/ok.py", "\n" * 9 + "# AI-assisted\n")
+        late = self.write("a/late.py", "\n" * 10 + "# AI-assisted\n")
+        self.assertEqual(check(self.root, [ok, late]), [f"{late}: no 'AI-assisted' header in the first 10 lines"])
+
+    def test_mark_match_ignores_case(self):
+        f = self.write("a/main.py", "# ai-Assisted: Claude Code\n")
+        self.assertEqual(check(self.root, [f]), [])
+
+    def test_uppercase_suffix_is_still_code(self):
+        f = self.write("a/MAIN.PY", "print(1)\n")
+        self.assertEqual(len(check(self.root, [f])), 1)
+
+    def test_listed_but_missing_file_is_skipped(self):
+        self.assertEqual(check(self.root, ["a/gone.py"]), [])
+
+    def test_directory_entry_is_skipped(self):
+        (self.root / "sub").mkdir()
+        self.assertEqual(check(self.root, ["sub"]), [])
+
+    def test_nested_data_folder_counts_as_data(self):
+        f = self.write("site/data/cases.json", json.dumps({"rows": []}))
+        self.assertEqual(len(check(self.root, [f])), 1)
+
+    def test_private_is_skipped_only_at_top_level(self):
+        top = self.write("private/notes.py", "no header\n")
+        nested = self.write("src/private/a.py", "no header\n")
+        self.assertEqual(check(self.root, [top, nested]), [f"{nested}: no 'AI-assisted' header in the first 10 lines"])
+
+    def test_package_json_inside_data_is_checked(self):
+        f = self.write("data/package.json", json.dumps({"name": "x"}))
+        self.assertEqual(len(check(self.root, [f])), 1)
+
+    def test_data_card_needs_the_exact_backticked_path(self):
+        self.write("DATA_CARD.md", "Files: `mydata/a.csv` and `data/a.csv.bak`\n")
+        f = self.write("data/a.csv", "a\n")
+        self.assertEqual(len(check(self.root, [f])), 1)
+
+    def test_markdown_inside_data_is_documentation(self):
+        f = self.write("data/README.md", "How the generator works\n")
+        self.assertEqual(check(self.root, [f]), [])
+
+    def test_data_json_with_bom_passes(self):
+        f = self.write("data/cases.json", "﻿" + json.dumps({"_ai_assisted": "yes"}))
+        self.assertEqual(check(self.root, [f]), [])
+
 
 if __name__ == "__main__":
     unittest.main()

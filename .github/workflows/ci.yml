@@ -23,12 +23,22 @@ jobs:
       - name: AI-use mark on every code and data file
         run: python scripts/check_ai_mark.py
       - name: No private workspace links in tracked files
+        if: always()
         run: |
-          if git grep -nIE 'drive\.google\.com|docs\.google\.com|notion\.so|notion\.site' -- . ':!.github/workflows/ci.yml'; then
-            echo "Private workspace link found in a tracked file"
+          set +e
+          git grep -nIE 'drive\.google\.com|docs\.google\.com|drive\.usercontent\.google|notion\.(so|site|com)' -- . ':!.github/workflows/ci.yml'
+          rc=$?
+          set -e
+          # git grep: 0 = match found, 1 = no match, anything else = error. Only "no match" passes.
+          if [ "$rc" -ne 1 ]; then
+            echo "Private workspace link found, or git grep failed (rc=$rc)"
             exit 1
           fi
-      - name: Secret scan (whole history)
+      # Scans the commits of this push or PR. The whole history is scanned locally by the
+      # hackathon prepublish scan before the repo goes public.
+      - name: Secret scan (gitleaks)
+        if: always()
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_ENABLE_COMMENTS: "false"
