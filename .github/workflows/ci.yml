@@ -17,7 +17,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.12"
       - name: Unit tests (offline, no key)
         run: python -m unittest discover -s tests -v
       - name: AI-use mark on every code and data file
