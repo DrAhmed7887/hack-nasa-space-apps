@@ -1,0 +1,13 @@
+# Team notes: a local link to the private notes folder. Never commit.
+private
+private/
+
+# Local and build files
+.DS_Store
+.env
+.env.*
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
