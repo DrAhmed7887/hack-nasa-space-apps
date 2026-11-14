@@ -1,0 +1,6005 @@
+{
+ "_ai_assisted": "Recorded by agents/handoff.py (written with Claude Code). Synthetic cases only.",
+ "what": "Replay of a recorded real run: two A2A agents on 127.0.0.1; mission delay simulated on a mission clock.",
+ "recorded_at_utc": "2026-11-14T23:27:32Z",
+ "a2a_sdk": "a2a-sdk 1.3.0 (A2A protocol 1.0)",
+ "error": "",
+ "sources": {
+  "VTE-2026": {
+   "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+   "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf",
+   "used_for": "VTE Risk Score for Astronauts: points per risk factor and the four action bands"
+  },
+  "MTB-007": {
+   "title": "NASA OCHMO Medical Technical Brief OCHMO-MTB-007, Venous Thrombosis in Spaceflight",
+   "url": "https://www.nasa.gov/wp-content/uploads/2026/01/ochmo-mtb-007-venous-thrombosis-in-spaceflight.pdf",
+   "used_for": "Internal jugular vein screening schedule (example for a 180-day ISS mission)"
+  },
+  "TB-007": {
+   "title": "NASA-STD-3001 Technical Brief OCHMO-TB-007, Mission Duration (Rev A, 12 Dec 2023)",
+   "url": "https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-007-mission-duration.pdf",
+   "used_for": "Mission context: communication latency and evacuation by destination"
+  },
+  "NTRS-20250002759": {
+   "title": "NASA, IMM vs IMPACT, Artemis II (AsMA 2025 slides, NTRS 20250002759)",
+   "url": "https://ntrs.nasa.gov/citations/20250002759",
+   "used_for": "Lunar communication latency figure (5-14 s), used only to set the simulated delay"
+  }
+ },
+ "missions": {
+  "leo": {
+   "mission": "leo",
+   "name": "Low Earth orbit",
+   "communication": "Near real-time communications (1-1.5 seconds)",
+   "evacuation": "Evacuation capabilities; Distance from Earth / Evacuation: 1 day or less",
+   "ground_support": "Reliance on Earth",
+   "simulated_one_way_delay_s": 1.5,
+   "earliest_ground_reply_s": 3.0,
+   "summary": "Simulated delay 1.5 s each way: the earliest ground reply comes 3 s after sending.",
+   "delay_basis": "upper end of '1-1.5 seconds' (TB-007)",
+   "sources": [
+    "TB-007"
+   ]
+  },
+  "moon": {
+   "mission": "moon",
+   "name": "Lunar mission",
+   "communication": "Minor communication latencies",
+   "evacuation": "Evacuation capabilities (3-11 days)",
+   "ground_support": "Restrictions in onboard medical capability",
+   "simulated_one_way_delay_s": 14.0,
+   "earliest_ground_reply_s": 28.0,
+   "summary": "Simulated delay 14 s each way: the earliest ground reply comes 28 s after sending.",
+   "delay_basis": "upper end of 'Comm Latency 5-14 sec' (NTRS 20250002759)",
+   "sources": [
+    "TB-007",
+    "NTRS-20250002759"
+   ]
+  },
+  "mars": {
+   "mission": "mars",
+   "name": "Mars mission",
+   "communication": "Extended communication latencies (0-40 minutes)",
+   "evacuation": "No evacuation capability",
+   "ground_support": "Limited ground medical support/autonomous Medical Care",
+   "simulated_one_way_delay_s": 2400.0,
+   "earliest_ground_reply_s": 4800.0,
+   "summary": "Simulated delay 40 min each way: the earliest ground reply comes 80 min after sending.",
+   "delay_basis": "upper end of '0-40 minutes' (TB-007)",
+   "sources": [
+    "TB-007"
+   ]
+  }
+ },
+ "cases": [
+  {
+   "id": "C01",
+   "label": "Young, no risk factors, normal scan, no D-dimer",
+   "mission_days": 180,
+   "preflight": {
+    "age": 34,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": false,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 30,
+    "ijv": {
+     "left": {
+      "mean_peak_velocity_cm_s": 18.8,
+      "retrograde": false
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 21.6,
+      "retrograde": false
+     }
+    },
+    "ddimer_baseline": null,
+    "ddimer_now": null
+   }
+  },
+  {
+   "id": "C02",
+   "label": "Age 45 only",
+   "mission_days": 180,
+   "preflight": {
+    "age": 45,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": false,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 30,
+    "ijv": {
+     "left": {
+      "mean_peak_velocity_cm_s": 26.3,
+      "retrograde": false
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 24.6,
+      "retrograde": false
+     }
+    },
+    "ddimer_baseline": null,
+    "ddimer_now": null
+   }
+  },
+  {
+   "id": "C03",
+   "label": "Age 52 and non-O blood type",
+   "mission_days": 180,
+   "preflight": {
+    "age": 52,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": true,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 60,
+    "ijv": {
+     "left": {
+      "mean_peak_velocity_cm_s": 23.7,
+      "retrograde": false
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 19.6,
+      "retrograde": false
+     }
+    },
+    "ddimer_baseline": 230,
+    "ddimer_now": 276
+   }
+  },
+  {
+   "id": "C04",
+   "label": "Retrograde flow in the left IJV",
+   "mission_days": 180,
+   "preflight": {
+    "age": 38,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": true,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 60,
+    "ijv": {
+     "left": {
+      "mean_peak_velocity_cm_s": 25.2,
+      "retrograde": true
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 26.5,
+      "retrograde": false
+     }
+    },
+    "ddimer_baseline": null,
+    "ddimer_now": null
+   }
+  },
+  {
+   "id": "C05",
+   "label": "Several factors plus stasis and a D-dimer rise",
+   "mission_days": 180,
+   "preflight": {
+    "age": 47,
+    "family_history": "none",
+    "thrombophilia": [
+     "fvl_het"
+    ],
+    "abo_non_o": false,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 60,
+    "ijv": {
+     "left": {
+      "mean_peak_velocity_cm_s": 8.5,
+      "retrograde": false
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 21.2,
+      "retrograde": false
+     }
+    },
+    "ddimer_baseline": 200,
+    "ddimer_now": 340
+   }
+  },
+  {
+   "id": "C06",
+   "label": "Borderline below every line (age 40, 10.0 cm/s, D-dimer +60%)",
+   "mission_days": 180,
+   "preflight": {
+    "age": 40,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": false,
+    "hormone": "low"
+   },
+   "inflight": {
+    "mission_day": 30,
+    "ijv": {
+     "left": {
+      "mean_peak_velocity_cm_s": 10.0,
+      "retrograde": false
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 17.1,
+      "retrograde": false
+     }
+    },
+    "ddimer_baseline": 200,
+    "ddimer_now": 320
+   }
+  },
+  {
+   "id": "C07",
+   "label": "Borderline just over every line (age 41, 9.9 cm/s, D-dimer +60.5%)",
+   "mission_days": 180,
+   "preflight": {
+    "age": 41,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": false,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 30,
+    "ijv": {
+     "left": {
+      "mean_peak_velocity_cm_s": 9.9,
+      "retrograde": false
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 29.2,
+      "retrograde": false
+     }
+    },
+    "ddimer_baseline": 200,
+    "ddimer_now": 321
+   }
+  },
+  {
+   "id": "C08",
+   "label": "Pre-flight factors alone reach 4 points",
+   "mission_days": 180,
+   "preflight": {
+    "age": 50,
+    "family_history": "one_under_50",
+    "thrombophilia": [],
+    "abo_non_o": false,
+    "hormone": "some"
+   },
+   "inflight": {
+    "mission_day": 60,
+    "ijv": {
+     "left": {
+      "mean_peak_velocity_cm_s": 29.9,
+      "retrograde": false
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 28.1,
+      "retrograde": false
+     }
+    },
+    "ddimer_baseline": 200,
+    "ddimer_now": 240
+   }
+  },
+  {
+   "id": "C09",
+   "label": "Factor V Leiden with protein C deficiency",
+   "mission_days": 180,
+   "preflight": {
+    "age": 36,
+    "family_history": "none",
+    "thrombophilia": [
+     "fvl_het",
+     "protein_c"
+    ],
+    "abo_non_o": false,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 30,
+    "ijv": {
+     "left": {
+      "mean_peak_velocity_cm_s": 17.8,
+      "retrograde": false
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 24.9,
+      "retrograde": false
+     }
+    },
+    "ddimer_baseline": null,
+    "ddimer_now": null
+   }
+  },
+  {
+   "id": "C10",
+   "label": "Before the first in-flight scan",
+   "mission_days": 180,
+   "preflight": {
+    "age": 44,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": false,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 20,
+    "ijv": null,
+    "ddimer_baseline": null,
+    "ddimer_now": null
+   }
+  }
+ ],
+ "runs": [
+  {
+   "case_id": "C01",
+   "mission": "leo",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 2592000,
+    "score": {
+     "case_id": "C01",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "40 or under: no points listed",
+       "points": 0,
+       "value": 34.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No stasis (<10 cm/s) or retrograde flow found: 0 points",
+       "points": 0,
+       "value": "normal",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Not measured: not scored",
+       "points": 0,
+       "value": null,
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 0,
+     "inflight_points": 0,
+     "total": 0,
+     "nasa_reference_band": "0 points: the report lists no band for 0; its lowest band is '1 point = no additional action'",
+     "flags": [
+      "D-dimer not measured. The report: 'NASA does not routinely test D-dimer levels in astronauts. There are no existing adequate in-flight testing methods'."
+     ],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 60,
+     "label": "L+60 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "leo",
+     "name": "Low Earth orbit",
+     "communication": "Near real-time communications (1-1.5 seconds)",
+     "evacuation": "Evacuation capabilities; Distance from Earth / Evacuation: 1 day or less",
+     "ground_support": "Reliance on Earth",
+     "simulated_one_way_delay_s": 1.5,
+     "earliest_ground_reply_s": 3.0,
+     "summary": "Simulated delay 1.5 s each way: the earliest ground reply comes 3 s after sending.",
+     "delay_basis": "upper end of '1-1.5 seconds' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C01",
+    "received_at_mission_s": 2592001.5,
+    "reply_reaches_crew_at_mission_s": 2592003.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C01",
+   "mission": "moon",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 2592000,
+    "score": {
+     "case_id": "C01",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "40 or under: no points listed",
+       "points": 0,
+       "value": 34.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No stasis (<10 cm/s) or retrograde flow found: 0 points",
+       "points": 0,
+       "value": "normal",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Not measured: not scored",
+       "points": 0,
+       "value": null,
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 0,
+     "inflight_points": 0,
+     "total": 0,
+     "nasa_reference_band": "0 points: the report lists no band for 0; its lowest band is '1 point = no additional action'",
+     "flags": [
+      "D-dimer not measured. The report: 'NASA does not routinely test D-dimer levels in astronauts. There are no existing adequate in-flight testing methods'."
+     ],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 60,
+     "label": "L+60 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "moon",
+     "name": "Lunar mission",
+     "communication": "Minor communication latencies",
+     "evacuation": "Evacuation capabilities (3-11 days)",
+     "ground_support": "Restrictions in onboard medical capability",
+     "simulated_one_way_delay_s": 14.0,
+     "earliest_ground_reply_s": 28.0,
+     "summary": "Simulated delay 14 s each way: the earliest ground reply comes 28 s after sending.",
+     "delay_basis": "upper end of 'Comm Latency 5-14 sec' (NTRS 20250002759)",
+     "sources": [
+      "TB-007",
+      "NTRS-20250002759"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C01",
+    "received_at_mission_s": 2592014.0,
+    "reply_reaches_crew_at_mission_s": 2592028.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C01",
+   "mission": "mars",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 2592000,
+    "score": {
+     "case_id": "C01",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "40 or under: no points listed",
+       "points": 0,
+       "value": 34.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No stasis (<10 cm/s) or retrograde flow found: 0 points",
+       "points": 0,
+       "value": "normal",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Not measured: not scored",
+       "points": 0,
+       "value": null,
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 0,
+     "inflight_points": 0,
+     "total": 0,
+     "nasa_reference_band": "0 points: the report lists no band for 0; its lowest band is '1 point = no additional action'",
+     "flags": [
+      "D-dimer not measured. The report: 'NASA does not routinely test D-dimer levels in astronauts. There are no existing adequate in-flight testing methods'."
+     ],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 60,
+     "label": "L+60 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "mars",
+     "name": "Mars mission",
+     "communication": "Extended communication latencies (0-40 minutes)",
+     "evacuation": "No evacuation capability",
+     "ground_support": "Limited ground medical support/autonomous Medical Care",
+     "simulated_one_way_delay_s": 2400.0,
+     "earliest_ground_reply_s": 4800.0,
+     "summary": "Simulated delay 40 min each way: the earliest ground reply comes 80 min after sending.",
+     "delay_basis": "upper end of '0-40 minutes' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C01",
+    "received_at_mission_s": 2594400.0,
+    "reply_reaches_crew_at_mission_s": 2596800.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C02",
+   "mission": "leo",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 2592000,
+    "score": {
+     "case_id": "C02",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "Over 40 years of age: +1 point",
+       "points": 1,
+       "value": 45.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No stasis (<10 cm/s) or retrograde flow found: 0 points",
+       "points": 0,
+       "value": "normal",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Not measured: not scored",
+       "points": 0,
+       "value": null,
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 1,
+     "inflight_points": 0,
+     "total": 1,
+     "nasa_reference_band": "1 point = no additional action",
+     "flags": [
+      "D-dimer not measured. The report: 'NASA does not routinely test D-dimer levels in astronauts. There are no existing adequate in-flight testing methods'."
+     ],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 60,
+     "label": "L+60 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "leo",
+     "name": "Low Earth orbit",
+     "communication": "Near real-time communications (1-1.5 seconds)",
+     "evacuation": "Evacuation capabilities; Distance from Earth / Evacuation: 1 day or less",
+     "ground_support": "Reliance on Earth",
+     "simulated_one_way_delay_s": 1.5,
+     "earliest_ground_reply_s": 3.0,
+     "summary": "Simulated delay 1.5 s each way: the earliest ground reply comes 3 s after sending.",
+     "delay_basis": "upper end of '1-1.5 seconds' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C02",
+    "received_at_mission_s": 2592001.5,
+    "reply_reaches_crew_at_mission_s": 2592003.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C02",
+   "mission": "moon",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 2592000,
+    "score": {
+     "case_id": "C02",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "Over 40 years of age: +1 point",
+       "points": 1,
+       "value": 45.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No stasis (<10 cm/s) or retrograde flow found: 0 points",
+       "points": 0,
+       "value": "normal",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Not measured: not scored",
+       "points": 0,
+       "value": null,
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 1,
+     "inflight_points": 0,
+     "total": 1,
+     "nasa_reference_band": "1 point = no additional action",
+     "flags": [
+      "D-dimer not measured. The report: 'NASA does not routinely test D-dimer levels in astronauts. There are no existing adequate in-flight testing methods'."
+     ],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 60,
+     "label": "L+60 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "moon",
+     "name": "Lunar mission",
+     "communication": "Minor communication latencies",
+     "evacuation": "Evacuation capabilities (3-11 days)",
+     "ground_support": "Restrictions in onboard medical capability",
+     "simulated_one_way_delay_s": 14.0,
+     "earliest_ground_reply_s": 28.0,
+     "summary": "Simulated delay 14 s each way: the earliest ground reply comes 28 s after sending.",
+     "delay_basis": "upper end of 'Comm Latency 5-14 sec' (NTRS 20250002759)",
+     "sources": [
+      "TB-007",
+      "NTRS-20250002759"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C02",
+    "received_at_mission_s": 2592014.0,
+    "reply_reaches_crew_at_mission_s": 2592028.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C02",
+   "mission": "mars",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 2592000,
+    "score": {
+     "case_id": "C02",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "Over 40 years of age: +1 point",
+       "points": 1,
+       "value": 45.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No stasis (<10 cm/s) or retrograde flow found: 0 points",
+       "points": 0,
+       "value": "normal",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Not measured: not scored",
+       "points": 0,
+       "value": null,
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 1,
+     "inflight_points": 0,
+     "total": 1,
+     "nasa_reference_band": "1 point = no additional action",
+     "flags": [
+      "D-dimer not measured. The report: 'NASA does not routinely test D-dimer levels in astronauts. There are no existing adequate in-flight testing methods'."
+     ],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 60,
+     "label": "L+60 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "mars",
+     "name": "Mars mission",
+     "communication": "Extended communication latencies (0-40 minutes)",
+     "evacuation": "No evacuation capability",
+     "ground_support": "Limited ground medical support/autonomous Medical Care",
+     "simulated_one_way_delay_s": 2400.0,
+     "earliest_ground_reply_s": 4800.0,
+     "summary": "Simulated delay 40 min each way: the earliest ground reply comes 80 min after sending.",
+     "delay_basis": "upper end of '0-40 minutes' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C02",
+    "received_at_mission_s": 2594400.0,
+    "reply_reaches_crew_at_mission_s": 2596800.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C03",
+   "mission": "leo",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 5184000,
+    "score": {
+     "case_id": "C03",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "Over 50 years of age: +2 points",
+       "points": 2,
+       "value": 52.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "Non-O allele of the ABO genotype: +1 point",
+       "points": 1,
+       "value": true,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No stasis (<10 cm/s) or retrograde flow found: 0 points",
+       "points": 0,
+       "value": "normal",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Rise of 60% or less from the in-flight baseline: 0 points",
+       "points": 0,
+       "value": "+20.0% from baseline",
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 3,
+     "inflight_points": 0,
+     "total": 3,
+     "nasa_reference_band": "2-3 points = increased monitoring",
+     "flags": [],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 138,
+     "label": "R-42 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "leo",
+     "name": "Low Earth orbit",
+     "communication": "Near real-time communications (1-1.5 seconds)",
+     "evacuation": "Evacuation capabilities; Distance from Earth / Evacuation: 1 day or less",
+     "ground_support": "Reliance on Earth",
+     "simulated_one_way_delay_s": 1.5,
+     "earliest_ground_reply_s": 3.0,
+     "summary": "Simulated delay 1.5 s each way: the earliest ground reply comes 3 s after sending.",
+     "delay_basis": "upper end of '1-1.5 seconds' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C03",
+    "received_at_mission_s": 5184001.5,
+    "reply_reaches_crew_at_mission_s": 5184003.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C03",
+   "mission": "moon",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 5184000,
+    "score": {
+     "case_id": "C03",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "Over 50 years of age: +2 points",
+       "points": 2,
+       "value": 52.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "Non-O allele of the ABO genotype: +1 point",
+       "points": 1,
+       "value": true,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No stasis (<10 cm/s) or retrograde flow found: 0 points",
+       "points": 0,
+       "value": "normal",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Rise of 60% or less from the in-flight baseline: 0 points",
+       "points": 0,
+       "value": "+20.0% from baseline",
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 3,
+     "inflight_points": 0,
+     "total": 3,
+     "nasa_reference_band": "2-3 points = increased monitoring",
+     "flags": [],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 138,
+     "label": "R-42 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "moon",
+     "name": "Lunar mission",
+     "communication": "Minor communication latencies",
+     "evacuation": "Evacuation capabilities (3-11 days)",
+     "ground_support": "Restrictions in onboard medical capability",
+     "simulated_one_way_delay_s": 14.0,
+     "earliest_ground_reply_s": 28.0,
+     "summary": "Simulated delay 14 s each way: the earliest ground reply comes 28 s after sending.",
+     "delay_basis": "upper end of 'Comm Latency 5-14 sec' (NTRS 20250002759)",
+     "sources": [
+      "TB-007",
+      "NTRS-20250002759"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C03",
+    "received_at_mission_s": 5184014.0,
+    "reply_reaches_crew_at_mission_s": 5184028.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C03",
+   "mission": "mars",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 5184000,
+    "score": {
+     "case_id": "C03",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "Over 50 years of age: +2 points",
+       "points": 2,
+       "value": 52.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "Non-O allele of the ABO genotype: +1 point",
+       "points": 1,
+       "value": true,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No stasis (<10 cm/s) or retrograde flow found: 0 points",
+       "points": 0,
+       "value": "normal",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Rise of 60% or less from the in-flight baseline: 0 points",
+       "points": 0,
+       "value": "+20.0% from baseline",
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 3,
+     "inflight_points": 0,
+     "total": 3,
+     "nasa_reference_band": "2-3 points = increased monitoring",
+     "flags": [],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 138,
+     "label": "R-42 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "mars",
+     "name": "Mars mission",
+     "communication": "Extended communication latencies (0-40 minutes)",
+     "evacuation": "No evacuation capability",
+     "ground_support": "Limited ground medical support/autonomous Medical Care",
+     "simulated_one_way_delay_s": 2400.0,
+     "earliest_ground_reply_s": 4800.0,
+     "summary": "Simulated delay 40 min each way: the earliest ground reply comes 80 min after sending.",
+     "delay_basis": "upper end of '0-40 minutes' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C03",
+    "received_at_mission_s": 5186400.0,
+    "reply_reaches_crew_at_mission_s": 5188800.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C04",
+   "mission": "leo",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 5184000,
+    "score": {
+     "case_id": "C04",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "40 or under: no points listed",
+       "points": 0,
+       "value": 38.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "Non-O allele of the ABO genotype: +1 point",
+       "points": 1,
+       "value": true,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points",
+       "points": 4,
+       "value": "left: retrograde flow",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Not measured: not scored",
+       "points": 0,
+       "value": null,
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 1,
+     "inflight_points": 4,
+     "total": 5,
+     "nasa_reference_band": "4-6 points = prophylactic apixaban",
+     "flags": [
+      "D-dimer not measured. The report: 'NASA does not routinely test D-dimer levels in astronauts. There are no existing adequate in-flight testing methods'."
+     ],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 138,
+     "label": "R-42 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "leo",
+     "name": "Low Earth orbit",
+     "communication": "Near real-time communications (1-1.5 seconds)",
+     "evacuation": "Evacuation capabilities; Distance from Earth / Evacuation: 1 day or less",
+     "ground_support": "Reliance on Earth",
+     "simulated_one_way_delay_s": 1.5,
+     "earliest_ground_reply_s": 3.0,
+     "summary": "Simulated delay 1.5 s each way: the earliest ground reply comes 3 s after sending.",
+     "delay_basis": "upper end of '1-1.5 seconds' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C04",
+    "received_at_mission_s": 5184001.5,
+    "reply_reaches_crew_at_mission_s": 5184003.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C04",
+   "mission": "moon",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 5184000,
+    "score": {
+     "case_id": "C04",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "40 or under: no points listed",
+       "points": 0,
+       "value": 38.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "Non-O allele of the ABO genotype: +1 point",
+       "points": 1,
+       "value": true,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points",
+       "points": 4,
+       "value": "left: retrograde flow",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Not measured: not scored",
+       "points": 0,
+       "value": null,
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 1,
+     "inflight_points": 4,
+     "total": 5,
+     "nasa_reference_band": "4-6 points = prophylactic apixaban",
+     "flags": [
+      "D-dimer not measured. The report: 'NASA does not routinely test D-dimer levels in astronauts. There are no existing adequate in-flight testing methods'."
+     ],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 138,
+     "label": "R-42 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "moon",
+     "name": "Lunar mission",
+     "communication": "Minor communication latencies",
+     "evacuation": "Evacuation capabilities (3-11 days)",
+     "ground_support": "Restrictions in onboard medical capability",
+     "simulated_one_way_delay_s": 14.0,
+     "earliest_ground_reply_s": 28.0,
+     "summary": "Simulated delay 14 s each way: the earliest ground reply comes 28 s after sending.",
+     "delay_basis": "upper end of 'Comm Latency 5-14 sec' (NTRS 20250002759)",
+     "sources": [
+      "TB-007",
+      "NTRS-20250002759"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C04",
+    "received_at_mission_s": 5184014.0,
+    "reply_reaches_crew_at_mission_s": 5184028.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C04",
+   "mission": "mars",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 5184000,
+    "score": {
+     "case_id": "C04",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "40 or under: no points listed",
+       "points": 0,
+       "value": 38.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "Non-O allele of the ABO genotype: +1 point",
+       "points": 1,
+       "value": true,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points",
+       "points": 4,
+       "value": "left: retrograde flow",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Not measured: not scored",
+       "points": 0,
+       "value": null,
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 1,
+     "inflight_points": 4,
+     "total": 5,
+     "nasa_reference_band": "4-6 points = prophylactic apixaban",
+     "flags": [
+      "D-dimer not measured. The report: 'NASA does not routinely test D-dimer levels in astronauts. There are no existing adequate in-flight testing methods'."
+     ],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 138,
+     "label": "R-42 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "mars",
+     "name": "Mars mission",
+     "communication": "Extended communication latencies (0-40 minutes)",
+     "evacuation": "No evacuation capability",
+     "ground_support": "Limited ground medical support/autonomous Medical Care",
+     "simulated_one_way_delay_s": 2400.0,
+     "earliest_ground_reply_s": 4800.0,
+     "summary": "Simulated delay 40 min each way: the earliest ground reply comes 80 min after sending.",
+     "delay_basis": "upper end of '0-40 minutes' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C04",
+    "received_at_mission_s": 5186400.0,
+    "reply_reaches_crew_at_mission_s": 5188800.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C05",
+   "mission": "leo",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 5184000,
+    "score": {
+     "case_id": "C05",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "Over 40 years of age: +1 point",
+       "points": 1,
+       "value": 47.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "Factor V Leiden heterozygous: +2 points",
+       "points": 2,
+       "value": "fvl_het",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points",
+       "points": 4,
+       "value": "left: 8.5 cm/s",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": ">60% increase from established in-flight D-dimer baseline level: +2 points",
+       "points": 2,
+       "value": "+70.0% from baseline",
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 3,
+     "inflight_points": 6,
+     "total": 9,
+     "nasa_reference_band": "> 6 points = need clinical assessment",
+     "flags": [],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 138,
+     "label": "R-42 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "leo",
+     "name": "Low Earth orbit",
+     "communication": "Near real-time communications (1-1.5 seconds)",
+     "evacuation": "Evacuation capabilities; Distance from Earth / Evacuation: 1 day or less",
+     "ground_support": "Reliance on Earth",
+     "simulated_one_way_delay_s": 1.5,
+     "earliest_ground_reply_s": 3.0,
+     "summary": "Simulated delay 1.5 s each way: the earliest ground reply comes 3 s after sending.",
+     "delay_basis": "upper end of '1-1.5 seconds' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C05",
+    "received_at_mission_s": 5184001.5,
+    "reply_reaches_crew_at_mission_s": 5184003.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C05",
+   "mission": "moon",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 5184000,
+    "score": {
+     "case_id": "C05",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "Over 40 years of age: +1 point",
+       "points": 1,
+       "value": 47.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "Factor V Leiden heterozygous: +2 points",
+       "points": 2,
+       "value": "fvl_het",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points",
+       "points": 4,
+       "value": "left: 8.5 cm/s",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": ">60% increase from established in-flight D-dimer baseline level: +2 points",
+       "points": 2,
+       "value": "+70.0% from baseline",
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 3,
+     "inflight_points": 6,
+     "total": 9,
+     "nasa_reference_band": "> 6 points = need clinical assessment",
+     "flags": [],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 138,
+     "label": "R-42 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "moon",
+     "name": "Lunar mission",
+     "communication": "Minor communication latencies",
+     "evacuation": "Evacuation capabilities (3-11 days)",
+     "ground_support": "Restrictions in onboard medical capability",
+     "simulated_one_way_delay_s": 14.0,
+     "earliest_ground_reply_s": 28.0,
+     "summary": "Simulated delay 14 s each way: the earliest ground reply comes 28 s after sending.",
+     "delay_basis": "upper end of 'Comm Latency 5-14 sec' (NTRS 20250002759)",
+     "sources": [
+      "TB-007",
+      "NTRS-20250002759"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C05",
+    "received_at_mission_s": 5184014.0,
+    "reply_reaches_crew_at_mission_s": 5184028.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C05",
+   "mission": "mars",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 5184000,
+    "score": {
+     "case_id": "C05",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "Over 40 years of age: +1 point",
+       "points": 1,
+       "value": 47.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "Factor V Leiden heterozygous: +2 points",
+       "points": 2,
+       "value": "fvl_het",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points",
+       "points": 4,
+       "value": "left: 8.5 cm/s",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": ">60% increase from established in-flight D-dimer baseline level: +2 points",
+       "points": 2,
+       "value": "+70.0% from baseline",
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 3,
+     "inflight_points": 6,
+     "total": 9,
+     "nasa_reference_band": "> 6 points = need clinical assessment",
+     "flags": [],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 138,
+     "label": "R-42 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "mars",
+     "name": "Mars mission",
+     "communication": "Extended communication latencies (0-40 minutes)",
+     "evacuation": "No evacuation capability",
+     "ground_support": "Limited ground medical support/autonomous Medical Care",
+     "simulated_one_way_delay_s": 2400.0,
+     "earliest_ground_reply_s": 4800.0,
+     "summary": "Simulated delay 40 min each way: the earliest ground reply comes 80 min after sending.",
+     "delay_basis": "upper end of '0-40 minutes' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C05",
+    "received_at_mission_s": 5186400.0,
+    "reply_reaches_crew_at_mission_s": 5188800.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C06",
+   "mission": "leo",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 2592000,
+    "score": {
+     "case_id": "C06",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "40 or under: no points listed",
+       "points": 0,
+       "value": 40.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "Use of 'low/no increased risk' hormone: 0 points",
+       "points": 0,
+       "value": "low",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No stasis (<10 cm/s) or retrograde flow found: 0 points",
+       "points": 0,
+       "value": "normal",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Rise of 60% or less from the in-flight baseline: 0 points",
+       "points": 0,
+       "value": "+60.0% from baseline",
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 0,
+     "inflight_points": 0,
+     "total": 0,
+     "nasa_reference_band": "0 points: the report lists no band for 0; its lowest band is '1 point = no additional action'",
+     "flags": [],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 60,
+     "label": "L+60 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "leo",
+     "name": "Low Earth orbit",
+     "communication": "Near real-time communications (1-1.5 seconds)",
+     "evacuation": "Evacuation capabilities; Distance from Earth / Evacuation: 1 day or less",
+     "ground_support": "Reliance on Earth",
+     "simulated_one_way_delay_s": 1.5,
+     "earliest_ground_reply_s": 3.0,
+     "summary": "Simulated delay 1.5 s each way: the earliest ground reply comes 3 s after sending.",
+     "delay_basis": "upper end of '1-1.5 seconds' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C06",
+    "received_at_mission_s": 2592001.5,
+    "reply_reaches_crew_at_mission_s": 2592003.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C06",
+   "mission": "moon",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 2592000,
+    "score": {
+     "case_id": "C06",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "40 or under: no points listed",
+       "points": 0,
+       "value": 40.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "Use of 'low/no increased risk' hormone: 0 points",
+       "points": 0,
+       "value": "low",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No stasis (<10 cm/s) or retrograde flow found: 0 points",
+       "points": 0,
+       "value": "normal",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Rise of 60% or less from the in-flight baseline: 0 points",
+       "points": 0,
+       "value": "+60.0% from baseline",
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 0,
+     "inflight_points": 0,
+     "total": 0,
+     "nasa_reference_band": "0 points: the report lists no band for 0; its lowest band is '1 point = no additional action'",
+     "flags": [],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 60,
+     "label": "L+60 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "moon",
+     "name": "Lunar mission",
+     "communication": "Minor communication latencies",
+     "evacuation": "Evacuation capabilities (3-11 days)",
+     "ground_support": "Restrictions in onboard medical capability",
+     "simulated_one_way_delay_s": 14.0,
+     "earliest_ground_reply_s": 28.0,
+     "summary": "Simulated delay 14 s each way: the earliest ground reply comes 28 s after sending.",
+     "delay_basis": "upper end of 'Comm Latency 5-14 sec' (NTRS 20250002759)",
+     "sources": [
+      "TB-007",
+      "NTRS-20250002759"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C06",
+    "received_at_mission_s": 2592014.0,
+    "reply_reaches_crew_at_mission_s": 2592028.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C06",
+   "mission": "mars",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 2592000,
+    "score": {
+     "case_id": "C06",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "40 or under: no points listed",
+       "points": 0,
+       "value": 40.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "Use of 'low/no increased risk' hormone: 0 points",
+       "points": 0,
+       "value": "low",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No stasis (<10 cm/s) or retrograde flow found: 0 points",
+       "points": 0,
+       "value": "normal",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Rise of 60% or less from the in-flight baseline: 0 points",
+       "points": 0,
+       "value": "+60.0% from baseline",
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 0,
+     "inflight_points": 0,
+     "total": 0,
+     "nasa_reference_band": "0 points: the report lists no band for 0; its lowest band is '1 point = no additional action'",
+     "flags": [],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 60,
+     "label": "L+60 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "mars",
+     "name": "Mars mission",
+     "communication": "Extended communication latencies (0-40 minutes)",
+     "evacuation": "No evacuation capability",
+     "ground_support": "Limited ground medical support/autonomous Medical Care",
+     "simulated_one_way_delay_s": 2400.0,
+     "earliest_ground_reply_s": 4800.0,
+     "summary": "Simulated delay 40 min each way: the earliest ground reply comes 80 min after sending.",
+     "delay_basis": "upper end of '0-40 minutes' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C06",
+    "received_at_mission_s": 2594400.0,
+    "reply_reaches_crew_at_mission_s": 2596800.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C07",
+   "mission": "leo",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 2592000,
+    "score": {
+     "case_id": "C07",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "Over 40 years of age: +1 point",
+       "points": 1,
+       "value": 41.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points",
+       "points": 4,
+       "value": "left: 9.9 cm/s",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": ">60% increase from established in-flight D-dimer baseline level: +2 points",
+       "points": 2,
+       "value": "+60.5% from baseline",
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 1,
+     "inflight_points": 6,
+     "total": 7,
+     "nasa_reference_band": "> 6 points = need clinical assessment",
+     "flags": [],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 60,
+     "label": "L+60 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "leo",
+     "name": "Low Earth orbit",
+     "communication": "Near real-time communications (1-1.5 seconds)",
+     "evacuation": "Evacuation capabilities; Distance from Earth / Evacuation: 1 day or less",
+     "ground_support": "Reliance on Earth",
+     "simulated_one_way_delay_s": 1.5,
+     "earliest_ground_reply_s": 3.0,
+     "summary": "Simulated delay 1.5 s each way: the earliest ground reply comes 3 s after sending.",
+     "delay_basis": "upper end of '1-1.5 seconds' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C07",
+    "received_at_mission_s": 2592001.5,
+    "reply_reaches_crew_at_mission_s": 2592003.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C07",
+   "mission": "moon",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 2592000,
+    "score": {
+     "case_id": "C07",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "Over 40 years of age: +1 point",
+       "points": 1,
+       "value": 41.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points",
+       "points": 4,
+       "value": "left: 9.9 cm/s",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": ">60% increase from established in-flight D-dimer baseline level: +2 points",
+       "points": 2,
+       "value": "+60.5% from baseline",
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 1,
+     "inflight_points": 6,
+     "total": 7,
+     "nasa_reference_band": "> 6 points = need clinical assessment",
+     "flags": [],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 60,
+     "label": "L+60 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "moon",
+     "name": "Lunar mission",
+     "communication": "Minor communication latencies",
+     "evacuation": "Evacuation capabilities (3-11 days)",
+     "ground_support": "Restrictions in onboard medical capability",
+     "simulated_one_way_delay_s": 14.0,
+     "earliest_ground_reply_s": 28.0,
+     "summary": "Simulated delay 14 s each way: the earliest ground reply comes 28 s after sending.",
+     "delay_basis": "upper end of 'Comm Latency 5-14 sec' (NTRS 20250002759)",
+     "sources": [
+      "TB-007",
+      "NTRS-20250002759"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C07",
+    "received_at_mission_s": 2592014.0,
+    "reply_reaches_crew_at_mission_s": 2592028.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C07",
+   "mission": "mars",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 2592000,
+    "score": {
+     "case_id": "C07",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "Over 40 years of age: +1 point",
+       "points": 1,
+       "value": 41.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points",
+       "points": 4,
+       "value": "left: 9.9 cm/s",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": ">60% increase from established in-flight D-dimer baseline level: +2 points",
+       "points": 2,
+       "value": "+60.5% from baseline",
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 1,
+     "inflight_points": 6,
+     "total": 7,
+     "nasa_reference_band": "> 6 points = need clinical assessment",
+     "flags": [],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 60,
+     "label": "L+60 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "mars",
+     "name": "Mars mission",
+     "communication": "Extended communication latencies (0-40 minutes)",
+     "evacuation": "No evacuation capability",
+     "ground_support": "Limited ground medical support/autonomous Medical Care",
+     "simulated_one_way_delay_s": 2400.0,
+     "earliest_ground_reply_s": 4800.0,
+     "summary": "Simulated delay 40 min each way: the earliest ground reply comes 80 min after sending.",
+     "delay_basis": "upper end of '0-40 minutes' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C07",
+    "received_at_mission_s": 2594400.0,
+    "reply_reaches_crew_at_mission_s": 2596800.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C08",
+   "mission": "leo",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 5184000,
+    "score": {
+     "case_id": "C08",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "Over 40 years of age: +1 point",
+       "points": 1,
+       "value": 50.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "First-degree relative < 50 years of age with an unprovoked VTE: +1 points",
+       "points": 1,
+       "value": "one_under_50",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "Use of 'some increased risk' hormone: +2 points",
+       "points": 2,
+       "value": "some",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No stasis (<10 cm/s) or retrograde flow found: 0 points",
+       "points": 0,
+       "value": "normal",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Rise of 60% or less from the in-flight baseline: 0 points",
+       "points": 0,
+       "value": "+20.0% from baseline",
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 4,
+     "inflight_points": 0,
+     "total": 4,
+     "nasa_reference_band": "4-6 points = prophylactic apixaban",
+     "flags": [],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 138,
+     "label": "R-42 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "leo",
+     "name": "Low Earth orbit",
+     "communication": "Near real-time communications (1-1.5 seconds)",
+     "evacuation": "Evacuation capabilities; Distance from Earth / Evacuation: 1 day or less",
+     "ground_support": "Reliance on Earth",
+     "simulated_one_way_delay_s": 1.5,
+     "earliest_ground_reply_s": 3.0,
+     "summary": "Simulated delay 1.5 s each way: the earliest ground reply comes 3 s after sending.",
+     "delay_basis": "upper end of '1-1.5 seconds' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C08",
+    "received_at_mission_s": 5184001.5,
+    "reply_reaches_crew_at_mission_s": 5184003.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C08",
+   "mission": "moon",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 5184000,
+    "score": {
+     "case_id": "C08",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "Over 40 years of age: +1 point",
+       "points": 1,
+       "value": 50.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "First-degree relative < 50 years of age with an unprovoked VTE: +1 points",
+       "points": 1,
+       "value": "one_under_50",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "Use of 'some increased risk' hormone: +2 points",
+       "points": 2,
+       "value": "some",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No stasis (<10 cm/s) or retrograde flow found: 0 points",
+       "points": 0,
+       "value": "normal",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Rise of 60% or less from the in-flight baseline: 0 points",
+       "points": 0,
+       "value": "+20.0% from baseline",
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 4,
+     "inflight_points": 0,
+     "total": 4,
+     "nasa_reference_band": "4-6 points = prophylactic apixaban",
+     "flags": [],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 138,
+     "label": "R-42 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "moon",
+     "name": "Lunar mission",
+     "communication": "Minor communication latencies",
+     "evacuation": "Evacuation capabilities (3-11 days)",
+     "ground_support": "Restrictions in onboard medical capability",
+     "simulated_one_way_delay_s": 14.0,
+     "earliest_ground_reply_s": 28.0,
+     "summary": "Simulated delay 14 s each way: the earliest ground reply comes 28 s after sending.",
+     "delay_basis": "upper end of 'Comm Latency 5-14 sec' (NTRS 20250002759)",
+     "sources": [
+      "TB-007",
+      "NTRS-20250002759"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C08",
+    "received_at_mission_s": 5184014.0,
+    "reply_reaches_crew_at_mission_s": 5184028.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C08",
+   "mission": "mars",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 5184000,
+    "score": {
+     "case_id": "C08",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "Over 40 years of age: +1 point",
+       "points": 1,
+       "value": 50.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "First-degree relative < 50 years of age with an unprovoked VTE: +1 points",
+       "points": 1,
+       "value": "one_under_50",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "Use of 'some increased risk' hormone: +2 points",
+       "points": 2,
+       "value": "some",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No stasis (<10 cm/s) or retrograde flow found: 0 points",
+       "points": 0,
+       "value": "normal",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Rise of 60% or less from the in-flight baseline: 0 points",
+       "points": 0,
+       "value": "+20.0% from baseline",
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 4,
+     "inflight_points": 0,
+     "total": 4,
+     "nasa_reference_band": "4-6 points = prophylactic apixaban",
+     "flags": [],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 138,
+     "label": "R-42 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "mars",
+     "name": "Mars mission",
+     "communication": "Extended communication latencies (0-40 minutes)",
+     "evacuation": "No evacuation capability",
+     "ground_support": "Limited ground medical support/autonomous Medical Care",
+     "simulated_one_way_delay_s": 2400.0,
+     "earliest_ground_reply_s": 4800.0,
+     "summary": "Simulated delay 40 min each way: the earliest ground reply comes 80 min after sending.",
+     "delay_basis": "upper end of '0-40 minutes' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C08",
+    "received_at_mission_s": 5186400.0,
+    "reply_reaches_crew_at_mission_s": 5188800.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C09",
+   "mission": "leo",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 2592000,
+    "score": {
+     "case_id": "C09",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "40 or under: no points listed",
+       "points": 0,
+       "value": 36.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "Factor V Leiden with other thrombophilia conditions: +10 points",
+       "points": 10,
+       "value": [
+        "fvl_het",
+        "protein_c"
+       ],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No stasis (<10 cm/s) or retrograde flow found: 0 points",
+       "points": 0,
+       "value": "normal",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Not measured: not scored",
+       "points": 0,
+       "value": null,
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 10,
+     "inflight_points": 0,
+     "total": 10,
+     "nasa_reference_band": "> 6 points = need clinical assessment",
+     "flags": [
+      "Factor V Leiden with another thrombophilia: the report's single +10 row is used, not a sum.",
+      "D-dimer not measured. The report: 'NASA does not routinely test D-dimer levels in astronauts. There are no existing adequate in-flight testing methods'."
+     ],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 60,
+     "label": "L+60 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "leo",
+     "name": "Low Earth orbit",
+     "communication": "Near real-time communications (1-1.5 seconds)",
+     "evacuation": "Evacuation capabilities; Distance from Earth / Evacuation: 1 day or less",
+     "ground_support": "Reliance on Earth",
+     "simulated_one_way_delay_s": 1.5,
+     "earliest_ground_reply_s": 3.0,
+     "summary": "Simulated delay 1.5 s each way: the earliest ground reply comes 3 s after sending.",
+     "delay_basis": "upper end of '1-1.5 seconds' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C09",
+    "received_at_mission_s": 2592001.5,
+    "reply_reaches_crew_at_mission_s": 2592003.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C09",
+   "mission": "moon",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 2592000,
+    "score": {
+     "case_id": "C09",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "40 or under: no points listed",
+       "points": 0,
+       "value": 36.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "Factor V Leiden with other thrombophilia conditions: +10 points",
+       "points": 10,
+       "value": [
+        "fvl_het",
+        "protein_c"
+       ],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No stasis (<10 cm/s) or retrograde flow found: 0 points",
+       "points": 0,
+       "value": "normal",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Not measured: not scored",
+       "points": 0,
+       "value": null,
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 10,
+     "inflight_points": 0,
+     "total": 10,
+     "nasa_reference_band": "> 6 points = need clinical assessment",
+     "flags": [
+      "Factor V Leiden with another thrombophilia: the report's single +10 row is used, not a sum.",
+      "D-dimer not measured. The report: 'NASA does not routinely test D-dimer levels in astronauts. There are no existing adequate in-flight testing methods'."
+     ],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 60,
+     "label": "L+60 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "moon",
+     "name": "Lunar mission",
+     "communication": "Minor communication latencies",
+     "evacuation": "Evacuation capabilities (3-11 days)",
+     "ground_support": "Restrictions in onboard medical capability",
+     "simulated_one_way_delay_s": 14.0,
+     "earliest_ground_reply_s": 28.0,
+     "summary": "Simulated delay 14 s each way: the earliest ground reply comes 28 s after sending.",
+     "delay_basis": "upper end of 'Comm Latency 5-14 sec' (NTRS 20250002759)",
+     "sources": [
+      "TB-007",
+      "NTRS-20250002759"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C09",
+    "received_at_mission_s": 2592014.0,
+    "reply_reaches_crew_at_mission_s": 2592028.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C09",
+   "mission": "mars",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 2592000,
+    "score": {
+     "case_id": "C09",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "40 or under: no points listed",
+       "points": 0,
+       "value": 36.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "Factor V Leiden with other thrombophilia conditions: +10 points",
+       "points": 10,
+       "value": [
+        "fvl_het",
+        "protein_c"
+       ],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No stasis (<10 cm/s) or retrograde flow found: 0 points",
+       "points": 0,
+       "value": "normal",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Not measured: not scored",
+       "points": 0,
+       "value": null,
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 10,
+     "inflight_points": 0,
+     "total": 10,
+     "nasa_reference_band": "> 6 points = need clinical assessment",
+     "flags": [
+      "Factor V Leiden with another thrombophilia: the report's single +10 row is used, not a sum.",
+      "D-dimer not measured. The report: 'NASA does not routinely test D-dimer levels in astronauts. There are no existing adequate in-flight testing methods'."
+     ],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 60,
+     "label": "L+60 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "mars",
+     "name": "Mars mission",
+     "communication": "Extended communication latencies (0-40 minutes)",
+     "evacuation": "No evacuation capability",
+     "ground_support": "Limited ground medical support/autonomous Medical Care",
+     "simulated_one_way_delay_s": 2400.0,
+     "earliest_ground_reply_s": 4800.0,
+     "summary": "Simulated delay 40 min each way: the earliest ground reply comes 80 min after sending.",
+     "delay_basis": "upper end of '0-40 minutes' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C09",
+    "received_at_mission_s": 2594400.0,
+    "reply_reaches_crew_at_mission_s": 2596800.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C10",
+   "mission": "leo",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 1728000,
+    "score": {
+     "case_id": "C10",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "Over 40 years of age: +1 point",
+       "points": 1,
+       "value": 44.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No in-flight ultrasound yet: not scored",
+       "points": 0,
+       "value": null,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Not measured: not scored",
+       "points": 0,
+       "value": null,
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 1,
+     "inflight_points": 0,
+     "total": 1,
+     "nasa_reference_band": "1 point = no additional action",
+     "flags": [
+      "In-flight IJV ultrasound not done yet: the total covers pre-flight factors only.",
+      "D-dimer not measured. The report: 'NASA does not routinely test D-dimer levels in astronauts. There are no existing adequate in-flight testing methods'."
+     ],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 30,
+     "label": "L+30 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "leo",
+     "name": "Low Earth orbit",
+     "communication": "Near real-time communications (1-1.5 seconds)",
+     "evacuation": "Evacuation capabilities; Distance from Earth / Evacuation: 1 day or less",
+     "ground_support": "Reliance on Earth",
+     "simulated_one_way_delay_s": 1.5,
+     "earliest_ground_reply_s": 3.0,
+     "summary": "Simulated delay 1.5 s each way: the earliest ground reply comes 3 s after sending.",
+     "delay_basis": "upper end of '1-1.5 seconds' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C10",
+    "received_at_mission_s": 1728001.5,
+    "reply_reaches_crew_at_mission_s": 1728003.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C10",
+   "mission": "moon",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 1728000,
+    "score": {
+     "case_id": "C10",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "Over 40 years of age: +1 point",
+       "points": 1,
+       "value": 44.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No in-flight ultrasound yet: not scored",
+       "points": 0,
+       "value": null,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Not measured: not scored",
+       "points": 0,
+       "value": null,
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 1,
+     "inflight_points": 0,
+     "total": 1,
+     "nasa_reference_band": "1 point = no additional action",
+     "flags": [
+      "In-flight IJV ultrasound not done yet: the total covers pre-flight factors only.",
+      "D-dimer not measured. The report: 'NASA does not routinely test D-dimer levels in astronauts. There are no existing adequate in-flight testing methods'."
+     ],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 30,
+     "label": "L+30 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "moon",
+     "name": "Lunar mission",
+     "communication": "Minor communication latencies",
+     "evacuation": "Evacuation capabilities (3-11 days)",
+     "ground_support": "Restrictions in onboard medical capability",
+     "simulated_one_way_delay_s": 14.0,
+     "earliest_ground_reply_s": 28.0,
+     "summary": "Simulated delay 14 s each way: the earliest ground reply comes 28 s after sending.",
+     "delay_basis": "upper end of 'Comm Latency 5-14 sec' (NTRS 20250002759)",
+     "sources": [
+      "TB-007",
+      "NTRS-20250002759"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C10",
+    "received_at_mission_s": 1728014.0,
+    "reply_reaches_crew_at_mission_s": 1728028.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C10",
+   "mission": "mars",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 1728000,
+    "score": {
+     "case_id": "C10",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "Over 40 years of age: +1 point",
+       "points": 1,
+       "value": 44.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No in-flight ultrasound yet: not scored",
+       "points": 0,
+       "value": null,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Not measured: not scored",
+       "points": 0,
+       "value": null,
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 1,
+     "inflight_points": 0,
+     "total": 1,
+     "nasa_reference_band": "1 point = no additional action",
+     "flags": [
+      "In-flight IJV ultrasound not done yet: the total covers pre-flight factors only.",
+      "D-dimer not measured. The report: 'NASA does not routinely test D-dimer levels in astronauts. There are no existing adequate in-flight testing methods'."
+     ],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 30,
+     "label": "L+30 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "mars",
+     "name": "Mars mission",
+     "communication": "Extended communication latencies (0-40 minutes)",
+     "evacuation": "No evacuation capability",
+     "ground_support": "Limited ground medical support/autonomous Medical Care",
+     "simulated_one_way_delay_s": 2400.0,
+     "earliest_ground_reply_s": 4800.0,
+     "summary": "Simulated delay 40 min each way: the earliest ground reply comes 80 min after sending.",
+     "delay_basis": "upper end of '0-40 minutes' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    }
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C10",
+    "received_at_mission_s": 1730400.0,
+    "reply_reaches_crew_at_mission_s": 1732800.0,
+    "status": "Queued for flight surgeon review",
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  }
+ ],
+ "exchanges": [
+  {
+   "case_id": "C01",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C01",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C01",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 723
+  },
+  {
+   "case_id": "C01",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C01",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C01",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2635
+  },
+  {
+   "case_id": "C01",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C01",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 3000
+  },
+  {
+   "case_id": "C01",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C01",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C01",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 724
+  },
+  {
+   "case_id": "C01",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C01",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C01",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2648
+  },
+  {
+   "case_id": "C01",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C01",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 3013
+  },
+  {
+   "case_id": "C01",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C01",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C01",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 724
+  },
+  {
+   "case_id": "C01",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C01",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C01",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2633
+  },
+  {
+   "case_id": "C01",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C01",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 2998
+  },
+  {
+   "case_id": "C02",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C02",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C02",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 687
+  },
+  {
+   "case_id": "C02",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C02",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C02",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2573
+  },
+  {
+   "case_id": "C02",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C02",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 2938
+  },
+  {
+   "case_id": "C02",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C02",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C02",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 688
+  },
+  {
+   "case_id": "C02",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C02",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C02",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2586
+  },
+  {
+   "case_id": "C02",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C02",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 2951
+  },
+  {
+   "case_id": "C02",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C02",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C02",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 688
+  },
+  {
+   "case_id": "C02",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C02",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C02",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2571
+  },
+  {
+   "case_id": "C02",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C02",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 2936
+  },
+  {
+   "case_id": "C03",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C03",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C03",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 700
+  },
+  {
+   "case_id": "C03",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C03",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C03",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2495
+  },
+  {
+   "case_id": "C03",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C03",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 2860
+  },
+  {
+   "case_id": "C03",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C03",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C03",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 701
+  },
+  {
+   "case_id": "C03",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C03",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C03",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2508
+  },
+  {
+   "case_id": "C03",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C03",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 2873
+  },
+  {
+   "case_id": "C03",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C03",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C03",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 701
+  },
+  {
+   "case_id": "C03",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C03",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C03",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2493
+  },
+  {
+   "case_id": "C03",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C03",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 2858
+  },
+  {
+   "case_id": "C04",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C04",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C04",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 705
+  },
+  {
+   "case_id": "C04",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C04",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C04",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2633
+  },
+  {
+   "case_id": "C04",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C04",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 2998
+  },
+  {
+   "case_id": "C04",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C04",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C04",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 706
+  },
+  {
+   "case_id": "C04",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C04",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C04",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2646
+  },
+  {
+   "case_id": "C04",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C04",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 3011
+  },
+  {
+   "case_id": "C04",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C04",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C04",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 706
+  },
+  {
+   "case_id": "C04",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C04",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C04",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2631
+  },
+  {
+   "case_id": "C04",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C04",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 2996
+  },
+  {
+   "case_id": "C05",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0,
+   "body": ""
+  },
+  {
+   "case_id": "C05",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547,
+   "body": "{\"name\":\"onboard-crew-medical-monitor\",\"description\":\"Scores VTE risk with NASA's published method and sends it to the ground\",\"supportedInterfaces\":[{\"url\":\"http://127.0.0.1:50532/\",\"protocolBinding\":\"JSONRPC\",\"protocolVersion\":\"1.0\"}],\"version\":\"0.1.0\",\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"skills\":[{\"id\":\"score-vte-nasa\",\"name\":\"score-vte-nasa\",\"description\":\"Scores VTE risk with NASA's published method and sends it to the ground\",\"tags\":[\"vte\",\"synthetic\"]}]}"
+  },
+  {
+   "case_id": "C05",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 730,
+   "body": "{\"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"d25adbca-e13e-4ca1-9c97-6b30fd3048ce\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"case\\\": {\\\"id\\\": \\\"C05\\\", \\\"label\\\": \\\"Several factors plus stasis and a D-dimer rise\\\", \\\"mission_days\\\": 180, \\\"preflight\\\": {\\\"age\\\": 47, \\\"family_history\\\": \\\"none\\\", \\\"thrombophilia\\\": [\\\"fvl_het\\\"], \\\"abo_non_o\\\": false, \\\"hormone\\\": \\\"none\\\"}, \\\"inflight\\\": {\\\"mission_day\\\": 60, \\\"ijv\\\": {\\\"left\\\": {\\\"mean_peak_velocity_cm_s\\\": 8.5, \\\"retrograde\\\": false}, \\\"right\\\": {\\\"mean_peak_velocity_cm_s\\\": 21.2, \\\"retrograde\\\": false}}, \\\"ddimer_baseline\\\": 200, \\\"ddimer_now\\\": 340}}, \\\"mission\\\": \\\"leo\\\"}\"}]},\"configuration\":{}},\"id\":\"1d751e2e-1b86-4283-9a87-8be9de23073d\",\"jsonrpc\":\"2.0\"}"
+  },
+  {
+   "case_id": "C05",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0,
+   "body": ""
+  },
+  {
+   "case_id": "C05",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535,
+   "body": "{\"name\":\"ground-flight-surgeon-desk\",\"description\":\"Receives VTE review packets and queues them for a flight surgeon\",\"supportedInterfaces\":[{\"url\":\"http://127.0.0.1:50531/\",\"protocolBinding\":\"JSONRPC\",\"protocolVersion\":\"1.0\"}],\"version\":\"0.1.0\",\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"skills\":[{\"id\":\"queue-vte-review\",\"name\":\"queue-vte-review\",\"description\":\"Receives VTE review packets and queues them for a flight surgeon\",\"tags\":[\"vte\",\"synthetic\"]}]}"
+  },
+  {
+   "case_id": "C05",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2541,
+   "body": "{\"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"91b81d2c-9ad5-45d8-bf29-a6d65e063dce\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"from\\\": \\\"onboard-crew-medical-monitor\\\", \\\"sent_at_mission_s\\\": 5184000, \\\"score\\\": {\\\"case_id\\\": \\\"C05\\\", \\\"items\\\": [{\\\"group\\\": \\\"Age\\\", \\\"rule\\\": \\\"Over 40 years of age: +1 point\\\", \\\"points\\\": 1, \\\"value\\\": 47.0, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Family history\\\", \\\"rule\\\": \\\"None reported: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Thrombophilia\\\", \\\"rule\\\": \\\"Factor V Leiden heterozygous: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"fvl_het\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Blood type\\\", \\\"rule\\\": \\\"O/O: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": false, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Hormone use\\\", \\\"rule\\\": \\\"No hormone use: 0 points\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"IJV flow\\\", \\\"rule\\\": \\\"Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points\\\", \\\"points\\\": 4, \\\"value\\\": \\\"left: 8.5 cm/s\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"D-dimer\\\", \\\"rule\\\": \\\">60% increase from established in-flight D-dimer baseline level: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"+70.0% from baseline\\\", \\\"source\\\": \\\"VTE-2026\\\"}], \\\"preflight_points\\\": 3, \\\"inflight_points\\\": 6, \\\"total\\\": 9, \\\"nasa_reference_band\\\": \\\"> 6 points = need clinical assessment\\\", \\\"flags\\\": [], \\\"note\\\": \\\"Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.\\\", \\\"source\\\": \\\"VTE-2026\\\"}, \\\"schedule\\\": [{\\\"day\\\": 30, \\\"label\\\": \\\"L+30 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 60, \\\"label\\\": \\\"L+60 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}], \\\"next_scan\\\": {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, \\\"review_context\\\": {\\\"mission\\\": \\\"leo\\\", \\\"name\\\": \\\"Low Earth orbit\\\", \\\"communication\\\": \\\"Near real-time communications (1-1.5 seconds)\\\", \\\"evacuation\\\": \\\"Evacuation capabilities; Distance from Earth / Evacuation: 1 day or less\\\", \\\"ground_support\\\": \\\"Reliance on Earth\\\", \\\"simulated_one_way_delay_s\\\": 1.5, \\\"earliest_ground_reply_s\\\": 3.0, \\\"summary\\\": \\\"Simulated delay 1.5 s each way: the earliest ground reply comes 3 s after sending.\\\", \\\"delay_basis\\\": \\\"upper end of '1-1.5 seconds' (TB-007)\\\", \\\"sources\\\": [\\\"TB-007\\\"]}}\"}]},\"configuration\":{}},\"id\":\"0caa7734-23d7-49f4-b516-edcbf52b2883\",\"jsonrpc\":\"2.0\"}"
+  },
+  {
+   "case_id": "C05",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552,
+   "body": "{\"result\":{\"message\":{\"messageId\":\"1c95c461-74e8-4795-bee0-2ec9aef74dae\",\"contextId\":\"3298eb2d-c0bf-4bec-aadf-432902e4bb0f\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"from\\\": \\\"ground-flight-surgeon-desk\\\", \\\"case_id\\\": \\\"C05\\\", \\\"received_at_mission_s\\\": 5184001.5, \\\"reply_reaches_crew_at_mission_s\\\": 5184003.0, \\\"status\\\": \\\"Queued for flight surgeon review\\\", \\\"ground_decision\\\": null, \\\"note\\\": \\\"The ground agent makes no clinical decision. A flight surgeon reviews the packet.\\\"}\"}]}},\"id\":\"0caa7734-23d7-49f4-b516-edcbf52b2883\",\"jsonrpc\":\"2.0\"}"
+  },
+  {
+   "case_id": "C05",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 2906,
+   "body": "{\"result\":{\"message\":{\"messageId\":\"e8afce22-9f8b-4aac-914d-57ed3e627ca5\",\"contextId\":\"39ebf77b-3887-4da8-9922-ec0b16805c45\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"packet\\\": {\\\"from\\\": \\\"onboard-crew-medical-monitor\\\", \\\"sent_at_mission_s\\\": 5184000, \\\"score\\\": {\\\"case_id\\\": \\\"C05\\\", \\\"items\\\": [{\\\"group\\\": \\\"Age\\\", \\\"rule\\\": \\\"Over 40 years of age: +1 point\\\", \\\"points\\\": 1, \\\"value\\\": 47.0, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Family history\\\", \\\"rule\\\": \\\"None reported: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Thrombophilia\\\", \\\"rule\\\": \\\"Factor V Leiden heterozygous: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"fvl_het\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Blood type\\\", \\\"rule\\\": \\\"O/O: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": false, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Hormone use\\\", \\\"rule\\\": \\\"No hormone use: 0 points\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"IJV flow\\\", \\\"rule\\\": \\\"Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points\\\", \\\"points\\\": 4, \\\"value\\\": \\\"left: 8.5 cm/s\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"D-dimer\\\", \\\"rule\\\": \\\">60% increase from established in-flight D-dimer baseline level: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"+70.0% from baseline\\\", \\\"source\\\": \\\"VTE-2026\\\"}], \\\"preflight_points\\\": 3, \\\"inflight_points\\\": 6, \\\"total\\\": 9, \\\"nasa_reference_band\\\": \\\"> 6 points = need clinical assessment\\\", \\\"flags\\\": [], \\\"note\\\": \\\"Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.\\\", \\\"source\\\": \\\"VTE-2026\\\"}, \\\"schedule\\\": [{\\\"day\\\": 30, \\\"label\\\": \\\"L+30 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 60, \\\"label\\\": \\\"L+60 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}], \\\"next_scan\\\": {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, \\\"review_context\\\": {\\\"mission\\\": \\\"leo\\\", \\\"name\\\": \\\"Low Earth orbit\\\", \\\"communication\\\": \\\"Near real-time communications (1-1.5 seconds)\\\", \\\"evacuation\\\": \\\"Evacuation capabilities; Distance from Earth / Evacuation: 1 day or less\\\", \\\"ground_support\\\": \\\"Reliance on Earth\\\", \\\"simulated_one_way_delay_s\\\": 1.5, \\\"earliest_ground_reply_s\\\": 3.0, \\\"summary\\\": \\\"Simulated delay 1.5 s each way: the earliest ground reply comes 3 s after sending.\\\", \\\"delay_basis\\\": \\\"upper end of '1-1.5 seconds' (TB-007)\\\", \\\"sources\\\": [\\\"TB-007\\\"]}}, \\\"ground_ack\\\": {\\\"from\\\": \\\"ground-flight-surgeon-desk\\\", \\\"case_id\\\": \\\"C05\\\", \\\"received_at_mission_s\\\": 5184001.5, \\\"reply_reaches_crew_at_mission_s\\\": 5184003.0, \\\"status\\\": \\\"Queued for flight surgeon review\\\", \\\"ground_decision\\\": null, \\\"note\\\": \\\"The ground agent makes no clinical decision. A flight surgeon reviews the packet.\\\"}}\"}]}},\"id\":\"1d751e2e-1b86-4283-9a87-8be9de23073d\",\"jsonrpc\":\"2.0\"}"
+  },
+  {
+   "case_id": "C05",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0,
+   "body": ""
+  },
+  {
+   "case_id": "C05",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547,
+   "body": "{\"name\":\"onboard-crew-medical-monitor\",\"description\":\"Scores VTE risk with NASA's published method and sends it to the ground\",\"supportedInterfaces\":[{\"url\":\"http://127.0.0.1:50532/\",\"protocolBinding\":\"JSONRPC\",\"protocolVersion\":\"1.0\"}],\"version\":\"0.1.0\",\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"skills\":[{\"id\":\"score-vte-nasa\",\"name\":\"score-vte-nasa\",\"description\":\"Scores VTE risk with NASA's published method and sends it to the ground\",\"tags\":[\"vte\",\"synthetic\"]}]}"
+  },
+  {
+   "case_id": "C05",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 731,
+   "body": "{\"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"c585ed02-a35e-4726-88c4-68e71e31e0c2\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"case\\\": {\\\"id\\\": \\\"C05\\\", \\\"label\\\": \\\"Several factors plus stasis and a D-dimer rise\\\", \\\"mission_days\\\": 180, \\\"preflight\\\": {\\\"age\\\": 47, \\\"family_history\\\": \\\"none\\\", \\\"thrombophilia\\\": [\\\"fvl_het\\\"], \\\"abo_non_o\\\": false, \\\"hormone\\\": \\\"none\\\"}, \\\"inflight\\\": {\\\"mission_day\\\": 60, \\\"ijv\\\": {\\\"left\\\": {\\\"mean_peak_velocity_cm_s\\\": 8.5, \\\"retrograde\\\": false}, \\\"right\\\": {\\\"mean_peak_velocity_cm_s\\\": 21.2, \\\"retrograde\\\": false}}, \\\"ddimer_baseline\\\": 200, \\\"ddimer_now\\\": 340}}, \\\"mission\\\": \\\"moon\\\"}\"}]},\"configuration\":{}},\"id\":\"c0d4a9e0-97eb-40f2-998b-e3405048e5f8\",\"jsonrpc\":\"2.0\"}"
+  },
+  {
+   "case_id": "C05",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0,
+   "body": ""
+  },
+  {
+   "case_id": "C05",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535,
+   "body": "{\"name\":\"ground-flight-surgeon-desk\",\"description\":\"Receives VTE review packets and queues them for a flight surgeon\",\"supportedInterfaces\":[{\"url\":\"http://127.0.0.1:50531/\",\"protocolBinding\":\"JSONRPC\",\"protocolVersion\":\"1.0\"}],\"version\":\"0.1.0\",\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"skills\":[{\"id\":\"queue-vte-review\",\"name\":\"queue-vte-review\",\"description\":\"Receives VTE review packets and queues them for a flight surgeon\",\"tags\":[\"vte\",\"synthetic\"]}]}"
+  },
+  {
+   "case_id": "C05",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2554,
+   "body": "{\"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"0da8a6eb-44eb-45e6-8668-b4a214026d11\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"from\\\": \\\"onboard-crew-medical-monitor\\\", \\\"sent_at_mission_s\\\": 5184000, \\\"score\\\": {\\\"case_id\\\": \\\"C05\\\", \\\"items\\\": [{\\\"group\\\": \\\"Age\\\", \\\"rule\\\": \\\"Over 40 years of age: +1 point\\\", \\\"points\\\": 1, \\\"value\\\": 47.0, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Family history\\\", \\\"rule\\\": \\\"None reported: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Thrombophilia\\\", \\\"rule\\\": \\\"Factor V Leiden heterozygous: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"fvl_het\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Blood type\\\", \\\"rule\\\": \\\"O/O: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": false, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Hormone use\\\", \\\"rule\\\": \\\"No hormone use: 0 points\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"IJV flow\\\", \\\"rule\\\": \\\"Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points\\\", \\\"points\\\": 4, \\\"value\\\": \\\"left: 8.5 cm/s\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"D-dimer\\\", \\\"rule\\\": \\\">60% increase from established in-flight D-dimer baseline level: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"+70.0% from baseline\\\", \\\"source\\\": \\\"VTE-2026\\\"}], \\\"preflight_points\\\": 3, \\\"inflight_points\\\": 6, \\\"total\\\": 9, \\\"nasa_reference_band\\\": \\\"> 6 points = need clinical assessment\\\", \\\"flags\\\": [], \\\"note\\\": \\\"Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.\\\", \\\"source\\\": \\\"VTE-2026\\\"}, \\\"schedule\\\": [{\\\"day\\\": 30, \\\"label\\\": \\\"L+30 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 60, \\\"label\\\": \\\"L+60 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}], \\\"next_scan\\\": {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, \\\"review_context\\\": {\\\"mission\\\": \\\"moon\\\", \\\"name\\\": \\\"Lunar mission\\\", \\\"communication\\\": \\\"Minor communication latencies\\\", \\\"evacuation\\\": \\\"Evacuation capabilities (3-11 days)\\\", \\\"ground_support\\\": \\\"Restrictions in onboard medical capability\\\", \\\"simulated_one_way_delay_s\\\": 14.0, \\\"earliest_ground_reply_s\\\": 28.0, \\\"summary\\\": \\\"Simulated delay 14 s each way: the earliest ground reply comes 28 s after sending.\\\", \\\"delay_basis\\\": \\\"upper end of 'Comm Latency 5-14 sec' (NTRS 20250002759)\\\", \\\"sources\\\": [\\\"TB-007\\\", \\\"NTRS-20250002759\\\"]}}\"}]},\"configuration\":{}},\"id\":\"6330c267-e582-4190-a34a-f60c551aaa97\",\"jsonrpc\":\"2.0\"}"
+  },
+  {
+   "case_id": "C05",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552,
+   "body": "{\"result\":{\"message\":{\"messageId\":\"7daac6d3-52f2-483a-8a16-4612319e5670\",\"contextId\":\"f3fec99d-ab68-4a7a-af8b-65cc3f3718d1\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"from\\\": \\\"ground-flight-surgeon-desk\\\", \\\"case_id\\\": \\\"C05\\\", \\\"received_at_mission_s\\\": 5184014.0, \\\"reply_reaches_crew_at_mission_s\\\": 5184028.0, \\\"status\\\": \\\"Queued for flight surgeon review\\\", \\\"ground_decision\\\": null, \\\"note\\\": \\\"The ground agent makes no clinical decision. A flight surgeon reviews the packet.\\\"}\"}]}},\"id\":\"6330c267-e582-4190-a34a-f60c551aaa97\",\"jsonrpc\":\"2.0\"}"
+  },
+  {
+   "case_id": "C05",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 2919,
+   "body": "{\"result\":{\"message\":{\"messageId\":\"82ad05cb-75d3-422a-ac77-4b8027a54a48\",\"contextId\":\"434bd4ae-3157-446e-8824-5e82667a5900\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"packet\\\": {\\\"from\\\": \\\"onboard-crew-medical-monitor\\\", \\\"sent_at_mission_s\\\": 5184000, \\\"score\\\": {\\\"case_id\\\": \\\"C05\\\", \\\"items\\\": [{\\\"group\\\": \\\"Age\\\", \\\"rule\\\": \\\"Over 40 years of age: +1 point\\\", \\\"points\\\": 1, \\\"value\\\": 47.0, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Family history\\\", \\\"rule\\\": \\\"None reported: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Thrombophilia\\\", \\\"rule\\\": \\\"Factor V Leiden heterozygous: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"fvl_het\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Blood type\\\", \\\"rule\\\": \\\"O/O: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": false, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Hormone use\\\", \\\"rule\\\": \\\"No hormone use: 0 points\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"IJV flow\\\", \\\"rule\\\": \\\"Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points\\\", \\\"points\\\": 4, \\\"value\\\": \\\"left: 8.5 cm/s\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"D-dimer\\\", \\\"rule\\\": \\\">60% increase from established in-flight D-dimer baseline level: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"+70.0% from baseline\\\", \\\"source\\\": \\\"VTE-2026\\\"}], \\\"preflight_points\\\": 3, \\\"inflight_points\\\": 6, \\\"total\\\": 9, \\\"nasa_reference_band\\\": \\\"> 6 points = need clinical assessment\\\", \\\"flags\\\": [], \\\"note\\\": \\\"Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.\\\", \\\"source\\\": \\\"VTE-2026\\\"}, \\\"schedule\\\": [{\\\"day\\\": 30, \\\"label\\\": \\\"L+30 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 60, \\\"label\\\": \\\"L+60 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}], \\\"next_scan\\\": {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, \\\"review_context\\\": {\\\"mission\\\": \\\"moon\\\", \\\"name\\\": \\\"Lunar mission\\\", \\\"communication\\\": \\\"Minor communication latencies\\\", \\\"evacuation\\\": \\\"Evacuation capabilities (3-11 days)\\\", \\\"ground_support\\\": \\\"Restrictions in onboard medical capability\\\", \\\"simulated_one_way_delay_s\\\": 14.0, \\\"earliest_ground_reply_s\\\": 28.0, \\\"summary\\\": \\\"Simulated delay 14 s each way: the earliest ground reply comes 28 s after sending.\\\", \\\"delay_basis\\\": \\\"upper end of 'Comm Latency 5-14 sec' (NTRS 20250002759)\\\", \\\"sources\\\": [\\\"TB-007\\\", \\\"NTRS-20250002759\\\"]}}, \\\"ground_ack\\\": {\\\"from\\\": \\\"ground-flight-surgeon-desk\\\", \\\"case_id\\\": \\\"C05\\\", \\\"received_at_mission_s\\\": 5184014.0, \\\"reply_reaches_crew_at_mission_s\\\": 5184028.0, \\\"status\\\": \\\"Queued for flight surgeon review\\\", \\\"ground_decision\\\": null, \\\"note\\\": \\\"The ground agent makes no clinical decision. A flight surgeon reviews the packet.\\\"}}\"}]}},\"id\":\"c0d4a9e0-97eb-40f2-998b-e3405048e5f8\",\"jsonrpc\":\"2.0\"}"
+  },
+  {
+   "case_id": "C05",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0,
+   "body": ""
+  },
+  {
+   "case_id": "C05",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547,
+   "body": "{\"name\":\"onboard-crew-medical-monitor\",\"description\":\"Scores VTE risk with NASA's published method and sends it to the ground\",\"supportedInterfaces\":[{\"url\":\"http://127.0.0.1:50532/\",\"protocolBinding\":\"JSONRPC\",\"protocolVersion\":\"1.0\"}],\"version\":\"0.1.0\",\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"skills\":[{\"id\":\"score-vte-nasa\",\"name\":\"score-vte-nasa\",\"description\":\"Scores VTE risk with NASA's published method and sends it to the ground\",\"tags\":[\"vte\",\"synthetic\"]}]}"
+  },
+  {
+   "case_id": "C05",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 731,
+   "body": "{\"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"ce260e4f-3f53-4b00-aafa-f2d26f9369a9\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"case\\\": {\\\"id\\\": \\\"C05\\\", \\\"label\\\": \\\"Several factors plus stasis and a D-dimer rise\\\", \\\"mission_days\\\": 180, \\\"preflight\\\": {\\\"age\\\": 47, \\\"family_history\\\": \\\"none\\\", \\\"thrombophilia\\\": [\\\"fvl_het\\\"], \\\"abo_non_o\\\": false, \\\"hormone\\\": \\\"none\\\"}, \\\"inflight\\\": {\\\"mission_day\\\": 60, \\\"ijv\\\": {\\\"left\\\": {\\\"mean_peak_velocity_cm_s\\\": 8.5, \\\"retrograde\\\": false}, \\\"right\\\": {\\\"mean_peak_velocity_cm_s\\\": 21.2, \\\"retrograde\\\": false}}, \\\"ddimer_baseline\\\": 200, \\\"ddimer_now\\\": 340}}, \\\"mission\\\": \\\"mars\\\"}\"}]},\"configuration\":{}},\"id\":\"e592187e-a0cd-4513-90ce-714f2ec58613\",\"jsonrpc\":\"2.0\"}"
+  },
+  {
+   "case_id": "C05",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0,
+   "body": ""
+  },
+  {
+   "case_id": "C05",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535,
+   "body": "{\"name\":\"ground-flight-surgeon-desk\",\"description\":\"Receives VTE review packets and queues them for a flight surgeon\",\"supportedInterfaces\":[{\"url\":\"http://127.0.0.1:50531/\",\"protocolBinding\":\"JSONRPC\",\"protocolVersion\":\"1.0\"}],\"version\":\"0.1.0\",\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"skills\":[{\"id\":\"queue-vte-review\",\"name\":\"queue-vte-review\",\"description\":\"Receives VTE review packets and queues them for a flight surgeon\",\"tags\":[\"vte\",\"synthetic\"]}]}"
+  },
+  {
+   "case_id": "C05",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2539,
+   "body": "{\"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"6b9dd2bf-c5bc-4463-960d-b7d378a090b9\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"from\\\": \\\"onboard-crew-medical-monitor\\\", \\\"sent_at_mission_s\\\": 5184000, \\\"score\\\": {\\\"case_id\\\": \\\"C05\\\", \\\"items\\\": [{\\\"group\\\": \\\"Age\\\", \\\"rule\\\": \\\"Over 40 years of age: +1 point\\\", \\\"points\\\": 1, \\\"value\\\": 47.0, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Family history\\\", \\\"rule\\\": \\\"None reported: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Thrombophilia\\\", \\\"rule\\\": \\\"Factor V Leiden heterozygous: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"fvl_het\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Blood type\\\", \\\"rule\\\": \\\"O/O: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": false, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Hormone use\\\", \\\"rule\\\": \\\"No hormone use: 0 points\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"IJV flow\\\", \\\"rule\\\": \\\"Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points\\\", \\\"points\\\": 4, \\\"value\\\": \\\"left: 8.5 cm/s\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"D-dimer\\\", \\\"rule\\\": \\\">60% increase from established in-flight D-dimer baseline level: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"+70.0% from baseline\\\", \\\"source\\\": \\\"VTE-2026\\\"}], \\\"preflight_points\\\": 3, \\\"inflight_points\\\": 6, \\\"total\\\": 9, \\\"nasa_reference_band\\\": \\\"> 6 points = need clinical assessment\\\", \\\"flags\\\": [], \\\"note\\\": \\\"Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.\\\", \\\"source\\\": \\\"VTE-2026\\\"}, \\\"schedule\\\": [{\\\"day\\\": 30, \\\"label\\\": \\\"L+30 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 60, \\\"label\\\": \\\"L+60 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}], \\\"next_scan\\\": {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, \\\"review_context\\\": {\\\"mission\\\": \\\"mars\\\", \\\"name\\\": \\\"Mars mission\\\", \\\"communication\\\": \\\"Extended communication latencies (0-40 minutes)\\\", \\\"evacuation\\\": \\\"No evacuation capability\\\", \\\"ground_support\\\": \\\"Limited ground medical support/autonomous Medical Care\\\", \\\"simulated_one_way_delay_s\\\": 2400.0, \\\"earliest_ground_reply_s\\\": 4800.0, \\\"summary\\\": \\\"Simulated delay 40 min each way: the earliest ground reply comes 80 min after sending.\\\", \\\"delay_basis\\\": \\\"upper end of '0-40 minutes' (TB-007)\\\", \\\"sources\\\": [\\\"TB-007\\\"]}}\"}]},\"configuration\":{}},\"id\":\"7e468327-ae75-4981-9755-94f5902485b4\",\"jsonrpc\":\"2.0\"}"
+  },
+  {
+   "case_id": "C05",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552,
+   "body": "{\"result\":{\"message\":{\"messageId\":\"f76cf707-22e7-41fe-b11f-4316cad812a8\",\"contextId\":\"58e751e8-d639-495b-8bf5-eef6e1b4918e\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"from\\\": \\\"ground-flight-surgeon-desk\\\", \\\"case_id\\\": \\\"C05\\\", \\\"received_at_mission_s\\\": 5186400.0, \\\"reply_reaches_crew_at_mission_s\\\": 5188800.0, \\\"status\\\": \\\"Queued for flight surgeon review\\\", \\\"ground_decision\\\": null, \\\"note\\\": \\\"The ground agent makes no clinical decision. A flight surgeon reviews the packet.\\\"}\"}]}},\"id\":\"7e468327-ae75-4981-9755-94f5902485b4\",\"jsonrpc\":\"2.0\"}"
+  },
+  {
+   "case_id": "C05",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 2904,
+   "body": "{\"result\":{\"message\":{\"messageId\":\"90d56d00-fd38-4a51-9773-30853d5c3f2d\",\"contextId\":\"c1426ada-1dee-47b0-b175-ad311ec35044\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"packet\\\": {\\\"from\\\": \\\"onboard-crew-medical-monitor\\\", \\\"sent_at_mission_s\\\": 5184000, \\\"score\\\": {\\\"case_id\\\": \\\"C05\\\", \\\"items\\\": [{\\\"group\\\": \\\"Age\\\", \\\"rule\\\": \\\"Over 40 years of age: +1 point\\\", \\\"points\\\": 1, \\\"value\\\": 47.0, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Family history\\\", \\\"rule\\\": \\\"None reported: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Thrombophilia\\\", \\\"rule\\\": \\\"Factor V Leiden heterozygous: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"fvl_het\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Blood type\\\", \\\"rule\\\": \\\"O/O: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": false, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Hormone use\\\", \\\"rule\\\": \\\"No hormone use: 0 points\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"IJV flow\\\", \\\"rule\\\": \\\"Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points\\\", \\\"points\\\": 4, \\\"value\\\": \\\"left: 8.5 cm/s\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"D-dimer\\\", \\\"rule\\\": \\\">60% increase from established in-flight D-dimer baseline level: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"+70.0% from baseline\\\", \\\"source\\\": \\\"VTE-2026\\\"}], \\\"preflight_points\\\": 3, \\\"inflight_points\\\": 6, \\\"total\\\": 9, \\\"nasa_reference_band\\\": \\\"> 6 points = need clinical assessment\\\", \\\"flags\\\": [], \\\"note\\\": \\\"Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.\\\", \\\"source\\\": \\\"VTE-2026\\\"}, \\\"schedule\\\": [{\\\"day\\\": 30, \\\"label\\\": \\\"L+30 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 60, \\\"label\\\": \\\"L+60 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}], \\\"next_scan\\\": {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, \\\"review_context\\\": {\\\"mission\\\": \\\"mars\\\", \\\"name\\\": \\\"Mars mission\\\", \\\"communication\\\": \\\"Extended communication latencies (0-40 minutes)\\\", \\\"evacuation\\\": \\\"No evacuation capability\\\", \\\"ground_support\\\": \\\"Limited ground medical support/autonomous Medical Care\\\", \\\"simulated_one_way_delay_s\\\": 2400.0, \\\"earliest_ground_reply_s\\\": 4800.0, \\\"summary\\\": \\\"Simulated delay 40 min each way: the earliest ground reply comes 80 min after sending.\\\", \\\"delay_basis\\\": \\\"upper end of '0-40 minutes' (TB-007)\\\", \\\"sources\\\": [\\\"TB-007\\\"]}}, \\\"ground_ack\\\": {\\\"from\\\": \\\"ground-flight-surgeon-desk\\\", \\\"case_id\\\": \\\"C05\\\", \\\"received_at_mission_s\\\": 5186400.0, \\\"reply_reaches_crew_at_mission_s\\\": 5188800.0, \\\"status\\\": \\\"Queued for flight surgeon review\\\", \\\"ground_decision\\\": null, \\\"note\\\": \\\"The ground agent makes no clinical decision. A flight surgeon reviews the packet.\\\"}}\"}]}},\"id\":\"e592187e-a0cd-4513-90ce-714f2ec58613\",\"jsonrpc\":\"2.0\"}"
+  },
+  {
+   "case_id": "C06",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C06",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C06",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 734
+  },
+  {
+   "case_id": "C06",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C06",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C06",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2555
+  },
+  {
+   "case_id": "C06",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C06",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 2920
+  },
+  {
+   "case_id": "C06",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C06",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C06",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 735
+  },
+  {
+   "case_id": "C06",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C06",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C06",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2568
+  },
+  {
+   "case_id": "C06",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C06",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 2933
+  },
+  {
+   "case_id": "C06",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C06",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C06",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 735
+  },
+  {
+   "case_id": "C06",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C06",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C06",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2553
+  },
+  {
+   "case_id": "C06",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C06",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 2918
+  },
+  {
+   "case_id": "C07",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C07",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C07",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 739
+  },
+  {
+   "case_id": "C07",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C07",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C07",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2523
+  },
+  {
+   "case_id": "C07",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C07",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 2888
+  },
+  {
+   "case_id": "C07",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C07",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C07",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 740
+  },
+  {
+   "case_id": "C07",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C07",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C07",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2536
+  },
+  {
+   "case_id": "C07",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C07",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 2901
+  },
+  {
+   "case_id": "C07",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C07",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C07",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 740
+  },
+  {
+   "case_id": "C07",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C07",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C07",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2521
+  },
+  {
+   "case_id": "C07",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C07",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 2886
+  },
+  {
+   "case_id": "C08",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C08",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C08",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 721
+  },
+  {
+   "case_id": "C08",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C08",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C08",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2548
+  },
+  {
+   "case_id": "C08",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C08",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 2913
+  },
+  {
+   "case_id": "C08",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C08",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C08",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 722
+  },
+  {
+   "case_id": "C08",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C08",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C08",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2561
+  },
+  {
+   "case_id": "C08",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C08",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 2926
+  },
+  {
+   "case_id": "C08",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C08",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C08",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 722
+  },
+  {
+   "case_id": "C08",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C08",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C08",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2546
+  },
+  {
+   "case_id": "C08",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C08",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 2911
+  },
+  {
+   "case_id": "C09",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C09",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C09",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 743
+  },
+  {
+   "case_id": "C09",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C09",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C09",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2737
+  },
+  {
+   "case_id": "C09",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C09",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 3102
+  },
+  {
+   "case_id": "C09",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C09",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C09",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 744
+  },
+  {
+   "case_id": "C09",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C09",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C09",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2750
+  },
+  {
+   "case_id": "C09",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C09",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 3115
+  },
+  {
+   "case_id": "C09",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C09",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C09",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 744
+  },
+  {
+   "case_id": "C09",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C09",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C09",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2735
+  },
+  {
+   "case_id": "C09",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C09",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 3100
+  },
+  {
+   "case_id": "C10",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C10",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C10",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 570
+  },
+  {
+   "case_id": "C10",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C10",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C10",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2637
+  },
+  {
+   "case_id": "C10",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C10",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 3002
+  },
+  {
+   "case_id": "C10",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C10",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C10",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 571
+  },
+  {
+   "case_id": "C10",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C10",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C10",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2650
+  },
+  {
+   "case_id": "C10",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C10",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 3015
+  },
+  {
+   "case_id": "C10",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C10",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C10",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 571
+  },
+  {
+   "case_id": "C10",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C10",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C10",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 2635
+  },
+  {
+   "case_id": "C10",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 552
+  },
+  {
+   "case_id": "C10",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 3000
+  }
+ ]
+}

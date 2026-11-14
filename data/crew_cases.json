@@ -1,0 +1,272 @@
+{
+ "_ai_assisted": "Synthetic cases generated with Claude Code (Anthropic). Not real astronaut data.",
+ "seed": 20261115,
+ "cases": [
+  {
+   "id": "C01",
+   "label": "Young, no risk factors, normal scan, no D-dimer",
+   "mission_days": 180,
+   "preflight": {
+    "age": 34,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": false,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 30,
+    "ijv": {
+     "left": {
+      "mean_peak_velocity_cm_s": 18.8,
+      "retrograde": false
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 21.6,
+      "retrograde": false
+     }
+    },
+    "ddimer_baseline": null,
+    "ddimer_now": null
+   }
+  },
+  {
+   "id": "C02",
+   "label": "Age 45 only",
+   "mission_days": 180,
+   "preflight": {
+    "age": 45,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": false,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 30,
+    "ijv": {
+     "left": {
+      "mean_peak_velocity_cm_s": 26.3,
+      "retrograde": false
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 24.6,
+      "retrograde": false
+     }
+    },
+    "ddimer_baseline": null,
+    "ddimer_now": null
+   }
+  },
+  {
+   "id": "C03",
+   "label": "Age 52 and non-O blood type",
+   "mission_days": 180,
+   "preflight": {
+    "age": 52,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": true,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 60,
+    "ijv": {
+     "left": {
+      "mean_peak_velocity_cm_s": 23.7,
+      "retrograde": false
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 19.6,
+      "retrograde": false
+     }
+    },
+    "ddimer_baseline": 230,
+    "ddimer_now": 276
+   }
+  },
+  {
+   "id": "C04",
+   "label": "Retrograde flow in the left IJV",
+   "mission_days": 180,
+   "preflight": {
+    "age": 38,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": true,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 60,
+    "ijv": {
+     "left": {
+      "mean_peak_velocity_cm_s": 25.2,
+      "retrograde": true
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 26.5,
+      "retrograde": false
+     }
+    },
+    "ddimer_baseline": null,
+    "ddimer_now": null
+   }
+  },
+  {
+   "id": "C05",
+   "label": "Several factors plus stasis and a D-dimer rise",
+   "mission_days": 180,
+   "preflight": {
+    "age": 47,
+    "family_history": "none",
+    "thrombophilia": [
+     "fvl_het"
+    ],
+    "abo_non_o": false,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 60,
+    "ijv": {
+     "left": {
+      "mean_peak_velocity_cm_s": 8.5,
+      "retrograde": false
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 21.2,
+      "retrograde": false
+     }
+    },
+    "ddimer_baseline": 200,
+    "ddimer_now": 340
+   }
+  },
+  {
+   "id": "C06",
+   "label": "Borderline below every line (age 40, 10.0 cm/s, D-dimer +60%)",
+   "mission_days": 180,
+   "preflight": {
+    "age": 40,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": false,
+    "hormone": "low"
+   },
+   "inflight": {
+    "mission_day": 30,
+    "ijv": {
+     "left": {
+      "mean_peak_velocity_cm_s": 10.0,
+      "retrograde": false
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 17.1,
+      "retrograde": false
+     }
+    },
+    "ddimer_baseline": 200,
+    "ddimer_now": 320
+   }
+  },
+  {
+   "id": "C07",
+   "label": "Borderline just over every line (age 41, 9.9 cm/s, D-dimer +60.5%)",
+   "mission_days": 180,
+   "preflight": {
+    "age": 41,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": false,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 30,
+    "ijv": {
+     "left": {
+      "mean_peak_velocity_cm_s": 9.9,
+      "retrograde": false
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 29.2,
+      "retrograde": false
+     }
+    },
+    "ddimer_baseline": 200,
+    "ddimer_now": 321
+   }
+  },
+  {
+   "id": "C08",
+   "label": "Pre-flight factors alone reach 4 points",
+   "mission_days": 180,
+   "preflight": {
+    "age": 50,
+    "family_history": "one_under_50",
+    "thrombophilia": [],
+    "abo_non_o": false,
+    "hormone": "some"
+   },
+   "inflight": {
+    "mission_day": 60,
+    "ijv": {
+     "left": {
+      "mean_peak_velocity_cm_s": 29.9,
+      "retrograde": false
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 28.1,
+      "retrograde": false
+     }
+    },
+    "ddimer_baseline": 200,
+    "ddimer_now": 240
+   }
+  },
+  {
+   "id": "C09",
+   "label": "Factor V Leiden with protein C deficiency",
+   "mission_days": 180,
+   "preflight": {
+    "age": 36,
+    "family_history": "none",
+    "thrombophilia": [
+     "fvl_het",
+     "protein_c"
+    ],
+    "abo_non_o": false,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 30,
+    "ijv": {
+     "left": {
+      "mean_peak_velocity_cm_s": 17.8,
+      "retrograde": false
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 24.9,
+      "retrograde": false
+     }
+    },
+    "ddimer_baseline": null,
+    "ddimer_now": null
+   }
+  },
+  {
+   "id": "C10",
+   "label": "Before the first in-flight scan",
+   "mission_days": 180,
+   "preflight": {
+    "age": 44,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": false,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 20,
+    "ijv": null,
+    "ddimer_baseline": null,
+    "ddimer_now": null
+   }
+  }
+ ]
+}
