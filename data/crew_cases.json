@@ -25,11 +25,11 @@
      "in_flight": false,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 14.4,
+      "mean_peak_velocity_cm_s": 19.3,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 25.2,
+      "mean_peak_velocity_cm_s": 54.5,
       "direction": "anterograde"
      }
     },
@@ -39,11 +39,11 @@
      "in_flight": true,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 25.5,
+      "mean_peak_velocity_cm_s": 55.3,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 27.3,
+      "mean_peak_velocity_cm_s": 61.1,
       "direction": "anterograde"
      }
     },
@@ -105,11 +105,11 @@
      "in_flight": false,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 19.6,
+      "mean_peak_velocity_cm_s": 36.3,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 25.2,
+      "mean_peak_velocity_cm_s": 54.3,
       "direction": "anterograde"
      }
     },
@@ -119,11 +119,11 @@
      "in_flight": true,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 26.5,
+      "mean_peak_velocity_cm_s": 58.5,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 21.2,
+      "mean_peak_velocity_cm_s": 41.5,
       "direction": "anterograde"
      }
     },
@@ -185,11 +185,11 @@
      "in_flight": false,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 28.7,
+      "mean_peak_velocity_cm_s": 65.8,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 25.9,
+      "mean_peak_velocity_cm_s": 56.5,
       "direction": "anterograde"
      }
     },
@@ -199,11 +199,11 @@
      "in_flight": true,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 15.5,
+      "mean_peak_velocity_cm_s": 22.9,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 14.7,
+      "mean_peak_velocity_cm_s": 20.4,
       "direction": "anterograde"
      }
     },
@@ -213,11 +213,11 @@
      "in_flight": true,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 22.3,
+      "mean_peak_velocity_cm_s": 44.8,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 17.0,
+      "mean_peak_velocity_cm_s": 27.7,
       "direction": "anterograde"
      }
     },
@@ -265,11 +265,11 @@
      "in_flight": false,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 22.7,
+      "mean_peak_velocity_cm_s": 46.3,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 21.9,
+      "mean_peak_velocity_cm_s": 43.7,
       "direction": "anterograde"
      }
     },
@@ -279,11 +279,11 @@
      "in_flight": true,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 27.9,
+      "mean_peak_velocity_cm_s": 63.3,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 27.2,
+      "mean_peak_velocity_cm_s": 60.9,
       "direction": "anterograde"
      }
     },
@@ -293,11 +293,11 @@
      "in_flight": true,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 25.5,
+      "mean_peak_velocity_cm_s": 55.3,
       "direction": "retrograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 19.4,
+      "mean_peak_velocity_cm_s": 35.5,
       "direction": "anterograde"
      }
     },
@@ -347,11 +347,11 @@
      "in_flight": false,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 19.8,
+      "mean_peak_velocity_cm_s": 37.0,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 19.9,
+      "mean_peak_velocity_cm_s": 37.1,
       "direction": "anterograde"
      }
     },
@@ -361,11 +361,11 @@
      "in_flight": true,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 14.5,
+      "mean_peak_velocity_cm_s": 21.5,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 24.1,
+      "mean_peak_velocity_cm_s": 50.7,
       "direction": "anterograde"
      }
     },
@@ -379,7 +379,7 @@
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 22.7,
+      "mean_peak_velocity_cm_s": 46.3,
       "direction": "anterograde"
      }
     },
@@ -427,11 +427,11 @@
      "in_flight": false,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 20.8,
+      "mean_peak_velocity_cm_s": 40.1,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 19.8,
+      "mean_peak_velocity_cm_s": 36.7,
       "direction": "anterograde"
      }
     },
@@ -445,7 +445,7 @@
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 22.9,
+      "mean_peak_velocity_cm_s": 46.9,
       "direction": "anterograde"
      }
     },
@@ -507,11 +507,11 @@
      "in_flight": false,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 28.3,
+      "mean_peak_velocity_cm_s": 64.6,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 19.7,
+      "mean_peak_velocity_cm_s": 36.4,
       "direction": "anterograde"
      }
     },
@@ -525,7 +525,7 @@
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 29.1,
+      "mean_peak_velocity_cm_s": 67.0,
       "direction": "anterograde"
      }
     },
@@ -587,11 +587,11 @@
      "in_flight": false,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 15.4,
+      "mean_peak_velocity_cm_s": 22.5,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 17.4,
+      "mean_peak_velocity_cm_s": 28.9,
       "direction": "anterograde"
      }
     },
@@ -601,11 +601,11 @@
      "in_flight": true,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 26.3,
+      "mean_peak_velocity_cm_s": 58.0,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 14.6,
+      "mean_peak_velocity_cm_s": 19.8,
       "direction": "anterograde"
      }
     },
@@ -615,11 +615,11 @@
      "in_flight": true,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 24.2,
+      "mean_peak_velocity_cm_s": 51.2,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 21.1,
+      "mean_peak_velocity_cm_s": 41.1,
       "direction": "anterograde"
      }
     },
@@ -670,11 +670,11 @@
      "in_flight": false,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 29.5,
+      "mean_peak_velocity_cm_s": 68.2,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 25.9,
+      "mean_peak_velocity_cm_s": 56.6,
       "direction": "anterograde"
      }
     },
@@ -684,11 +684,11 @@
      "in_flight": true,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 27.7,
+      "mean_peak_velocity_cm_s": 62.7,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 17.8,
+      "mean_peak_velocity_cm_s": 30.2,
       "direction": "anterograde"
      }
     },
@@ -750,11 +750,11 @@
      "in_flight": false,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 15.8,
+      "mean_peak_velocity_cm_s": 23.9,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 28.7,
+      "mean_peak_velocity_cm_s": 65.8,
       "direction": "anterograde"
      }
     },
@@ -830,11 +830,11 @@
      "in_flight": false,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 26.8,
+      "mean_peak_velocity_cm_s": 59.7,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 19.6,
+      "mean_peak_velocity_cm_s": 36.2,
       "direction": "anterograde"
      }
     },
@@ -844,11 +844,11 @@
      "in_flight": true,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 14.0,
+      "mean_peak_velocity_cm_s": 18.1,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 18.2,
+      "mean_peak_velocity_cm_s": 31.7,
       "direction": "anterograde"
      }
     },
@@ -858,11 +858,11 @@
      "in_flight": true,
      "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 19.0,
+      "mean_peak_velocity_cm_s": 34.2,
       "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 24.8,
+      "mean_peak_velocity_cm_s": 53.1,
       "direction": "anterograde"
      }
     },

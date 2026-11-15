@@ -19,8 +19,15 @@ MISSION_DAYS = 180
 def main(out: Path) -> None:
     rng = random.Random(SEED)
 
-    def normal_v() -> float:  # comfortably above the 10 cm/s stasis line
-        return round(rng.uniform(14.0, 30.0), 1)
+    # Normal (non-boundary) flow values are drawn from NASA's reported no-stasis range for astronauts.
+    # Source: NASA/SP-20260005258 REV1, section "Left IJV Peak Flow Velocities Mapped to Anatomical Asymmetry Assessment":
+    # "The remainder (8/16 individuals) experienced peak flow velocities of 18-70 cm/s" (and "<1.55 ... peak flow between
+    # 18-46 cm/s"). NASA reports PEAK velocities; our field is MEAN peak velocity, so these are values drawn from NASA's
+    # reported no-stasis peak-flow range, nothing more. Boundaries stay fixed by design (9.9 / 10.0 cm/s: the "<10 cm/s" rule).
+    NASA_NO_STASIS_CM_S = (18.0, 70.0)
+
+    def normal_v() -> float:
+        return round(rng.uniform(*NASA_NO_STASIS_CM_S), 1)
 
     def side(v, direction="anterograde"):
         return {"mean_peak_velocity_cm_s": v, "direction": direction}
@@ -64,7 +71,7 @@ def main(out: Path) -> None:
         ("C03", "Age 52 and non-O blood type", P(52, non_o=True), {"mission_day": 60, "ijv": ijv()}),
         ("C04", "Retrograde flow in the left IJV (normal speed)", P(38, non_o=True), {"mission_day": 60, "ijv": ijv(left_retro=True)}),
         ("C05", "Several factors plus stasis and a D-dimer rise", P(47, th=["fvl_het"]),
-         {"mission_day": 60, "ijv": ijv(left=8.5, prev_left=14.5), "ddimer_baseline": 200, "ddimer_now": 340}),
+         {"mission_day": 60, "ijv": ijv(left=8.5, prev_left=21.5), "ddimer_baseline": 200, "ddimer_now": 340}),
         ("C06", "Borderline below every line (age 40, 10.0 cm/s, D-dimer +60%)", P(40, h="low"),
          {"mission_day": 30, "ijv": ijv(left=10.0), "ddimer_baseline": 200, "ddimer_now": 320}),
         ("C07", "Borderline just over every line (age 41, 9.9 cm/s, D-dimer +60.5%)", P(41),

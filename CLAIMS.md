@@ -23,5 +23,6 @@ Every claim or number that appears in the README, the project page, the slides o
 | Packet carries the score, its sources, the latest scan state, the symptom report and the message shown; a failed hand-off is reported | README, app | `tests/test_handoff.py` (packet parts, demo case C11, failed hand-off) | 15 Nov |
 | "A teammate used ChatGPT (OpenAI) to explore features after the team chose VTE" | README | Team statement, 15 Nov | 15 Nov |
 | "Four NASA sources" (slide 6, JUDGES, README) | slides, JUDGES, README | `vte/sources.py` has four entries: VTE-2026, MTB-007, TB-007, NTRS-20250002759 | 15 Nov |
+| "Synthetic cases, calibrated to NASA's published 31-astronaut cohort: normal in-flight flow values drawn from the reported 18–70 cm/s range; boundaries set by NASA's <10 cm/s stasis rule" | README, DATA_CARD | NASA/SP-20260005258 REV1, "The remainder (8/16 individuals) experienced peak flow velocities of 18-70 cm/s" (text read 15 Nov). NASA gives peak velocity, our field is mean peak velocity: only "drawn from NASA's reported no-stasis peak-flow range" is claimed. `tests/test_score.py::test_normal_flow_values_in_nasa_range`; expected totals unchanged (`EXPECTED`) | 15 Nov |
 
 _AI-assisted: this file was drafted with Claude Code and is checked by the team._
