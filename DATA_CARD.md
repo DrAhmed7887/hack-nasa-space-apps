@@ -48,3 +48,7 @@
 - The scan schedule applies the 180-day example's day offsets to the case's mission length.
 
 _AI-assisted: drafted with Claude Code (Anthropic) and checked by the team._
+
+## Demo files on the public site (15 Nov 2026)
+- `site/demo/VTE_Watch_demo.pdf`: the 7-slide demo deck (built from `demo/slides.html`; this public copy names the team, not its members). AI-assisted: Claude Code (Anthropic) built it from the team's content; ChatGPT (OpenAI) drafted parts of the specifications it summarises. Synthetic data only.
+- `site/demo/VTE_Watch_30s.mp4`: the 30-second demo film (HyperFrames, `demo/video/`). Visuals are real app screenshots of synthetic cases and drawn shapes; the voiceover and music are AI-generated with ElevenLabs and labelled on screen in every frame.
