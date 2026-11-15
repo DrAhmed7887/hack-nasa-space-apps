@@ -35,6 +35,16 @@ class TestSummaryFile(unittest.TestCase):
                 self.assertLessEqual(p["min"], p["mean"])
                 self.assertLessEqual(p["mean"], p["max"])
 
+    def test_implausible_platelet_value_is_excluded_and_noted(self):
+        # Physician decision (15 Nov): a platelet count below the plausibility floor is a recording error;
+        # it is excluded from the summary and the exclusion is stated in the panel note.
+        plt = next(a for a in DOC["analytes"] if a["id"] == "platelets")
+        l92 = next(p for p in plt["points"] if p["timepoint"] == "L-92")
+        self.assertEqual(l92["n"], 3)
+        for p in plt["points"]:
+            self.assertGreaterEqual(p["min"], 50)
+        self.assertIn("excluded", plt["note"].lower())
+
     def test_no_person_ids_or_per_person_fields_anywhere(self):
         text = (ROOT / "site" / "i4_context.json").read_text()
         self.assertIsNone(re.search(r"\bC00\d\b", text))

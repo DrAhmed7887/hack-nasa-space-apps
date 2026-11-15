@@ -33,7 +33,7 @@ The ground agent makes **no clinical decision**: it queues the packet for a huma
 | Hand-off packet | `vte/packet.py` | Built once, sent by the onboard agent; failed delivery is reported, never hidden |
 | Synthetic cases | `data/generate.py` → `data/crew_cases.json` | 11 cases with scan series and symptom reports, seeded and calibrated to NASA's published 31-astronaut cohort (normal flow drawn from the reported 18–70 cm/s no-stasis range; boundaries from the <10 cm/s rule); see [DATA_CARD.md](DATA_CARD.md) |
 | Web app | `site/` | Static; recalculates in the browser (`site/score.js`, tested against Python); the A2A panel replays the recorded real run and says so |
-| Tests | `tests/` | 68 tests: hand-worked expected totals, NASA rule edges, the real A2A run, JS/Python parity |
+| Tests | `tests/` | 79 tests: hand-worked expected totals, NASA rule edges, the real A2A run, JS/Python parity |
 
 **Measured:** all 11 synthetic cases match totals worked out by hand from the NASA table before the first run (`tests/test_score.py`).
 

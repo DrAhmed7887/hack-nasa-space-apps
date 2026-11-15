@@ -156,10 +156,10 @@
    "points": [
     {
      "timepoint": "L-92",
-     "n": 4,
-     "min": 12.9,
+     "n": 3,
+     "min": 239.0,
      "max": 241.0,
-     "mean": 183.5
+     "mean": 240.3
     },
     {
      "timepoint": "L-44",
@@ -204,7 +204,7 @@
      "mean": 224.5
     }
    ],
-   "note": "The L-92 minimum is as recorded in the source file and is far below the other values; it has not been corrected or removed."
+   "note": "One L-92 value far below the lab range (140-400 Thousand/uL) was excluded as a likely recording error, so L-92 shows n = 3. All other values are as recorded."
   }
  ]
 }

@@ -34,7 +34,12 @@ SPECS = [
 ]
 
 
-NOTES = {"platelets": {"note": "The L-92 minimum is as recorded in the source file and is far below the other values; it has not been corrected or removed."}}
+# Physician decision (team, 15 Nov 2026): a platelet count below this floor is treated as a recording error and
+# excluded. In the source file one L-92 value lies far below the lab's own range (140-400 Thousand/uL) and below
+# every other value in the series.
+PLAUSIBLE_MIN = {"platelets": 50.0}
+NOTES = {"platelets": {"note": "One L-92 value far below the lab range (140-400 Thousand/uL) was excluded as a likely "
+                               "recording error, so L-92 shows n = 3. All other values are as recorded."}}
 
 
 def summarise(values: list[float], decimals: int) -> dict:
@@ -56,7 +61,9 @@ def build(folder: Path) -> dict:
             raise ValueError(f"{name}: expected one unit, found {sorted(units)}")
         points = []
         for tp in TIMEPOINTS:
+            floor = PLAUSIBLE_MIN.get(aid)
             vals = [float(r[vcol]) for r in rows if r[tcol] == tp and r[vcol].strip() != ""]
+            vals = [v for v in vals if floor is None or v >= floor]
             if not vals:
                 raise ValueError(f"{name} {tp}: no values")
             points.append({"timepoint": tp, **summarise(vals, dec)})
