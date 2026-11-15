@@ -73,6 +73,22 @@ test("trendState: blocking issue gives DATA_INSUFFICIENT but the why list still 
   assert.match(t.why.join(" "), /left IJV low/);
   assert.match(t.why.join(" "), /do not read this as normal/);
 });
+test("review fix: a stale or conflicting record keeps DATA_INSUFFICIENT but still carries the earlier deterioration reasons", () => {
+  const visits = [visit(0, [32, "anterograde", 1], [41]), visit(30, [17.5, "anterograde", 2], [44]), visit(47, [8, "anterograde", 3], [39])];
+  for (const code of ["STALE", "CONFLICT"]) {
+    const t = trendState({ visits, symptoms: sym, total: 6, band: "b", blocking: [{ code, detail: "data problem" }] });
+    assert.equal(t.state, STATES.DATA_INSUFFICIENT);
+    assert.match(t.why.join(" "), /Deterioration found before this data problem/);
+    assert.match(t.why.join(" "), /forward flow on day 30/);
+    assert.match(t.why.join(" "), /SEC grade rose 2 to 3/);
+  }
+});
+test("review fix: a side missing from the latest scan but measured earlier is flagged, never read as normal", () => {
+  const visits = [visit(0, [32], [41]), visit(30, [17.5], [44]), visit(47, null, [39])];
+  const t = trendState({ visits, symptoms: sym, total: 2, band: "b", blocking: [] });
+  assert.equal(t.state, STATES.WATCH);
+  assert.match(t.why.join(" "), /left IJV not measured on day 47 \(last measured day 30\): a missing side is not a normal result/);
+});
 test("trendState: emergency symptoms give RED_FLAG_OVERRIDE", () => {
   assert.equal(trendState({ visits: [], symptoms: { level: "emergency" }, total: 0, band: "b", blocking: [] }).state, STATES.RED_FLAG_OVERRIDE);
 });
