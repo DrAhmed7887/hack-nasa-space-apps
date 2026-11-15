@@ -33,6 +33,31 @@ def cases() -> dict:
     return {c["id"]: c for c in doc["cases"]}
 
 
+BOUNDARY_VALUES = {8.5, 9.9, 10.0}  # fixed by design: C05 stasis, C07 just under, C06 exactly on the NASA <10 cm/s line
+
+
+class TestNasaCalibration(unittest.TestCase):
+    def test_normal_flow_values_in_nasa_range(self):
+        """Every non-boundary velocity is within NASA's reported no-stasis range, 18-70 cm/s (SP-20260005258 REV1)."""
+        seen = 0
+        for c in cases().values():
+            for sc in c["scans"]:
+                for side in ("left", "right"):
+                    v = sc[side]["mean_peak_velocity_cm_s"]
+                    if v is None or v in BOUNDARY_VALUES:
+                        continue
+                    seen += 1
+                    self.assertTrue(18.0 <= v <= 70.0, (c["id"], sc["label"], side, v))
+        self.assertGreater(seen, 30)
+
+    def test_boundary_values_kept(self):
+        got = cases()
+        latest = lambda cid: next(s for s in reversed(got[cid]["scans"]) if s["recorded"] and s["in_flight"])["left"]["mean_peak_velocity_cm_s"]  # noqa: E731
+        self.assertEqual((latest("C05"), latest("C06"), latest("C07")), (8.5, 10.0, 9.9))
+        self.assertEqual(got["C06"]["inflight"]["ddimer_now"] / got["C06"]["inflight"]["ddimer_baseline"], 1.6)
+        self.assertEqual([got[c]["preflight"]["age"] for c in ("C06", "C07", "C08")], [40, 41, 50])
+
+
 class TestCases(unittest.TestCase):
     def test_every_case_matches_hand_worked_total(self):
         got = cases()

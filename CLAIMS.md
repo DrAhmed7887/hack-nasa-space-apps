@@ -27,5 +27,6 @@ Every claim or number that appears in the README, the project page, the slides o
 | Every number in the panel (n, min, max, mean) | app panel | Computed by `data/i4_summary.py`; `tests/test_i4_context.py` checks only those four statistics are stored and n <= 4 | 15 Nov |
 | "Not used in the risk score" | app panel | `tests/test_i4_context.py::test_score_code_does_not_touch_the_context_data` | 15 Nov |
 | "Data are courtesy of the NASA Open Science Data Repository" | app panel, README | OSDR credit line as requested by the repository | 15 Nov |
+| "Synthetic cases, calibrated to NASA's published 31-astronaut cohort: normal in-flight flow values drawn from the reported 18–70 cm/s range; boundaries set by NASA's <10 cm/s stasis rule" | README, DATA_CARD | NASA/SP-20260005258 REV1, "The remainder (8/16 individuals) experienced peak flow velocities of 18-70 cm/s" (text read 15 Nov). NASA gives peak velocity, our field is mean peak velocity: only "drawn from NASA's reported no-stasis peak-flow range" is claimed. `tests/test_score.py::test_normal_flow_values_in_nasa_range`; expected totals unchanged (`EXPECTED`) | 15 Nov |
 
 _AI-assisted: this file was drafted with Claude Code and is checked by the team._
