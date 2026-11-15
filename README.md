@@ -33,11 +33,11 @@ The ground agent makes **no clinical decision**: it queues the packet for a huma
 | Hand-off packet | `vte/packet.py` | Built once, sent by the onboard agent; failed delivery is reported, never hidden |
 | Synthetic cases | `data/generate.py` → `data/crew_cases.json` | 11 cases with scan series and symptom reports, seeded; see [DATA_CARD.md](DATA_CARD.md) |
 | Web app | `site/` | Static; recalculates in the browser (`site/score.js`, tested against Python); the A2A panel replays the recorded real run and says so |
-| Tests | `tests/` | Hand-worked expected totals, NASA rule edges, the real A2A run, JS/Python parity |
+| Tests | `tests/` | 68 tests: hand-worked expected totals, NASA rule edges, the real A2A run, JS/Python parity |
 
 **Measured:** all 11 synthetic cases match totals worked out by hand from the NASA table before the first run (`tests/test_score.py`).
 
-## NASA data and resources used
+## NASA data and resources used (four sources, as listed in `vte/sources.py`)
 - NASA/SP-20260005258 REV1, *NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting – April 2026* (July 2026): the score, the bands, the stasis and D-dimer criteria. https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf
 - OCHMO-MTB-007, *Venous Thrombosis in Spaceflight*: the IJV scan schedule. https://www.nasa.gov/wp-content/uploads/2026/01/ochmo-mtb-007-venous-thrombosis-in-spaceflight.pdf
 - OCHMO-TB-007 Rev A, *Mission Duration*: communication and evacuation by destination. https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-007-mission-duration.pdf

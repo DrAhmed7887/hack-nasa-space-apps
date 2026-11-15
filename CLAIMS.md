@@ -22,5 +22,6 @@ Every claim or number that appears in the README, the project page, the slides o
 | "No listed symptoms reported. This does not exclude thrombosis." | app | Our wording; `tests/test_symptoms.py::test_no_all_clear_wording_anywhere` | 15 Nov |
 | Packet carries the score, its sources, the latest scan state, the symptom report and the message shown; a failed hand-off is reported | README, app | `tests/test_handoff.py` (packet parts, demo case C11, failed hand-off) | 15 Nov |
 | "A teammate used ChatGPT (OpenAI) to explore features after the team chose VTE" | README | Team statement, 15 Nov | 15 Nov |
+| "Four NASA sources" (slide 6, JUDGES, README) | slides, JUDGES, README | `vte/sources.py` has four entries: VTE-2026, MTB-007, TB-007, NTRS-20250002759 | 15 Nov |
 
 _AI-assisted: this file was drafted with Claude Code and is checked by the team._
