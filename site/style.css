@@ -192,3 +192,4 @@ a:hover { color: #9be3ef; }
 .side-col { display: grid; gap: var(--s3); align-content: start; min-width: 0; }
 .side-col .vel { margin: 0; max-width: none; }
 .tile .v { overflow-wrap: anywhere; }
+.console-link { margin: 0; font-weight: 600; }

@@ -1,0 +1,42 @@
+<!doctype html>
+<!-- AI-assisted: written with Claude Code (Anthropic) for the NASA Space Apps 2026 entry. Synthetic data only. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VTE Watch · Flight Surgeon Console</title>
+<meta name="description" content="Simulation: a flight-surgeon review console for the VTE Watch surveillance agent, on synthetic crew data.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Ccircle cx=%278%27 cy=%278%27 r=%277%27 fill=%27%231d4ed8%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="console.css">
+</head>
+<body>
+<div class="sim" role="note">SIMULATION · SYNTHETIC CREW DATA · NOT FOR OPERATIONAL MEDICAL USE</div>
+<header class="bar">
+  <div class="brand"><span class="dot" aria-hidden="true"></span><span class="name">VTE Watch</span><span class="sep" aria-hidden="true">/</span><span class="role">Flight Surgeon Console</span></div>
+  <div class="ctx">
+    <label for="mission">Mission profile</label>
+    <select id="mission"></select>
+    <span class="delay" id="delay"></span>
+  </div>
+  <nav class="links"><a href="./">Full record and calculator</a></nav>
+</header>
+
+<main class="layout">
+  <aside class="queue" aria-labelledby="q-h">
+    <div class="q-head">
+      <h1 id="q-h">Crew watch queue</h1>
+      <p class="q-sub">Sorted by the agent's priority. Synthetic crew 01–12.</p>
+      <div class="q-counts" id="counts"></div>
+    </div>
+    <ol class="q-list" id="queue"></ol>
+  </aside>
+
+  <section class="detail" aria-live="off" id="detail" aria-label="Selected crew member"></section>
+</main>
+
+<footer class="foot">
+  <p>Rule-based prototype on synthetic data: no AI model, no live feed, no live alert. It flags and prompts; the flight surgeon makes every clinical decision. NASA's VTE Risk Score is applied word for word (NASA/SP-20260005258 REV1). Trend rules are the team's own and unvalidated. Not a diagnosis, prediction or prescription.</p>
+</footer>
+<script type="module" src="console.js"></script>
+</body>
+</html>
