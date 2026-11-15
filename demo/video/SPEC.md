@@ -4,7 +4,7 @@ _AI-assisted: written with Claude Code. Every claim traces to README/CLAIMS; app
 
 GOAL:    a judge understands in 30 s why clot monitoring far from Earth needs more than one score, and that VTE Watch keeps NASA's score and leaves the decision with the flight surgeon.
 OUTPUT:  HyperFrames, 1920 x 1080, 30 fps. Event limit: video of 30 s or less.
-TIME:    ≤ 30.0 s = ≤ 900 frames. Narrated: the voice is the clock (Kokoro on-device AI voice until an ElevenLabs key works; labelled on screen).
+TIME:    ≤ 30.0 s = ≤ 900 frames. Narrated: the voice is the clock (ElevenLabs eleven_v4, George, 1.12x tempo; labelled on screen).
 STRUCTURE (Ahmed's): hook → problem → data (what is different) → solution → close.
 
 SCRIPT v3 (every fact sourced; Ahmed: planet hook, show what is different with DATA, show the workflow):
@@ -22,6 +22,6 @@ OBJECTS: 31 cohort bars (one per astronaut in NASA's study), Earth and Mars disc
 MOTION:  arrivals expo.out 0.5-0.7 s; camera moves power2.inOut; exits power3.in, 40% shorter; titles land then hold dead still.
 SHOTS:   1 cohort strip, 8 bars turn amber in a stagger, "8 / 31" lands (0-~5 s) → 2 signal travels Earth→Mars, latency counter, stamp "No evacuation capability" (~5-11 s) → 3 the score screenshot flashes like a photo, shrinks left; a timeline of real scan cards (32 → 17.5 → 8 cm/s) grows right (~11-16 s) → 4 solution: score, trend with L+47 highlighted, red emergency box punch-in, medication panel, workflow "Flight surgeon decides and signs" (~16-27 s) → 5 teal flood, "VTE Watch" typed in, credits (~27-30 s).
 SOUND:   ElevenLabs voice; ElevenLabs music bed at ~0.14 under the voice: quiet low pulse for hook/problem, opens at "VTE Watch"; no click sounds.
-COMPLIANCE: persistent strip "SIMULATION · SYNTHETIC DATA · AI VOICE (KOKORO) · MUSIC: HEYGEN LIBRARY"; no NASA logos; no AI-generated images or video (all visuals are the app, drawn shapes or our diagram).
+COMPLIANCE: persistent strip "SIMULATION · SYNTHETIC DATA · AI VOICE AND MUSIC: ELEVENLABS"; no NASA logos; no AI-generated images or video (all visuals are the app, drawn shapes or our diagram).
 BANNED:  dark void with small floating things; glow; three cards in a row; title over a dimmed screenshot; every scene fading up the same way; text moving while read.
 QA:      t=0.2 (frame 0 not blank), 3.5 (8/31 legible), 8 (counter + stamp), 13 (snapshot + timeline), 21 (red box legible), 25.5 (decision), 29 (end card + AI label).

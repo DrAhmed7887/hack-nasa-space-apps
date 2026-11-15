@@ -34,11 +34,11 @@
     const n = { v: 0 };
     tl.fromTo("#pb-mars", { x: 260, opacity: 0 }, { x: 0, opacity: 1, duration: 0.8, ease: "expo.out" }, 0);
     tl.fromTo("#pb-line", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.6, ease: "power2.inOut" }, 0.1);
-    tl.fromTo("#pb-dot", { x: 0 }, { x: 1032, duration: 3.2, ease: "none" }, 0.5);
-    tl.fromTo(n, { v: 0 }, { v: 40, duration: 3.2, ease: "none", onUpdate: () => { document.querySelector("#pb-num").textContent = String(Math.round(n.v)); } }, 0.5);
+    tl.fromTo("#pb-dot", { x: 0 }, { x: 1032, duration: 3.8, ease: "none" }, 0.5);
+    tl.fromTo(n, { v: 0 }, { v: 40, duration: 3.8, ease: "none", onUpdate: () => { document.querySelector("#pb-num").textContent = String(Math.round(n.v)); } }, 0.5);
     tl.fromTo("#pb-count", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.4);
     tl.fromTo("#pb-lab", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "expo.out" }, 0.9);
-    tl.fromTo("#pb-stamp", { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.35, ease: "expo.out" }, 4.4);
+    tl.fromTo("#pb-stamp", { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.35, ease: "expo.out" }, 5.4);
     tl.fromTo("#pb-src", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 1.0);
     window.__timelines["problem"] = tl;
   </script>
