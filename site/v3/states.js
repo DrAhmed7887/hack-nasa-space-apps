@@ -81,8 +81,8 @@ export function trendState({ visits, symptoms, total, band, blocking }) {
   if (symptoms && symptoms.level === "not_done") why.push("Symptom checklist not done today.");
   if (note) why.push(`No configured deterioration pattern. ${note}`);
   if (why.length) return { state: STATES.WATCH, why };
-  const secKnown = ["left", "right"].some((s) => (latest[s]?.payload.sec_grade ?? null) !== null);
-  return { state: STATES.STABLE, why: [`NASA score ${total}; serial scans show no configured deterioration pattern; ${secKnown ? "SEC grade below 3" : "SEC grade not recorded"}; no listed symptoms. Not proof of no thrombosis.`] };
+  const secText = ["left", "right"].map((s) => `${s} SEC ${latest[s]?.payload.sec_grade ?? "not recorded"}`).join(", ");
+  return { state: STATES.STABLE, why: [`NASA score ${total}; serial scans show no configured deterioration pattern; ${secText}; no listed symptoms. Not proof of no thrombosis.`] };
 }
 
 // Team rule (PROPOSED_LOCAL): an assessment may be offered when the latest scan is low/retrograde or SEC 3-4.
@@ -102,7 +102,10 @@ export function flowLifecycle({ study, indicated, redFlag }) {
   }
   const base = { order_id: study.payload.order_id || null, ordered_by_role: study.payload.ordered_by_role || null, protocol: study.payload.protocol_id || "mission-approved protocol" };
   if (!base.order_id || !base.ordered_by_role) return { ...base, status: FLOW.INCOMPLETE, note: "Not authorised: no flight-surgeon order recorded, so no result is shown." };
-  if (study.payload.exclusions_cleared !== true) return { ...base, status: FLOW.INCOMPLETE, note: "Exclusion checks not recorded (thrombus assessment, haemodynamic stability, signal quality): no result shown." };
+  const ex = study.payload.exclusion_checks || {};
+  if (study.payload.exclusions_cleared !== true || !ex.thrombus_assessment || !ex.haemodynamics || !ex.signal_quality || /POOR|SEEN_THROMBUS|PRESENT|UNSTABLE|INDETERMINATE/i.test(JSON.stringify(ex))) {
+    return { ...base, status: FLOW.INCOMPLETE, note: "Exclusion checks not recorded or not passed (thrombus assessment, haemodynamic stability, signal quality): no result shown." };
+  }
   base.exclusion_checks = study.payload.exclusion_checks || null;
   const before = classify({ mean_peak_velocity_cm_s: study.payload.before?.velocity ?? null, direction: study.payload.before?.direction ?? null });
   const after = classify({ mean_peak_velocity_cm_s: study.payload.after?.velocity ?? null, direction: study.payload.after?.direction ?? null });

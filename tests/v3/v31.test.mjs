@@ -104,7 +104,8 @@ test("mission_day null: INCOMPLETE with MISSION_DAY_UNSET", () => {
 });
 
 // ---- flow lifecycle ----
-const study = (o = {}) => ({ payload: { order_id: "O1", ordered_by_role: "flight surgeon", exclusions_cleared: true, before: { velocity: 5, direction: "anterograde" }, after: { velocity: 20, direction: "anterograde" }, ...o } });
+const CHECKS = { thrombus_assessment: "NOT_SEEN_ON_THIS_EXAM", haemodynamics: "stable", signal_quality: "GOOD" };
+const study = (o = {}) => ({ payload: { order_id: "O1", ordered_by_role: "flight surgeon", exclusions_cleared: true, exclusion_checks: CHECKS, before: { velocity: 5, direction: "anterograde" }, after: { velocity: 20, direction: "anterograde" }, ...o } });
 test("flowLifecycle: every status", () => {
   assert.equal(flowLifecycle({ study: null, indicated: false, redFlag: false }).status, FLOW.NOT_INDICATED);
   assert.equal(flowLifecycle({ study: null, indicated: true, redFlag: false }).status, FLOW.INDICATED_PENDING_AUTHORIZATION);
@@ -120,17 +121,23 @@ test("flowLifecycle: every status", () => {
   const noEx = flowLifecycle({ study: study({ exclusions_cleared: undefined }), indicated: true, redFlag: false });
   assert.equal(noEx.status, FLOW.INCOMPLETE);
   assert.match(noEx.note, /Exclusion checks not recorded/);
+  // the flag alone is not enough: the checks must be present and passed (review loop 3)
+  assert.equal(flowLifecycle({ study: study({ exclusion_checks: undefined }), indicated: true, redFlag: false }).status, FLOW.INCOMPLETE);
+  assert.equal(flowLifecycle({ study: study({ exclusion_checks: { ...CHECKS, signal_quality: "POOR" } }), indicated: true, redFlag: false }).status, FLOW.INCOMPLETE);
+  assert.equal(flowLifecycle({ study: study({ exclusion_checks: { ...CHECKS, thrombus_assessment: "PRESENT" } }), indicated: true, redFlag: false }).status, FLOW.INCOMPLETE);
 });
 test("round-2 clinical: C06 (fall to exactly 10.0) is WATCH, never STABLE; missing SEC says 'not recorded'; >6 band keeps priority", () => {
   const c06 = runCase(byId("C06"), {});
   assert.equal(c06.trend.state, STATES.WATCH);
   assert.match(c06.trend.why.join(" "), /at NASA's threshold \(not below it\)/);
   const c01 = runCase(byId("C01"), {});
-  if (c01.trend.state === STATES.STABLE) assert.match(c01.trend.why.join(" "), /SEC grade not recorded/);
+  if (c01.trend.state === STATES.STABLE) assert.match(c01.trend.why.join(" "), /left SEC not recorded, right SEC not recorded/);
   for (const id of ["C07", "C09"]) assert.match(runCase(byId(id), {}).trend.why.join(" "), /does not lower that priority/);
   const c04 = runCase(byId("C04"), extrasFor("C04"));
   assert.match(c04.trend.why.join(" "), /prophylactic apixaban consideration — clinician review required/);
-  assert.match(c04.packet.nasa_score.nasa_documents_note || "", /monitored more often, and hydration should be ensured/);
+  // C04 is DETERIORATING: the MTB-007 "monitor and hydrate" alternative must not be offered (review loop 3)
+  assert.equal(c04.trend.state, STATES.DETERIORATING);
+  assert.equal(c04.packet.nasa_score.nasa_documents_note, null);
 });
 test("flowIndicated: latest in-flight low/retrograde or SEC>=3; baseline-only or normal is false", () => {
   assert.equal(flowIndicated([visit(0, [5], [5])]), false);

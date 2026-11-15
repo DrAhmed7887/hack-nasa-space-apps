@@ -94,8 +94,8 @@ export function runCase(c, extras = {}, opts = {}) {
   // NASA's two documents differ on prophylaxis for stasis without other risk factors (clinical review, round 2).
   const pre = c.preflight || {};
   const stasisPts = nasa.items.find((i) => i.group === "IJV flow")?.points || 0;
-  const nasaDocsNote = nasa.total >= 4 && nasa.total <= 6 && stasisPts === 4 && (pre.family_history || "none") === "none" && !(pre.thrombophilia || []).length && ["none", "low"].includes(pre.hormone || "none")
-    ? "NASA documents differ: SP-20260005258 band 4-6 = prophylactic apixaban; OCHMO-MTB-007 p.12: stasis without family history, thrombophilia or hormones → \"monitored more often, and hydration should be ensured\". The flight surgeon decides." : null;
+  const nasaDocsNote = [STATES.WATCH, STATES.STABLE].includes(trend.state) && nasa.total >= 4 && nasa.total <= 6 && stasisPts === 4 && (pre.family_history || "none") === "none" && !(pre.thrombophilia || []).length && ["none", "low"].includes(pre.hormone || "none")
+    ? "NASA documents differ: SP-20260005258 band 4-6 = prophylactic apixaban; OCHMO-MTB-007 p.12: stasis without family history, thrombophilia or hormones → \"monitored more often, and hydration should be ensured\". MTB-007 applies this to crew with no thrombosis; this does not replace clinical assessment. The flight surgeon decides." : null;
   const milestones = milestoneStatus(timelines, schedule, { acceptSimulated: o.acceptSimulated });
   const anatomy = anatomyWatch(extras.anatomy);
   const ctx = reviewContext(opts.mission || "mars");

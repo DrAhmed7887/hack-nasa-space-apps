@@ -5,7 +5,7 @@ export const V3_SOURCES = {
   "MTB-007-p12": {
     doc: "NASA OCHMO-MTB-007 Venous Thrombosis in Spaceflight (8-Jan-26), p.12",
     url: "https://www.nasa.gov/wp-content/uploads/2026/01/ochmo-mtb-007-venous-thrombosis-in-spaceflight.pdf",
-    quote: "Treatment: Apixaban 10 mg twice a day for 7 days; afterwards 5 mg twice a day ... Crew with no thrombosis but who have stasis with family history, thrombophilia, and/or who are taking any hormones that increase the risk of VTE ... should be provided prophylaxis: Prophylaxis dose: Apixaban 2.5 mg twice a day",
+    quote: "Treatment: Apixaban 10 mg twice a day for 7 days; afterwards 5 mg twice a day ... Crew with no thrombosis but who have stasis with family history, thrombophilia, and/or who are taking any hormones that increase the risk of VTE ... should be provided prophylaxis: Prophylaxis dose: Apixaban 2.5 mg twice a day. Crew with no thrombosis but who have stasis and no family history and/or thrombophilia and who are not taking any hormones that increase the risk of VTE should be monitored more often, and hydration should be ensured.",
   },
   "MTB-007-p13": {
     doc: "NASA OCHMO-MTB-007 Venous Thrombosis in Spaceflight (8-Jan-26), p.13",
