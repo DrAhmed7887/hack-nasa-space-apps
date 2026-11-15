@@ -23,5 +23,9 @@ Every claim or number that appears in the README, the project page, the slides o
 | Packet carries the score, its sources, the latest scan state, the symptom report and the message shown; a failed hand-off is reported | README, app | `tests/test_handoff.py` (packet parts, demo case C11, failed hand-off) | 15 Nov |
 | "A teammate used ChatGPT (OpenAI) to explore features after the team chose VTE" | README | Team statement, 15 Nov | 15 Nov |
 | "Four NASA sources" (slide 6, JUDGES, README) | slides, JUDGES, README | `vte/sources.py` has four entries: VTE-2026, MTB-007, TB-007, NTRS-20250002759 | 15 Nov |
+| "Real, de-identified values from the 4 Inspiration4 crew (3-day orbital flight, 2021), shown as group range and mean only" | app panel | `site/i4_context.json`, built by `data/i4_summary.py` from OSDR files `LSDS-8_Multiplex_serum.cardiovascular.EvePanel_SUBMITTED.csv` (OSD-575; Fibrinogen, PF4, ng/ml) and `LSDS-7_Complete_Blood_Count_CBC.upload_SUBMITTED.csv` (OSD-569; PLATELET COUNT, Thousand/uL), read 15 Nov. "4 crew", "no in-flight draws" and the timepoints are what the files contain (n = 4 at each of 7 timepoints) | 15 Nov |
+| Every number in the panel (n, min, max, mean) | app panel | Computed by `data/i4_summary.py`; `tests/test_i4_context.py` checks only those four statistics are stored and n <= 4 | 15 Nov |
+| "Not used in the risk score" | app panel | `tests/test_i4_context.py::test_score_code_does_not_touch_the_context_data` | 15 Nov |
+| "Data are courtesy of the NASA Open Science Data Repository" | app panel, README | OSDR credit line as requested by the repository | 15 Nov |
 
 _AI-assisted: this file was drafted with Claude Code and is checked by the team._

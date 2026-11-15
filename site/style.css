@@ -158,3 +158,11 @@ details summary { cursor: pointer; margin-top: 6px; color: var(--accent); }
 .foot { border-top: 1px solid var(--line); padding: var(--s4) 0 var(--s6); color: var(--muted); font-size: 0.9rem; }
 .foot p { margin: var(--s1) 0; }
 @media (max-width: 480px) { h1 { font-size: 1.6rem; } .big { font-size: 2.8rem; } .track { margin: 0 40px; } }
+
+/* Inspiration4 context panel (group summaries only) */
+.i4-card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--inset); padding: var(--s3) var(--s4); margin-top: var(--s3); }
+.i4-svg { width: 100%; height: auto; display: block; }
+.i4-tablewrap { overflow-x: auto; }
+.i4-table { border-collapse: collapse; width: 100%; font-size: 0.88rem; margin-top: var(--s2); }
+.i4-table th, .i4-table td { border-bottom: 1px solid var(--line); padding: 4px 8px; text-align: right; }
+.i4-table th[scope="row"], .i4-table thead th:first-child { text-align: left; }

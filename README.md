@@ -7,7 +7,7 @@ An entry for the **NASA Space Apps Challenge 2026**, challenge [Create Health Mo
 
 **Try it in 30 seconds:** `python3 -m http.server -d site 8000`, open http://localhost:8000, pick case **C11** (score 1 point, yet a new change in vision is ticked): the score stays at 1, the checklist shows its own message, the packet panel shows what the ground receives. No login. Hosted: https://drahmed7887.github.io/hack-nasa-space-apps/ (no login). **Rebuild everything:** `bash scripts/reproduce.sh` (offline, no keys).
 
-> **SIMULATION: NOT FOR OPERATIONAL MEDICAL USE.** Synthetic data only. VTE Watch ranks and organizes NASA-referenced risk for flight-surgeon review. It does not detect, diagnose or predict clots, and the risk score is not a diagnostic test. New symptoms need their own assessment whatever the score.
+> **SIMULATION: NOT FOR OPERATIONAL MEDICAL USE.** Synthetic data for every case; the only real data is a labelled group-summary context panel. VTE Watch ranks and organizes NASA-referenced risk for flight-surgeon review. It does not detect, diagnose or predict clots, and the risk score is not a diagnostic test. New symptoms need their own assessment whatever the score.
 
 ## The problem
 Astronauts on long missions can develop clots in the internal jugular vein (IJV). In NASA's own data, 8 of 31 astronauts had a left IJV flow anomaly in flight. In July 2026 NASA published a **VTE Risk Score for Astronauts** (NASA/SP-20260005258 REV1) that adds pre-flight factors to in-flight ultrasound and D-dimer findings, with four action bands. Further from Earth, the ground's answer takes longer to arrive: near real time in low Earth orbit, up to 40 minutes each way at Mars, where NASA lists "No evacuation capability" (OCHMO-TB-007).
@@ -36,6 +36,9 @@ The ground agent makes **no clinical decision**: it queues the packet for a huma
 | Tests | `tests/` | 68 tests: hand-worked expected totals, NASA rule edges, the real A2A run, JS/Python parity |
 
 **Measured:** all 11 synthetic cases match totals worked out by hand from the NASA table before the first run (`tests/test_score.py`).
+
+## Real NASA data (context only)
+The app has a panel with real group summaries (n, min, max, mean; no per-person values) from the Inspiration4 crew: Fibrinogen and PF4 (OSD-575) and platelet count (OSD-569), before and after a 3-day flight, none in flight. It is context only: not used in the risk score, and it says nothing about any individual. Data are courtesy of the NASA Open Science Data Repository (https://osdr.nasa.gov/bio/repo). Details and privacy rule: [DATA_CARD.md](DATA_CARD.md). Rebuild: `python data/i4_summary.py <folder with the two OSDR files>`.
 
 ## NASA data and resources used (four sources, as listed in `vte/sources.py`)
 - NASA/SP-20260005258 REV1, *NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting – April 2026* (July 2026): the score, the bands, the stasis and D-dimer criteria. https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf
