@@ -32,4 +32,4 @@ Before v3 the suite had 79 tests. The 5 tests in `tests/test_handoff.py` tested 
 Five-stage manoeuvre logger with abort and adverse-event capture, astronaut and flight-surgeon split views, encryption at rest and role-based access, ground acknowledgement, D-dimer assay comparability metadata, sync-conflict resolution UI.
 
 ## Sign-off
-Rules 2, 4-8 are PROPOSED_LOCAL team rules, not clinically validated. Team physician sign-off: **pending** (status is updated here when signed).
+Rules 2, 4-8 are PROPOSED_LOCAL team rules, not clinically validated. **Signed by the team physician on 15 Nov 2026, 13:18 Valencia time** ("Yes, I sign them"), as written in this file at commit e0017de. Signing approves them for this synthetic-data prototype only; it is not clinical validation.
