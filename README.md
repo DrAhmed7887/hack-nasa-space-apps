@@ -2,10 +2,10 @@
 
 An entry for the **NASA Space Apps Challenge 2026**, challenge [Create Health Monitoring Software for Astronauts on Space Missions](https://www.spaceappschallenge.org/2026/challenges/health-monitoring-software/) (Boston local event, virtual). Team: Orbital Health Informatics.
 
-**What it is:** a synthetic-data prototype that puts three things side by side for a flight surgeon: NASA's own VTE risk score with its sources, the crew member's jugular-vein scan trend, and a daily symptom checklist, then hands them to the ground over A2A with a simulated delay.
+**What it is:** a synthetic-data, offline-capable prototype for longitudinal venous health monitoring and flight-surgeon decision support. It keeps NASA's own VTE risk score unchanged and builds around it an append-only record with provenance, four separate timelines (ultrasound, laboratory, wearable telemetry, symptoms), bounded trend states, a symptom guardrail, a flow-response measurement log, a medication and landing check, data-quality reconciliation and a signed flight-surgeon packet. No autonomous agents: every clinical decision is the flight surgeon's.
 **What it is not:** a detector, a diagnosis, a prediction or a validated early-warning system. It measures no diagnostic or predictive performance.
 
-**Try it in 30 seconds:** `python3 -m http.server -d site 8000`, open http://localhost:8000, pick case **C11** (score 1 point, yet a new change in vision is ticked): the score stays at 1, the checklist shows its own message, the packet panel shows what the ground receives. No login. Hosted: https://drahmed7887.github.io/hack-nasa-space-apps/ (no login). **Rebuild everything:** `bash scripts/reproduce.sh` (offline, no keys).
+**Try it in 30 seconds:** `python3 -m http.server -d site 8000`, open http://localhost:8000, pick case **C11** (score 1 point, yet a new change in vision is ticked): the score stays at 1 and the engine goes to RED FLAG OVERRIDE. Then pick **C05**: the left IJV went from forward flow to low velocity and its SEC grade rose, so the state is DETERIORATING; the medication panel flags itraconazole against apixaban (FDA label) and shows the landing hold from the clinician-approved plan. No login. Hosted: https://drahmed7887.github.io/hack-nasa-space-apps/ (no login). **Rebuild everything:** `bash scripts/reproduce.sh` (offline, no keys).
 
 > **SIMULATION: NOT FOR OPERATIONAL MEDICAL USE.** Synthetic data for every case; the only real data is a labelled group-summary context panel. VTE Watch ranks and organizes NASA-referenced risk for flight-surgeon review. It does not detect, diagnose or predict clots, and the risk score is not a diagnostic test. New symptoms need their own assessment whatever the score.
 
@@ -17,9 +17,15 @@ Astronauts on long missions can develop clots in the internal jugular vein (IJV)
 2. **Schedules** the IJV ultrasound scans from OCHMO-MTB-007 (L+30, L+60, R-42 days) and shows the next one due.
 3. **Shows the scan trend** (left and right IJV at baseline, L+30, L+60, R-42) with neutral labels: "Forward flow", "Low velocity (mean peak <10 cm/s anterograde)", "Retrograde flow", "Not measured". The score's +4 is read from the same latest recorded in-flight scan the trend shows, so they cannot disagree.
 4. **Collects a daily symptom checklist** in plain words. It adds no points and is shown apart from the score. If a face, arm or grip, speech, vision, hearing, pupil or confusion symptom (or "sudden or severe") is ticked, it says to start the onboard emergency procedure now and not wait for the app or a ground reply; any other symptom says to report today through the mission medical procedure; none ticked says "No listed symptoms reported. This does not exclude thrombosis."
-5. **Hands off** the review packet (score, its sources, latest scan state, symptom report and the message shown) from an onboard agent to a ground agent over **A2A** (Agent2Agent protocol 1.0), with the mission's communication delay. The score and band stay the same at LEO, the Moon and Mars; what changes is the earliest time a ground reply could reach the crew (3 s, 28 s, 80 min round trip, simulated at the upper end of NASA's published ranges). One-way delay is not clinical response time.
-
-The ground agent makes **no clinical decision**: it queues the packet for a human flight surgeon.
+5. **Runs the v3 clinical engine** (section 8 of the app; rules, sources and sign-off status in [docs/V3_RULES.md](docs/V3_RULES.md)):
+   - **Append-only observation store** with provenance on every value (measured, manually entered, imported, simulated, unavailable, invalid, stale), unit normalisation, amendments that never overwrite, and a tamper-evident hash chain (demo hash, not cryptographic).
+   - **Four separate timelines.** Only a duplex ultrasound study can meet a scan milestone or feed NASA's <10 cm/s row; a lab result (such as an L+14 D-dimer) or wearable Doppler never can. Nothing is interpolated between scans.
+   - **Bounded trend states, never a score:** DATA_INSUFFICIENT (fewer than 2 usable scans, stale or conflicting data), RED_FLAG_OVERRIDE (any emergency symptom, whatever the score), DETERIORATING, FLOW_RESPONSE_ASSESSMENT_INDICATED, WATCH, STABLE.
+   - **Flow-response log:** a flight-surgeon-ordered before/after measurement, always shown with "does not exclude thrombosis or reduce future VTE risk".
+   - **Safety interlocks:** the orchestrator only prompts; outputs such as THROMBOSIS_ABSENT, SAFE_TO_CONTINUE or ANTICOAGULATION_INDICATED are blocked in code.
+   - **Medication and landing check:** NASA's apixaban references, the landing hold (MTB-007: 48 h treatment, 24 h prophylaxis; SP-20260005258: 48 h) computed only from a clinician-approved plan that names its guidance, EVA holds, CYP3A4/P-gp interaction flags from the FDA label, an inventory-only reversal register, AVERROES bleeding context. It never starts, stops, doses or reverses a medicine.
+   - **Data quality and the packet:** missing, stale, duplicate or conflicting data make the packet INCOMPLETE, not decision-ready. The packet (JSON download and one-page print) carries engine versions, provenance, data-quality state, claim boundaries and the sign-off status.
+6. **Shows the mission context:** the score and band stay the same at LEO, the Moon and Mars; what changes is the earliest time a ground reply could reach the crew (3 s, 28 s, 80 min round trip, simulated at the upper end of NASA's published ranges). Every safety check runs onboard, in the page, with no network.
 
 ## How it works
 | Part | File | Notes |
@@ -27,13 +33,13 @@ The ground agent makes **no clinical decision**: it queues the packet for a huma
 | NASA VTE score | `vte/score.py` | Pure functions, no randomness. Verbatim rule text with every item |
 | Scan schedule | `vte/score.py` (`scan_schedule`) | OCHMO-MTB-007 example schedule |
 | Mission context | `vte/missions.py` | OCHMO-TB-007 quotes; delay labelled as simulated |
-| A2A agents | `agents/handoff.py` | Two real A2A servers on 127.0.0.1 (a2a-sdk 1.3.0); every HTTP exchange recorded |
 | Scan trend | `vte/trend.py`, `site/trend.js` | Neutral labels; velocity and direction stored separately; feeds the score's +4 |
 | Symptom checklist | `vte/symptoms.py`, `site/symptoms.js` | Signed rule, no points; Python and JS tested for parity |
-| Hand-off packet | `vte/packet.py` | Built once, sent by the onboard agent; failed delivery is reported, never hidden |
+| v3 clinical engine | `site/v3/` (`store.js`, `timeline.js`, `states.js`, `orchestrator.js`, `meds.js`, `pipeline.js`, `sources.js`) | Pure functions in the browser, no network calls; rules and sources in `docs/V3_RULES.md` |
+| v3 scenario inputs | `site/v3_extras.json` | Synthetic SEC grades, wearable readings, flow-response study, IJV ratio, medication, landing plan, kit inventory (C05, C11, C04) |
 | Synthetic cases | `data/generate.py` → `data/crew_cases.json` | 11 cases with scan series and symptom reports, seeded and calibrated to NASA's published 31-astronaut cohort (normal flow drawn from the reported 18–70 cm/s no-stasis range; boundaries from the <10 cm/s rule); see [DATA_CARD.md](DATA_CARD.md) |
-| Web app | `site/` | Static; recalculates in the browser (`site/score.js`, tested against Python); the A2A panel replays the recorded real run and says so |
-| Tests | `tests/` | 79 tests: hand-worked expected totals, NASA rule edges, the real A2A run, JS/Python parity |
+| Web app | `site/` | Static; recalculates in the browser (`site/score.js`, tested against Python) |
+| Tests | `tests/`, `tests/v3/` | Python: hand-worked expected totals, NASA rule edges, JS/Python parity. Node (`node --test tests/v3/*.test.mjs`): the v3 acceptance criteria |
 
 **Measured:** all 11 synthetic cases match totals worked out by hand from the NASA table before the first run (`tests/test_score.py`).
 
@@ -59,7 +65,7 @@ The app has a panel with real group summaries (n, min, max, mean; no per-person 
 
 This follows the Space Apps rules on AI ("SI") use.
 
-- **The idea comes from the team.** The team physician chose the target (VTE in spaceflight), the use of A2A agents and the mission-distance angle. At the team's request, AI tools also critiqued and compared the team's own candidate ideas; no AI tool proposed the core idea.
+- **The idea comes from the team.** The team physicians chose the target (VTE in spaceflight), the mission-distance angle and the v3 architecture (an eight-component, no-agent design from the team's own specification, which replaced the earlier A2A agents on 15 Nov). At the team's request, AI tools also critiqued and compared the team's own candidate ideas; no AI tool proposed the core idea.
 - **Claude Code (Anthropic)** helped with research checks (each fact traced to its NASA source), code, tests and editing.
 - **A teammate used ChatGPT (OpenAI)** to explore features after the team chose VTE; the features were adapted and checked against NASA sources with Claude Code.
 - **Other models** (Qwen, GPT, Gemini) were asked to compare and critique the team's own candidate directions in a private review.

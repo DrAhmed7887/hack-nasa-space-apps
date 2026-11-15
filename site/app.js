@@ -1,8 +1,10 @@
 // AI-assisted: written with Claude Code (Anthropic) for the NASA Space Apps 2026 entry. Synthetic data only.
-// UI for the VTE score calculator, mission hand-off and A2A replay. The score comes from score.js (port of vte/score.py).
+// UI for the VTE score calculator, the v3 clinical engine panel and the flight-surgeon packet. The score comes from score.js (port of vte/score.py).
 import { SYMPTOMS, assess, emptyReport } from "./symptoms.js";
 import { classify, ijvFromScans, latestInFlight, scanState, trendRows, FORWARD, LOW, RETRO, NOT_MEASURED, TREND_NOTE } from "./trend.js";
 import { score, scanSchedule, nextScan, reviewContext, fmtSeconds, MISSIONS, SOURCES, InputError } from "./score.js";
+import { runCase, packetSummary } from "./v3/pipeline.js";
+import { V3_SOURCES } from "./v3/sources.js";
 
 const APP_NAME = "VTE Watch"; // working name: change it here only
 const DEFAULT_CASE = "C05";
@@ -23,7 +25,7 @@ function h(tag, attrs, ...kids) {
 document.title = APP_NAME;
 $("app-name").textContent = APP_NAME;
 
-const state = { replay: null, stock: {}, caseId: null, stockSig: null, mission: DEFAULT_MISSION, scans: [], slot: 1 };
+const state = { extras: {}, stock: {}, caseId: null, stockSig: null, mission: DEFAULT_MISSION, scans: [], slot: 1, signoff: null };
 
 const blankSide = () => ({ mean_peak_velocity_cm_s: null, direction: null });
 const DEFAULT_SCANS = [["Baseline", 0, false, true], ["L+30 days", 30, true, false], ["L+60 days", 60, true, false], ["R-42 days", 138, true, false]]
@@ -165,7 +167,7 @@ function render() {
   renderTrend(c, res);
   renderSchedule(c, res);
   renderMission(c, res);
-  renderReplay(c, res);
+  renderV3(c, res);
   syncUrl();
 }
 
@@ -249,37 +251,7 @@ function renderSchedule(c, res) {
   }
 }
 
-function currentRun(c) {
-  if (!state.replay || !state.caseId || !c || sig(c) !== state.stockSig) return null;
-  return state.replay.runs.find((r) => r.case_id === state.caseId && r.mission === state.mission) || null;
-}
-
-const run0 = (c) => currentRun(c);
-
-function buildPacket(c, res) {
-  const a = assess(c.symptoms);
-  const ids = [...new Set(res.items.map((i) => i.source))];
-  return { score: res, score_sources: ids.map((id) => ({ id, title: SOURCES[id].title, url: SOURCES[id].url })), scan_state: scanState(c.scans), symptom_report: a, message_shown: a.message };
-}
-
-function renderPacket(out, c, res, run) {
-  if (!res || !c) return;
-  const p = run ? run.packet : buildPacket(c, res);
-  const st = p.scan_state;
-  const sr = p.symptom_report;
-  const item = (k, v) => h("li", {}, h("b", {}, k), v);
-  out.append(
-    h("h3", {}, "What the ground receives in the packet"),
-    h("p", { class: "hint" }, run ? "From the recorded run." : "Built in the browser with the same fields (this case is not the stock recording)."),
-    h("ul", { class: "pkt" },
-      item("NASA score", `${p.score.total} point${p.score.total === 1 ? "" : "s"}: ${p.score.nasa_reference_band}`),
-      item("Sources", p.score_sources.map((x) => x.id).join(", ")),
-      item("Latest scan state", st.label ? `${st.label}: left ${st.left}; right ${st.right}. ${st.note}` : st.note),
-      item("Symptom report", `${sr.ticked_labels.length ? sr.ticked_labels.join("; ") : "none ticked"}${sr.sudden_or_severe ? "; sudden or severe" : ""}${sr.checklist_done ? "; checklist done today" : "; checklist not marked done"}. Adds no points.`),
-      item("Message shown to the crew", p.message_shown)),
-    h("p", { class: "hint" }, "The crew sees that message at once, onboard. It never waits for the ground, and the ground agent makes no clinical decision."));
-}
-
+// ---------- 7. mission context (latency only; the score never changes with distance) ----------
 function renderMission(c, res) {
   const out = $("mission-out");
   out.replaceChildren();
@@ -290,90 +262,105 @@ function renderMission(c, res) {
        ["Simulated one-way delay", `${fmtSeconds(ctx.simulated_one_way_delay_s)} (simulation; ${ctx.delay_basis})`], ["Earliest ground reply", fmtSeconds(ctx.earliest_ground_reply_s)]]
         .map(([k, v]) => h("div", {}, h("dt", {}, k), h("dd", {}, v)))),
     h("p", { class: "hint" }, SAFETY_DELAY),
-    h("p", { class: "hint" }, "Sources: ", ctx.sources.map((s, i) => [i ? ", " : "", sourceLink(s)]))
-  );
-
+    h("p", { class: "hint" }, "Every safety check below runs onboard, in this page, with no network. The packet waits in the outbox until the link is up; nothing onboard waits for a ground reply."),
+    h("p", { class: "hint" }, "Sources: ", ctx.sources.map((s, i) => [i ? ", " : "", sourceLink(s)])));
   if (res) {
-    out.append(h("p", {}, "The score does not change with distance. Only the review context does."));
     out.append(h("div", { class: "same", "aria-label": "Score by mission" },
       Object.keys(MISSIONS).map((m) => h("span", { class: m === state.mission ? "on" : "" }, `${MISSIONS[m].name}: ${res.total} point${res.total === 1 ? "" : "s"}, ${res.nasa_reference_band.split(" = ")[1] || "no band"}`))));
   }
-
-  renderPacket(out, c, res, run0(c, res));
-
-  // timestamps: from the recording for stock cases, computed with the same rule otherwise
-  const run = currentRun(c);
-  let sent = null, recv = null, reply = null, from = "";
-  if (run) {
-    sent = run.packet.sent_at_mission_s; recv = run.ground_ack.received_at_mission_s; reply = run.ground_ack.reply_reaches_crew_at_mission_s;
-    from = "From the recorded run.";
-  } else if (c && Number.isInteger(c.inflight.mission_day)) {
-    const d = ctx.simulated_one_way_delay_s;
-    sent = c.inflight.mission_day * 86400; recv = sent + d; reply = sent + 2 * d;
-    from = "Computed here with the same simulated delay (this case is not the stock recording).";
-  }
-  const flight = h("div", { class: "flight" },
-    h("div", { class: "track", "aria-hidden": "true" },
-      h("div", { class: "node a" }, "SC"), h("div", { class: "node b" }, "GND"),
-      h("span", { class: "nl a" }, "Spacecraft"), h("span", { class: "nl b" }, "Ground"),
-      h("div", { class: "packet go", id: "packet" })),
-    h("div", { class: "flight-bar" },
-      h("button", { type: "button", id: "replay-anim" }, "Replay animation"),
-      h("span", { class: "hint" }, "The animation is short on purpose; the clock below shows the simulated delay.")));
-  out.append(flight);
-  if ($("fail-handoff").checked) {
-    out.append(h("p", { class: "notice", role: "status" }, "Simulated failure: the ground was not reached, so nothing was delivered. The message shown to the crew above is unchanged; the packet would be re-sent when the link returns."));
-  } else if (sent !== null) {
-    out.append(
-      h("dl", { class: "clock" },
-        h("div", {}, h("dt", {}, "Packet sent from the spacecraft"), h("dd", {}, fmtClock(sent), ` (${fmtInt(sent)} s)`)),
-        h("div", {}, h("dt", {}, "Received at the ground"), h("dd", {}, fmtClock(recv), ` (${fmtInt(recv)} s)`)),
-        h("div", {}, h("dt", {}, "Ground reply reaches the crew"), h("dd", {}, fmtClock(reply), ` (${fmtInt(reply)} s)`))),
-      h("p", { class: "hint" }, `Mission clock. ${from} The ground agent makes no clinical decision: a flight surgeon reviews the packet.`));
-  } else {
-    out.append(h("p", { class: "hint" }, "Set a valid mission day to see the mission-clock timestamps."));
-  }
-  $("replay-anim").addEventListener("click", () => {
-    const p = $("packet");
-    p.classList.remove("go");
-    void p.offsetWidth;
-    p.classList.add("go");
-  });
 }
 
-function renderReplay(c, res) {
-  const out = $("replay-out");
+// ---------- 8. clinical engine v3 ----------
+const STATE_CLASS = { RED_FLAG_OVERRIDE: "emergency", DETERIORATING: "report_today", FLOW_RESPONSE_ASSESSMENT_INDICATED: "report_today", WATCH: "none_reported", STABLE: "none_reported", DATA_INSUFFICIENT: "not_done" };
+const v3src = (id) => {
+  const s = V3_SOURCES[id];
+  if (!s) return id || "";
+  return s.url ? h("a", { href: s.url, target: "_blank", rel: "noopener", title: s.quote }, s.doc) : s.doc;
+};
+let lastRun = null;
+
+function renderV3(c, res) {
+  const out = $("v3-out");
   out.replaceChildren();
-  const st = $("replay-status");
-  if (!state.replay) {
-    st.textContent = "The recorded replay (replay.json) could not be loaded. The calculator above still works.";
-    st.className = "error";
+  lastRun = null;
+  if (!c || !res) { out.append(h("p", { class: "hint" }, "Fix the case input above to run the clinical engine.")); return; }
+  let r;
+  try {
+    const extras = { ...(state.extras.cases?.[state.caseId] || {}) };
+    extras.meds = extras.meds ? { ...extras.meds, kit: state.extras.kit || [] } : { regimen: "none", kit: state.extras.kit || [] };
+    r = runCase(c, extras, { signoff: state.signoff });
+  } catch (e) {
+    out.append(h("p", { class: "error" }, `Clinical engine stopped safely: ${e.message}`));
     return;
   }
-  st.className = "hint";
-  st.textContent = `Recorded ${state.replay.recorded_at_utc} UTC, ${state.replay.a2a_sdk}.`;
-  const run = currentRun(c);
-  if (!run) {
-    out.append(h("p", { class: "notice" }, "You have edited this case, so the replay is hidden: it shows the stock cases only. Pick a case from the list above to see its recorded exchange."));
-    return;
-  }
-  const xs = state.replay.exchanges.filter((e) => e.case_id === state.caseId && e.mission === state.mission);
-  out.append(h("p", {}, `${state.caseId}, ${MISSIONS[state.mission].name}: ${xs.length} HTTP exchanges between the onboard agent and the ground agent.`));
-  out.append(h("ol", { class: "ex" }, xs.map((e) => {
-    const isReq = e.dir === "request";
-    const what = e.path.includes("agent-card") ? "Agent card" : "SendMessage (message/send)";
-    const who = e.port_role === "ground" ? "ground agent" : "onboard agent";
-    let pretty = null;
-    if (e.body) { try { pretty = JSON.stringify(JSON.parse(e.body), null, 2); } catch { pretty = String(e.body); } }
-    return h("li", {},
-      h("div", { class: "row" },
-        h("span", { class: "badge" + (isReq ? " req" : "") }, isReq ? "request" : "response"),
-        h("strong", {}, what), `${isReq ? "to" : "from"} ${who}`,
-        h("code", {}, isReq ? `${e.method} ${e.path}` : `${e.status} ${e.path}`),
-        h("span", { class: "hint" }, `${e.bytes} bytes`)),
-      pretty ? h("details", {}, h("summary", {}, "Show raw JSON body"), h("pre", {}, pretty)) : null);
-  })));
-  if (state.caseId !== "C05") out.append(h("p", { class: "hint" }, "Raw bodies are kept for case C05 only; the other cases show the sequence and sizes."));
+  lastRun = r;
+  const p = r.packet, d = r.decision;
+  const item = (k, ...v) => h("li", {}, h("b", {}, k), ...v);
+  out.append(
+    h("p", { class: "sym-msg " + (STATE_CLASS[d.state] || "") }, h("b", {}, d.state.replaceAll("_", " ")), ": ", d.action),
+    h("ul", { class: "hint" }, d.why.map((w) => h("li", {}, w))),
+    ...(d.flow_response ? [h("p", { class: "notice" }, h("b", {}, `Flow response (order ${r.flow.order_id}, ${r.flow.ordered_by_role}): ${r.flow.before} → ${r.flow.after}. `), d.flow_response.note, " ", d.flow_response.action)] : []),
+    h("p", { class: "hint" }, "Bounded states, never a score: NASA's points above are unchanged by anything in this panel. Thresholds are team rules, signed by the team physician, not clinically validated."));
+
+  // timelines
+  const tl = r.timelines;
+  const rowsFor = (k) => tl[k].map((e) => {
+    const pl = e.payload;
+    const val = e.observation_type === "IJV_DUPLEX_STUDY" ? `${pl.side} ${pl.velocity ?? "–"} cm/s ${pl.direction || ""}${pl.sec_grade ? ` · SEC ${pl.sec_grade}` : ""}`
+      : e.observation_type === "DDIMER" ? `${pl.value} ${pl.unit}`
+      : e.observation_type === "WEARABLE_CW_DOPPLER" ? `${pl.velocity} cm/s (trend only, not diagnostic)`
+      : e.observation_type === "FLOW_RESPONSE_STUDY" ? `before ${pl.before?.velocity} → after ${pl.after?.velocity} cm/s`
+      : (pl.ticked || []).length ? `${pl.ticked.length} ticked` : "none ticked";
+    return h("tr", {}, h("td", {}, e.effective_day ?? "day not recorded"), h("td", {}, e.label || e.observation_type), h("td", {}, val), h("td", {}, e.provenance), h("td", {}, e.quality), h("td", { class: "mono" }, e.observation_id));
+  });
+  out.append(h("h3", {}, "Four separate timelines (append-only record)"),
+    ...["ultrasound", "laboratory", "wearable_telemetry", "symptom"].map((k) => h("details", { open: k === "ultrasound" ? true : null },
+      h("summary", {}, `${k.replace("_", " ")} (${tl[k].length})`),
+      tl[k].length ? h("div", { class: "i4-tablewrap" }, h("table", { class: "i4-table" },
+        h("thead", {}, h("tr", {}, ["Mission day", "What", "Value", "Provenance", "Quality", "ID"].map((x) => h("th", { scope: "col" }, x)))),
+        h("tbody", {}, rowsFor(k)))) : h("p", { class: "hint" }, "No entries. Nothing is filled in between scans."),
+      k === "wearable_telemetry" && tl[k].length ? h("p", { class: "hint" }, "Trend-only telemetry; not diagnostic for IJV stasis and never used for NASA's <10 cm/s rule.") : null)),
+    h("p", { class: "hint" }, "Scan milestones (only a duplex ultrasound study can meet one): ",
+      r.milestones.map((m, i) => [i ? " · " : "", `${m.label}: ${m.satisfied ? "met" : "open"}`])));
+
+  // anatomy
+  if (p.anatomy) out.append(h("p", { class: "notice" }, h("b", {}, `IJV right/left ratio ${p.anatomy.ijv_ratio_r_to_l}: `), p.anatomy.text, " Source: ", v3src(p.anatomy.source), "."));
+
+  // medication
+  const m = p.medication;
+  out.append(h("h3", {}, "Medication safety and landing (human sign-off on every change)"),
+    h("ul", { class: "pkt" },
+      item("Recorded regimen", `${m.regimen_label}${m.recorded_by_role ? ` (recorded by ${m.recorded_by_role})` : ""}. `, m.regimen_source ? v3src(m.regimen_source) : ""),
+      item("Landing", m.landing.text, m.landing.days_until_hold != null ? ` Days until the reference hold: ${m.landing.days_until_hold}.` : "", m.landing.differs ? ` ${m.landing.differs}` : "", m.landing.source ? [" ", v3src(m.landing.source)] : ""),
+      ...m.evas.map((x) => item("EVA", x.text, " ", v3src(x.source))),
+      ...m.interactions.map((x) => item(`Interaction check: ${x.drug.replaceAll("_", " ")}`, `${x.class ? x.class + ", " + x.effect + ". " : ""}${x.flag} `, x.source ? v3src(x.source) : "")),
+      item("Bleeding context", m.bleeding_context.text, " ", v3src(m.bleeding_context.source)),
+      item("Reversal register", m.reversal_register.length ? m.reversal_register.map((k) => `${k.item} ×${k.quantity} (exp. ${k.expires})`).join("; ") : "No kit items recorded.", ". ",
+        m.reversal_notes.map((n, i) => [i ? " " : "", n.text, " ", v3src(n.source)]))),
+    h("p", { class: "hint" }, "The app never starts, stops, doses or reverses a medicine. It shows NASA and FDA reference text and flags what the flight surgeon must review."));
+
+  // data quality + packet
+  const dq = p.data_quality;
+  out.append(h("h3", {}, "Data quality, provenance and the packet"),
+    h("p", { class: p.status === "COMPLETE" ? "hint" : "error" }, `Packet status: ${p.status}. `, p.status === "INCOMPLETE" ? `Not decision-ready: ${p.missing_or_blocking.join("; ")}.` : "All mandatory inputs present (simulated data: never operational)."),
+    h("p", { class: "hint" }, `Provenance: ${Object.entries(p.provenance).map(([k, v]) => `${k} ${v}`).join(", ")}. Audit chain ${dq.audit_chain.ok ? "intact" : "BROKEN at " + dq.audit_chain.broken_at}. Unresolved conflicts: ${dq.unresolved_conflicts}.`),
+    h("details", {}, h("summary", {}, `Data-quality notes (${dq.issues.length})`), h("ul", { class: "hint" }, dq.issues.map((i) => h("li", {}, `${i.code}${i.blocking ? " (blocking)" : ""}: ${i.detail}`)))),
+    h("div", { class: "flight-bar" },
+      h("button", { type: "button", id: "v3-sign" }, p.signoff.status === "SIGNED" ? "Signed (simulation): undo" : "Sign as flight surgeon (simulation)"),
+      h("button", { type: "button", id: "v3-json" }, "Download packet (JSON)"),
+      h("button", { type: "button", id: "v3-print" }, "Print one-page summary")),
+    h("p", { class: "hint" }, `Sign-off: ${p.signoff.status}${p.signoff.by_role ? ` by ${p.signoff.by_role}, mission day ${p.signoff.day}` : ""}. Engine versions and claim boundaries travel inside the packet.`),
+    h("ol", { class: "hint", id: "v3-summary" }, packetSummary(p).map((l) => h("li", {}, l))));
+  $("v3-sign").addEventListener("click", () => {
+    state.signoff = state.signoff?.status === "SIGNED" ? null : { status: "SIGNED", by_role: "flight surgeon (simulation)", day: c.inflight.mission_day };
+    render();
+  });
+  $("v3-json").addEventListener("click", () => {
+    const blob = new Blob([JSON.stringify(lastRun.packet, null, 1)], { type: "application/json" });
+    const a = h("a", { href: URL.createObjectURL(blob), download: `vte-watch-packet-${state.caseId || "custom"}.json` });
+    document.body.append(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);
+  });
+  $("v3-print").addEventListener("click", () => window.print());
 }
 
 // ---------- URL, init ----------
@@ -406,7 +393,7 @@ function setMission(m) {
 
 function onEdit() {
   if (state.caseId && !currentSigMatches()) {
-    $("case-note").textContent = `Custom case (edited from ${state.caseId}). The replay shows stock cases only.`;
+    $("case-note").textContent = `Custom case (edited from ${state.caseId}).`;
   } else if (state.caseId) {
     $("case-note").textContent = `Stock case ${state.caseId}. Editing any field makes it a custom case.`;
   }
@@ -490,12 +477,18 @@ async function init() {
     h("li", {}, h("a", { href: s.url, target: "_blank", rel: "noopener" }, `${id}: ${s.title}`), h("div", { class: "hint" }, `Used for: ${s.used_for}`))));
 
   try {
-    const r = await fetch("replay.json");
+    const r = await fetch("cases.json");
     if (!r.ok) throw new Error(String(r.status));
-    state.replay = await r.json();
-    for (const c of state.replay.cases) state.stock[c.id] = c;
+    for (const c of (await r.json()).cases) state.stock[c.id] = c;
   } catch (e) {
-    state.replay = null;
+    state.stock = {};
+  }
+  try {
+    const r = await fetch("v3_extras.json");
+    if (!r.ok) throw new Error(String(r.status));
+    state.extras = await r.json();
+  } catch (e) {
+    state.extras = {}; // the engine still runs; scenario extras (SEC grades, medication, plan) are just absent
   }
 
   $("sym-checks").replaceChildren(...SYMPTOMS.map((x) => h("label", {}, h("input", { type: "checkbox", name: "sym", value: x.id }), ` ${x.label}`)));
@@ -506,17 +499,16 @@ async function init() {
     const wanted = params.get("case");
     selectCase(ids.includes(wanted) ? wanted : ids.includes(DEFAULT_CASE) ? DEFAULT_CASE : ids[0]);
   } else {
-    pick.replaceChildren(h("option", { value: "" }, "Stock cases unavailable (replay.json not loaded)"));
+    pick.replaceChildren(h("option", { value: "" }, "Stock cases unavailable (cases.json not loaded)"));
     pick.disabled = true;
     $("case-note").textContent = "Enter values by hand below.";
     fillForm({ preflight: { age: 35, family_history: "none", thrombophilia: [], abo_non_o: false, hormone: "none" }, mission_days: 180, inflight: { mission_day: 30 }, scans: DEFAULT_SCANS, symptoms: emptyReport() });
   }
 
-  pick.addEventListener("change", () => { selectCase(pick.value); render(); });
+  pick.addEventListener("change", () => { state.signoff = null; selectCase(pick.value); render(); });
   $("form").addEventListener("input", onEdit);
   $("sym-form").addEventListener("input", onEdit);
   $("sym-clear").addEventListener("click", () => { fillSymptoms(emptyReport()); onEdit(); });
-  $("fail-handoff").addEventListener("change", render);
   $("form").addEventListener("change", () => { syncIjvDisabled(); onEdit(); });
   document.querySelectorAll('input[name="mission"]').forEach((r) => r.addEventListener("change", () => { setMission(r.value); render(); }));
   render();

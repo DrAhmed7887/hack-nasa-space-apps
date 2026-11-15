@@ -104,7 +104,8 @@ class TestPanel(unittest.TestCase):
         self.assertNotIn("innerHTML", js)
 
     def test_score_code_does_not_touch_the_context_data(self):
-        for f in ("vte/score.py", "vte/trend.py", "vte/symptoms.py", "vte/packet.py", "site/score.js", "site/trend.js", "site/symptoms.js"):
+        for f in ("vte/score.py", "vte/trend.py", "vte/symptoms.py", "site/score.js", "site/trend.js", "site/symptoms.js",
+                  "site/v3/store.js", "site/v3/timeline.js", "site/v3/states.js", "site/v3/orchestrator.js", "site/v3/meds.js", "site/v3/pipeline.js"):
             self.assertNotIn("i4", (ROOT / f).read_text().lower(), f)
 
 

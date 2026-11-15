@@ -1,0 +1,30 @@
+{
+ "_ai_assisted": "Synthetic v3 scenario inputs written with Claude Code (Anthropic) for the team. Not real astronaut data.",
+ "kit": [
+  {"item": "Prothrombin complex concentrate (synthetic inventory line)", "quantity": 1, "expires": "2027-06"},
+  {"item": "Tranexamic acid (synthetic inventory line)", "quantity": 4, "expires": "2027-09"}
+ ],
+ "cases": {
+  "C05": {
+   "sec": {"Baseline": {"left": 1, "right": 1}, "L+30 days": {"left": 2, "right": 1}, "L+60 days": {"left": 4, "right": 1}},
+   "wearable": [{"day": 45, "velocity": 18.0}, {"day": 52, "velocity": 14.5}, {"day": 59, "velocity": 11.0}],
+   "flow_response": {"day": 60, "order_id": "FS-ORD-0007", "ordered_by_role": "flight surgeon", "maneuver": "as ordered by the flight surgeon",
+                     "before": {"velocity": 8.5, "direction": "anterograde"}, "after": {"velocity": 16.0, "direction": "anterograde"}},
+   "ijv_ratio": 1.7,
+   "meds": {"regimen": "prophylaxis", "recorded_by_role": "flight surgeon", "concomitant": ["itraconazole"]},
+   "plan": {"landing_day": 180, "eva_days": [75], "guidance_id": "MTB-007", "approved_by_role": "flight surgeon"}
+  },
+  "C11": {
+   "sec": {"Baseline": {"left": 1, "right": 1}, "L+30 days": {"left": 2, "right": 1}, "L+60 days": {"left": 2, "right": 1}},
+   "ijv_ratio": 1.2,
+   "meds": {"regimen": "none"},
+   "plan": {"landing_day": 180, "eva_days": [], "guidance_id": "MTB-007", "approved_by_role": "flight surgeon"}
+  },
+  "C04": {
+   "sec": {"Baseline": {"left": 1, "right": 1}, "L+30 days": {"left": 2, "right": 1}, "L+60 days": {"left": 3, "right": 1}},
+   "ijv_ratio": 1.55,
+   "meds": {"regimen": "treatment", "recorded_by_role": "flight surgeon", "concomitant": ["acetaminophen"]},
+   "plan": null
+  }
+ }
+}

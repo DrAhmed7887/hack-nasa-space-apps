@@ -1,0 +1,893 @@
+{
+ "_ai_assisted": "Synthetic cases generated with Claude Code (Anthropic). Not real astronaut data.",
+ "seed": 20261115,
+ "cases": [
+  {
+   "id": "C01",
+   "label": "Young, no risk factors, normal scan, no D-dimer",
+   "mission_days": 180,
+   "preflight": {
+    "age": 34,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": false,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 30,
+    "ddimer_baseline": null,
+    "ddimer_now": null
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 19.3,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 54.5,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 55.3,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 61.1,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
+   }
+  },
+  {
+   "id": "C02",
+   "label": "Age 45 only",
+   "mission_days": 180,
+   "preflight": {
+    "age": 45,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": false,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 30,
+    "ddimer_baseline": null,
+    "ddimer_now": null
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 36.3,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 54.3,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 58.5,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 41.5,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
+   }
+  },
+  {
+   "id": "C03",
+   "label": "Age 52 and non-O blood type",
+   "mission_days": 180,
+   "preflight": {
+    "age": 52,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": true,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 60,
+    "ddimer_baseline": 180,
+    "ddimer_now": 216
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 65.8,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 56.5,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 22.9,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 20.4,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 44.8,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 27.7,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
+   }
+  },
+  {
+   "id": "C04",
+   "label": "Retrograde flow in the left IJV (normal speed)",
+   "mission_days": 180,
+   "preflight": {
+    "age": 38,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": true,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 60,
+    "ddimer_baseline": null,
+    "ddimer_now": null
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 46.3,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 43.7,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 63.3,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 60.9,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 55.3,
+      "direction": "retrograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 35.5,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
+   }
+  },
+  {
+   "id": "C05",
+   "label": "Several factors plus stasis and a D-dimer rise",
+   "mission_days": 180,
+   "preflight": {
+    "age": 47,
+    "family_history": "none",
+    "thrombophilia": [
+     "fvl_het"
+    ],
+    "abo_non_o": false,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 60,
+    "ddimer_baseline": 200,
+    "ddimer_now": 340
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 37.0,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 37.1,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 21.5,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 50.7,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 8.5,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 46.3,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
+   }
+  },
+  {
+   "id": "C06",
+   "label": "Borderline below every line (age 40, 10.0 cm/s, D-dimer +60%)",
+   "mission_days": 180,
+   "preflight": {
+    "age": 40,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": false,
+    "hormone": "low"
+   },
+   "inflight": {
+    "mission_day": 30,
+    "ddimer_baseline": 200,
+    "ddimer_now": 320
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 40.1,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 36.7,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 10.0,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 46.9,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
+   }
+  },
+  {
+   "id": "C07",
+   "label": "Borderline just over every line (age 41, 9.9 cm/s, D-dimer +60.5%)",
+   "mission_days": 180,
+   "preflight": {
+    "age": 41,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": false,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 30,
+    "ddimer_baseline": 200,
+    "ddimer_now": 321
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 64.6,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 36.4,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 9.9,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 67.0,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
+   }
+  },
+  {
+   "id": "C08",
+   "label": "Pre-flight factors alone reach 4 points",
+   "mission_days": 180,
+   "preflight": {
+    "age": 50,
+    "family_history": "one_under_50",
+    "thrombophilia": [],
+    "abo_non_o": false,
+    "hormone": "some"
+   },
+   "inflight": {
+    "mission_day": 60,
+    "ddimer_baseline": 200,
+    "ddimer_now": 240
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 22.5,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 28.9,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 58.0,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 19.8,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 51.2,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 41.1,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
+   }
+  },
+  {
+   "id": "C09",
+   "label": "Factor V Leiden with protein C deficiency",
+   "mission_days": 180,
+   "preflight": {
+    "age": 36,
+    "family_history": "none",
+    "thrombophilia": [
+     "fvl_het",
+     "protein_c"
+    ],
+    "abo_non_o": false,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 30,
+    "ddimer_baseline": null,
+    "ddimer_now": null
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 68.2,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 56.6,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 62.7,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 30.2,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
+   }
+  },
+  {
+   "id": "C10",
+   "label": "Before the first in-flight scan",
+   "mission_days": 180,
+   "preflight": {
+    "age": 44,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": false,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 20,
+    "ddimer_baseline": null,
+    "ddimer_now": null
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 23.9,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 65.8,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
+   }
+  },
+  {
+   "id": "C11",
+   "label": "Demo case: low score (1 point), then a new change in vision",
+   "mission_days": 180,
+   "preflight": {
+    "age": 43,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": false,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 60,
+    "ddimer_baseline": null,
+    "ddimer_now": null
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 59.7,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 36.2,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 18.1,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 31.7,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 34.2,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 53.1,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [
+     "vision_change"
+    ],
+    "sudden_or_severe": false,
+    "checklist_done": true
+   }
+  }
+ ]
+}
