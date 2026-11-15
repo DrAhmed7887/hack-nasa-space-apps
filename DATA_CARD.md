@@ -1,6 +1,6 @@
 # Data card
 
-**All data in this repository is synthetic.** No real astronaut or patient data is used, stored or shown.
+**All case data in this repository is synthetic.** No real astronaut or patient data drives any case, score or rule. The one exception is a labelled context panel of published group summaries (no per-person values) from NASA's Open Science Data Repository; see "Real aggregate data" below.
 
 ## `data/crew_cases.json`
 - **What:** 11 synthetic crew cases (`C01`–`C11`), each with pre-flight factors (age, family history, thrombophilia, ABO blood type, hormone use) and a scan series (baseline, L+30, L+60, R-42: left and right internal jugular vein mean peak velocity and direction stored separately; slots after the mission day are "not recorded"), a symptom report (ticked symptoms, "sudden or severe", "checklist done today") and an in-flight snapshot (mission day, D-dimer baseline and current value). The score's IJV row is derived from the latest recorded in-flight scan.
@@ -15,6 +15,13 @@
 - **What:** a recorded real run of the two A2A agents in `agents/handoff.py` over every case at LEO, the Moon and Mars (33 handoffs, 66 A2A message calls), with the HTTP exchanges (full bodies kept for case `C05` only).
 - **Delay:** simulated on a mission clock, at the upper end of each published range (see below). No waiting happens during the run.
 - **Rebuild:** `bash scripts/reproduce.sh`. A test checks the committed file matches a fresh run.
+
+## Real aggregate data (separate from the synthetic cases): `site/i4_context.json`
+- **What:** group summaries only, from NASA's Open Science Data Repository, for the 4 Inspiration4 crew (3-day orbital flight, 2021): n, min, max and mean per analyte and timepoint (L-92, L-44, L-3, R+1, R+45, R+82, R+194; blood was drawn before and after flight, none in flight). Analytes: Fibrinogen and PF4 (ng/ml, OSD-575, Eve Technologies HDCVD9 panel, file `LSDS-8_Multiplex_serum.cardiovascular.EvePanel_SUBMITTED.csv`) and Platelet count (Thousand/uL, OSD-569, file `LSDS-7_Complete_Blood_Count_CBC.upload_SUBMITTED.csv`).
+- **Privacy:** no per-person value, subject id or sex is stored or shown. The raw OSDR files are not in this repository. `data/i4_summary.py` reads them from a folder you download them to and writes the summary; `tests/test_i4_context.py` checks the output has only n, min, max and mean.
+- **Use:** context panel in the app only. It is not used in the risk score, the symptom rule or the packet, and says nothing about any individual. Not a flight-risk reference.
+- **Exclusion (team physician, 15 Nov):** one platelet value at L-92, far below the lab range (140-400 Thousand/uL), was excluded as a likely recording error, so L-92 shows n = 3. All other values are as recorded.
+- **Credit:** "Data are courtesy of the NASA Open Science Data Repository (https://osdr.nasa.gov/bio/repo)". Studies: https://osdr.nasa.gov/bio/repo/data/studies/OSD-575 and https://osdr.nasa.gov/bio/repo/data/studies/OSD-569. The OSDR API exposes no separate dataset DOI; the publications it lists for both studies are doi:10.1038/s41586-024-07639-y and doi:10.1038/s41467-024-48806-z.
 
 ## Numbers taken from NASA sources (cited, not ours)
 

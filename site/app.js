@@ -413,7 +413,75 @@ function onEdit() {
   render();
 }
 
+// ---------- Inspiration4 context (group summaries only; never used by the score) ----------
+const SVGNS = "http://www.w3.org/2000/svg";
+function svg(tag, attrs, ...kids) {
+  const e = document.createElementNS(SVGNS, tag);
+  for (const [k, v] of Object.entries(attrs || {})) e.setAttribute(k, String(v));
+  for (const k of kids.flat()) if (k != null) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+  return e;
+}
+const fmtNum = (v) => Number(v).toLocaleString("en-US");
+
+function i4Chart(a, tps) {
+  const W = 420, H = 160, L = 8, R = 8, T = 14, B = 34;
+  const pts = a.points;
+  const lo = Math.min(...pts.map((p) => p.min)), hi = Math.max(...pts.map((p) => p.max));
+  const pad = (hi - lo) * 0.08 || 1;
+  const y = (v) => T + (H - T - B) * (1 - (v - (lo - pad)) / (hi - lo + 2 * pad));
+  const x = (i) => L + ((W - L - R) * (i + 0.5)) / pts.length;
+  const split = x(2) + (x(3) - x(2)) / 2; // between L-3 and R+1
+  const g = [
+    svg("line", { x1: split, x2: split, y1: T - 6, y2: H - B + 6, stroke: "var(--line-2)", "stroke-dasharray": "4 4" }),
+    svg("text", { x: split, y: 9, "text-anchor": "middle", fill: "var(--muted)", "font-size": 11 }, "flight: no draws"),
+  ];
+  pts.forEach((p, i) => {
+    g.push(
+      svg("line", { x1: x(i), x2: x(i), y1: y(p.max), y2: y(p.min), stroke: "var(--accent)", "stroke-width": 7, "stroke-linecap": "round", opacity: 0.45 }),
+      svg("circle", { cx: x(i), cy: y(p.mean), r: 5, fill: "var(--ink)", stroke: "var(--accent)", "stroke-width": 2 }),
+      svg("text", { x: x(i), y: H - 16, "text-anchor": "middle", fill: "var(--muted)", "font-size": 11 }, p.timepoint));
+  });
+  g.push(
+    svg("text", { x: L, y: H - 2, fill: "var(--muted)", "font-size": 11 }, `axis ${fmtNum(lo)} to ${fmtNum(hi)}`));
+  const desc = `${a.label}: group range (bar) and mean (dot) at ${tps.join(", ")}. Values are in the table below.`;
+  return svg("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": desc, class: "i4-svg" }, svg("title", {}, desc), g);
+}
+
+function renderI4(doc) {
+  const out = $("i4-out");
+  out.replaceChildren();
+  if (!doc || !Array.isArray(doc.analytes)) {
+    out.append(h("p", { class: "hint" }, "Context data unavailable"));
+    return;
+  }
+  for (const a of doc.analytes) {
+    out.append(
+      h("div", { class: "i4-card" },
+        h("h3", {}, `${a.label} (${a.unit})`),
+        i4Chart(a, doc.timepoints),
+        h("details", {}, h("summary", {}, "Show the numbers"),
+          h("div", { class: "i4-tablewrap" }, h("table", { class: "i4-table" },
+            h("thead", {}, h("tr", {}, ["Timepoint", "n", "Min", "Max", "Mean"].map((c) => h("th", { scope: "col" }, c)))),
+            h("tbody", {}, a.points.map((p) => h("tr", {}, h("th", { scope: "row" }, p.timepoint), h("td", {}, p.n), h("td", {}, fmtNum(p.min)), h("td", {}, fmtNum(p.max)), h("td", {}, fmtNum(p.mean)))))))),
+        a.note ? h("p", { class: "hint" }, a.note) : null,
+        h("p", { class: "hint" }, "Source: ", h("a", { href: a.study_url, target: "_blank", rel: "noopener" }, a.study), `, file ${a.source_file}.`)));
+  }
+  out.append(h("p", { class: "hint" }, doc.credit, ". Publications listed by OSDR for these studies: ",
+    [...new Set(Object.values(doc.studies).flatMap((s) => s.dois))].map((d, i) => [i ? ", " : "", h("a", { href: `https://doi.org/${d}`, target: "_blank", rel: "noopener" }, d)]), "."));
+}
+
+async function loadI4() {
+  try {
+    const r = await fetch("i4_context.json");
+    if (!r.ok) throw new Error(String(r.status));
+    renderI4(await r.json());
+  } catch (e) {
+    renderI4(null); // the rest of the app does not depend on this panel
+  }
+}
+
 async function init() {
+  loadI4();
   const params = new URLSearchParams(location.search);
   const m = params.get("mission");
   setMission(Object.hasOwn(MISSIONS, m) ? m : DEFAULT_MISSION);

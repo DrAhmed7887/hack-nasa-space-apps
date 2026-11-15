@@ -1,0 +1,210 @@
+{
+ "_ai_assisted": "Group summaries computed by data/i4_summary.py (written with Claude Code) from public NASA OSDR files. No per-person values.",
+ "credit": "Data are courtesy of the NASA Open Science Data Repository (https://osdr.nasa.gov/bio/repo)",
+ "what": "Inspiration4 (3-day orbital flight, 2021), 4 crew, blood drawn before (L-) and after (R+) flight, none in flight. Group n, min, max and mean only.",
+ "timepoints": [
+  "L-92",
+  "L-44",
+  "L-3",
+  "R+1",
+  "R+45",
+  "R+82",
+  "R+194"
+ ],
+ "studies": {
+  "OSD-575": {
+   "url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-575",
+   "dois": [
+    "10.1038/s41586-024-07639-y",
+    "10.1038/s41467-024-48806-z"
+   ]
+  },
+  "OSD-569": {
+   "url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-569",
+   "dois": [
+    "10.1038/s41586-024-07639-y",
+    "10.1038/s41467-024-48806-z"
+   ]
+  }
+ },
+ "analytes": [
+  {
+   "id": "fibrinogen",
+   "label": "Fibrinogen",
+   "unit": "ng/ml",
+   "study": "OSD-575",
+   "source_file": "LSDS-8_Multiplex_serum.cardiovascular.EvePanel_SUBMITTED.csv",
+   "study_url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-575",
+   "points": [
+    {
+     "timepoint": "L-92",
+     "n": 4,
+     "min": 3209.0,
+     "max": 4154.0,
+     "mean": 3562.0
+    },
+    {
+     "timepoint": "L-44",
+     "n": 4,
+     "min": 3602.0,
+     "max": 5707.0,
+     "mean": 4265.0
+    },
+    {
+     "timepoint": "L-3",
+     "n": 4,
+     "min": 2780.0,
+     "max": 6533.0,
+     "mean": 4838.0
+    },
+    {
+     "timepoint": "R+1",
+     "n": 4,
+     "min": 2000.0,
+     "max": 4531.0,
+     "mean": 3331.0
+    },
+    {
+     "timepoint": "R+45",
+     "n": 4,
+     "min": 2732.0,
+     "max": 4492.0,
+     "mean": 3535.0
+    },
+    {
+     "timepoint": "R+82",
+     "n": 4,
+     "min": 2513.0,
+     "max": 4447.0,
+     "mean": 3448.0
+    },
+    {
+     "timepoint": "R+194",
+     "n": 4,
+     "min": 2852.0,
+     "max": 4587.0,
+     "mean": 4041.0
+    }
+   ]
+  },
+  {
+   "id": "pf4",
+   "label": "Platelet factor 4 (PF4)",
+   "unit": "ng/ml",
+   "study": "OSD-575",
+   "source_file": "LSDS-8_Multiplex_serum.cardiovascular.EvePanel_SUBMITTED.csv",
+   "study_url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-575",
+   "points": [
+    {
+     "timepoint": "L-92",
+     "n": 4,
+     "min": 6973.0,
+     "max": 21999.0,
+     "mean": 13926.0
+    },
+    {
+     "timepoint": "L-44",
+     "n": 4,
+     "min": 2156.0,
+     "max": 3904.0,
+     "mean": 2942.0
+    },
+    {
+     "timepoint": "L-3",
+     "n": 4,
+     "min": 8602.0,
+     "max": 26633.0,
+     "mean": 17698.0
+    },
+    {
+     "timepoint": "R+1",
+     "n": 4,
+     "min": 5951.0,
+     "max": 28157.0,
+     "mean": 14142.0
+    },
+    {
+     "timepoint": "R+45",
+     "n": 4,
+     "min": 6374.0,
+     "max": 25381.0,
+     "mean": 15231.0
+    },
+    {
+     "timepoint": "R+82",
+     "n": 4,
+     "min": 12169.0,
+     "max": 23892.0,
+     "mean": 17695.0
+    },
+    {
+     "timepoint": "R+194",
+     "n": 4,
+     "min": 11371.0,
+     "max": 21025.0,
+     "mean": 16549.0
+    }
+   ]
+  },
+  {
+   "id": "platelets",
+   "label": "Platelet count",
+   "unit": "Thousand/uL",
+   "study": "OSD-569",
+   "source_file": "LSDS-7_Complete_Blood_Count_CBC.upload_SUBMITTED.csv",
+   "study_url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-569",
+   "points": [
+    {
+     "timepoint": "L-92",
+     "n": 3,
+     "min": 239.0,
+     "max": 241.0,
+     "mean": 240.3
+    },
+    {
+     "timepoint": "L-44",
+     "n": 4,
+     "min": 227.0,
+     "max": 345.0,
+     "mean": 259.5
+    },
+    {
+     "timepoint": "L-3",
+     "n": 4,
+     "min": 241.0,
+     "max": 367.0,
+     "mean": 290.2
+    },
+    {
+     "timepoint": "R+1",
+     "n": 4,
+     "min": 227.0,
+     "max": 359.0,
+     "mean": 269.5
+    },
+    {
+     "timepoint": "R+45",
+     "n": 4,
+     "min": 228.0,
+     "max": 396.0,
+     "mean": 289.2
+    },
+    {
+     "timepoint": "R+82",
+     "n": 4,
+     "min": 198.0,
+     "max": 345.0,
+     "mean": 261.2
+    },
+    {
+     "timepoint": "R+194",
+     "n": 4,
+     "min": 185.0,
+     "max": 256.0,
+     "mean": 224.5
+    }
+   ],
+   "note": "One L-92 value far below the lab range (140-400 Thousand/uL) was excluded as a likely recording error, so L-92 shows n = 3. All other values are as recorded."
+  }
+ ]
+}
