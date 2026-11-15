@@ -1,0 +1,148 @@
+<!doctype html>
+<!-- AI-assisted: written with Claude Code (Anthropic). 7-slide demo deck, 1280x720. Names are injected by build.sh from demo/team.local.json (git-ignored). -->
+<html lang="en"><head><meta charset="utf-8"><title>VTE Watch demo</title>
+<style>
+@page { size: 1280px 720px; margin: 0 }
+:root { --ink:#0f1b2d; --muted:#4a5a70; --teal:#0b6e7a; --bg:#f6f9fb; --line:#d3dde6; --warn:#fff4d6 }
+* { box-sizing: border-box; margin: 0 }
+html, body { background: #fff }
+body { font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; color: var(--ink) }
+section { width:1280px; height:720px; padding:48px 64px 56px; position:relative; overflow:hidden; background:var(--bg); break-after:page; page-break-after:always }
+section:last-child { break-after:auto; page-break-after:auto }
+h1 { font-size:96px; letter-spacing:-2px; color:var(--teal) }
+h2 { font-size:44px; line-height:1.15; margin-bottom:22px }
+p, li { font-size:32px; line-height:1.35 }
+.muted { color:var(--muted) }
+.n { position:absolute; right:40px; bottom:22px; font-size:20px; color:var(--muted) }
+.foot { position:absolute; left:64px; bottom:22px; font-size:22px; color:var(--muted) }
+.big { white-space:nowrap; font-size:130px; font-weight:800; color:var(--teal); line-height:1 }
+.cols { display:flex; gap:40px; align-items:flex-start }
+.shot { border:1px solid var(--line); border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,.12); display:block }
+.note { background:var(--warn); border-radius:8px; padding:14px 20px; font-size:26px }
+.box { border:3px solid var(--teal); border-radius:12px; padding:18px 18px; background:#fff; font-size:32px; line-height:1.25; text-align:center }
+.box small { display:block; font-size:22px; color:var(--muted); margin-top:6px }
+.arrow { font-size:26px; color:var(--teal); text-align:center; font-weight:700; line-height:1.1 }
+.flow { display:flex; align-items:center; gap:14px }
+.kv { display:flex; gap:18px }
+.card { background:#fff; border:1px solid var(--line); border-radius:12px; padding:18px 22px; flex:1; text-align:center }
+.card b { display:block; font-size:80px; color:var(--teal) }
+.card span { font-size:26px; color:var(--muted) }
+ul { padding-left:32px }
+li { margin-bottom:10px }
+a { color:var(--teal) }
+.meta p { font-size:30px; margin-bottom:8px }
+</style></head><body>
+
+<!-- 1 -->
+<section>
+  <p class="muted" style="font-size:24px">NASA Space Apps Challenge 2026 &middot; Boston (Virtual)</p>
+  <h1 id="app-name" style="margin-top:70px">VTE Watch</h1>
+  <p style="font-size:44px; margin:14px 0 56px; max-width:1000px">NASA's new blood-clot score, checkable in orbit and on the ground</p>
+  <div class="meta">
+    <p><b>Team:</b> Orbital Health Informatics</p>
+    <p><b>Members:</b> <span id="members">{{MEMBERS}}</span></p>
+    <p><b>Challenge:</b> Create Health Monitoring Software for Astronauts on Space Missions</p>
+  </div>
+  <div class="n">1 / 7</div>
+</section>
+
+<!-- 2 -->
+<section>
+  <h2>The problem</h2>
+  <div class="cols">
+    <div style="width:520px"><div class="big">8 of 31</div><p style="margin-top:8px">astronauts had a left jugular vein flow anomaly in flight</p><p class="muted" style="font-size:20px; margin-top:6px">NASA VTE report, July 2026</p></div>
+    <div style="flex:1">
+      <ul>
+        <li>NASA published a <b>VTE Risk Score for Astronauts</b>: a table in a PDF.</li>
+        <li>Further from Earth, help arrives later.</li>
+        <li>Mars: communication latency <b>"0-40 minutes"</b>.</li>
+        <li>Mars: <b>"No evacuation capability"</b>.</li>
+      </ul>
+      <p class="muted" style="font-size:22px; margin-top:8px">Sources: NASA/SP-20260005258 REV1; OCHMO-TB-007</p>
+    </div>
+  </div>
+  <div class="n">2 / 7</div>
+</section>
+
+<!-- 3 -->
+<section>
+  <h2>NASA's score, every point explained</h2>
+  <div class="cols">
+    <img class="shot" src="shots/score.jpg" style="height:560px" alt="Score breakdown for case C05">
+    <div style="flex:1">
+      <p class="muted" style="font-size:22px">Synthetic case C05</p>
+      <div class="big" style="font-size:120px">9 points</div>
+      <p style="margin:6px 0 18px"><b>&gt; 6 points = need clinical assessment</b></p>
+      <p>Every point shows NASA's rule, the input and the source.</p>
+      <p class="note" style="margin-top:22px">Reference for clinician review &mdash; not a diagnosis or prescription.</p>
+    </div>
+  </div>
+  <div class="n">3 / 7</div>
+</section>
+
+<!-- 4 -->
+<section>
+  <h2>Same score. Different distance.</h2>
+  <div class="cols">
+    <img class="shot" src="shots/mission.jpg" style="height:500px" alt="Mission panel on Mars">
+    <div style="flex:1">
+      <p><b>9 points</b> at LEO, the Moon and Mars.</p>
+      <p style="margin-top:14px">The ground's reply reaches the crew after:</p>
+      <div class="kv" style="margin-top:14px; flex-direction:column; gap:10px">
+        <div class="card" style="text-align:left"><b style="display:inline; font-size:40px">3 s</b> <span>&nbsp;LEO</span></div>
+        <div class="card" style="text-align:left"><b style="display:inline; font-size:40px">28 s</b> <span>&nbsp;Moon</span></div>
+        <div class="card" style="text-align:left"><b style="display:inline; font-size:40px">80 min</b> <span>&nbsp;Mars</span></div>
+      </div>
+    </div>
+  </div>
+  <p class="muted" style="font-size:22px; margin-top:18px">Delay simulated at the upper end of NASA's published ranges.</p>
+  <div class="n">4 / 7</div>
+</section>
+
+<!-- 5 -->
+<section>
+  <h2>Two agents, one human decision</h2>
+  <div class="flow" style="margin-top:6px">
+    <div class="box" style="width:330px">Onboard agent<small>scores with NASA's method</small></div>
+    <div class="arrow">A2A<br>&rarr;</div>
+    <div class="box" style="width:330px">Ground agent<small>queues; no clinical decision</small></div>
+    <div class="arrow">&rarr;</div>
+    <div class="box" style="width:330px; background:#e3f1f3">Flight surgeon<small>a human decides</small></div>
+  </div>
+  <div class="cols" style="margin-top:26px; align-items:center">
+    <img class="shot" src="shots/replay.jpg" style="height:350px" alt="A2A replay panel">
+    <p style="flex:1">Real A2A run (a2a-sdk 1.3.0), recorded and replayed in the app.</p>
+  </div>
+  <div class="n">5 / 7</div>
+</section>
+
+<!-- 6 -->
+<section>
+  <h2>NASA data, and the proof</h2>
+  <div class="kv" style="margin-bottom:26px">
+    <div class="card"><b>3</b><span>NASA documents on the main path</span></div>
+    <div class="card"><b>10/10</b><span>synthetic cases match totals worked out by hand first</span></div>
+    <div class="card"><b>41</b><span>automated tests</span></div>
+  </div>
+  <ul style="margin-top:34px">
+    <li>NASA/SP-20260005258 REV1 &middot; OCHMO-MTB-007 &middot; OCHMO-TB-007</li>
+    <li>The 10 cases cover every band and every rule edge.</li>
+  </ul>
+  <p class="note" style="margin-top:34px; font-size:28px"><b>Limits:</b> synthetic data; faithful to NASA's method, not a validated predictor.</p>
+  <div class="n">6 / 7</div>
+</section>
+
+<!-- 7 -->
+<section>
+  <h2>Where it could go</h2>
+  <ul style="margin-top:10px">
+    <li>The score next to onboard ultrasound scans on long missions.</li>
+    <li>D-dimer scored once in-flight testing exists. NASA says there are no adequate in-flight methods today.</li>
+    <li>The same handoff pattern for other NASA risk tables.</li>
+  </ul>
+  <p style="margin-top:40px; font-size:30px"><b>App:</b> <a href="https://drahmed7887.github.io/hack-nasa-space-apps/">drahmed7887.github.io/hack-nasa-space-apps</a></p>
+  <p style="font-size:30px"><b>Repo:</b> <a href="https://github.com/DrAhmed7887/hack-nasa-space-apps">github.com/DrAhmed7887/hack-nasa-space-apps</a></p>
+  <div class="foot">AI-assisted: built with Claude Code. Synthetic data only.</div>
+  <div class="n">7 / 7</div>
+</section>
+</body></html>
