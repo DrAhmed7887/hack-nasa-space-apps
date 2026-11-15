@@ -1,0 +1,123 @@
+<!doctype html>
+<!-- AI-assisted: written with Claude Code (Anthropic). VTE Watch workflow diagram, 1280x720, same palette as demo/slides.html. Synthetic-data prototype. -->
+<html lang="en"><head><meta charset="utf-8"><title>VTE Watch workflow</title>
+<style>
+@page { size: 1280px 720px; margin: 0 }
+:root { --ink:#e9eff4; --muted:#9fb0bd; --teal:#5cc8da; --teal-d:#1d4f5a; --bg:#080d12; --panel:#0f1820; --panel2:#132230; --line:#2b3b48; --red:#e5574b; --red-bg:#2a1210; --gold:#f2d98c }
+* { box-sizing:border-box; margin:0 }
+html, body { background:var(--bg); -webkit-print-color-adjust:exact; print-color-adjust:exact }
+body { font-family:-apple-system,"Helvetica Neue",Arial,sans-serif; color:var(--ink) }
+.page { width:1280px; height:720px; position:relative; overflow:hidden; padding:58px 48px 0;
+  background:radial-gradient(900px 500px at 85% -10%, #12303a 0%, transparent 60%), var(--bg) }
+.sim { position:absolute; left:0; right:0; top:0; background:#8f1a12; border-bottom:1px solid #ff6b5e; color:#fff; text-align:center; font-size:15px; padding:6px; letter-spacing:.06em }
+h1 { font-size:34px; letter-spacing:-.5px; margin-bottom:4px }
+h1 span { color:var(--teal) }
+.sub { color:var(--muted); font-size:17px; margin-bottom:18px }
+.grid { display:grid; grid-template-columns:230px 34px 470px 34px 214px 34px 170px; align-items:stretch; height:438px }
+.colhead { font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--teal); font-weight:700; margin-bottom:10px }
+.col { display:flex; flex-direction:column }
+.actor { background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--teal); border-radius:8px; padding:10px 13px; margin-bottom:10px; flex:1 }
+.actor:last-child { margin-bottom:0 }
+.actor b { display:block; font-size:17px; margin-bottom:3px }
+.actor p { font-size:13.8px; line-height:1.35; color:var(--muted) }
+.actor.dim { border-left-color:#5b6b78 }
+.actor.dim b { color:#c9d4dc }
+.arrow { display:flex; align-items:center; justify-content:center; padding-top:26px }
+.arrow svg { width:30px; height:30px }
+.engine { background:linear-gradient(180deg, var(--panel2), var(--panel)); border:2px solid var(--teal); border-radius:12px; padding:14px 16px 12px; height:100% ; display:flex; flex-direction:column }
+.engine .tag { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px }
+.engine .tag b { font-size:19px }
+.engine .tag span { font-size:12.5px; color:var(--teal); border:1px solid var(--teal-d); border-radius:20px; padding:2px 10px }
+.step { display:flex; gap:12px; align-items:flex-start; padding:7px 0; border-top:1px solid var(--line) }
+.step:first-of-type { border-top:none }
+.num { flex:none; width:26px; height:26px; border-radius:50%; background:var(--teal); color:#062027; font-weight:800; font-size:14px; display:flex; align-items:center; justify-content:center; margin-top:1px }
+.step b { font-size:16.5px; display:block }
+.step p { font-size:13.8px; color:var(--muted); line-height:1.35; margin-top:2px }
+.chips { display:flex; flex-wrap:wrap; gap:5px; margin-top:5px }
+.chip { font-size:11.5px; font-family:ui-monospace,"SF Mono",Menlo,monospace; border:1px solid var(--line); border-radius:4px; padding:1px 6px; color:#cfe3ea; background:#0b141b }
+.chip.r { border-color:#7d2a22; color:#ffb4ab }
+.packet { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--gold); border-radius:8px; padding:14px; height:100%; display:flex; flex-direction:column; gap:10px }
+.packet b { font-size:18px }
+.state { font-family:ui-monospace,"SF Mono",Menlo,monospace; font-size:11.5px; border-radius:4px; padding:5px 8px; text-align:center; border:1px solid var(--line) }
+.state.i { color:#ffcf99; border-color:#6b4a1d }
+.state.p { color:#cfe3ea }
+.state.s { color:#062027; background:var(--teal); border-color:var(--teal); font-weight:700 }
+.packet p { font-size:13.5px; color:var(--muted); line-height:1.35 }
+.vdots { text-align:center; color:var(--muted); font-size:12px; line-height:1 }
+.human { background:var(--teal); color:#062027; border-radius:12px; padding:16px 14px; height:100%; display:flex; flex-direction:column; justify-content:center; text-align:center }
+.human .ic { margin:0 auto 10px; width:46px; height:46px }
+.human b { font-size:20px; display:block; margin-bottom:8px }
+.human p { font-size:14px; line-height:1.4; font-weight:500 }
+.redflag { position:absolute; left:48px; right:48px; top:604px; height:52px; border:1.5px solid var(--red); background:var(--red-bg); border-radius:10px; display:flex; align-items:center; gap:14px; padding:0 18px }
+.redflag .lbl { font-family:ui-monospace,"SF Mono",Menlo,monospace; font-weight:800; color:var(--red); font-size:14px; letter-spacing:.04em; white-space:nowrap }
+.redflag p { font-size:15.5px; color:#ffd9d4 }
+.redflag p b { color:#fff }
+.foot { position:absolute; left:48px; right:48px; bottom:18px; display:flex; justify-content:space-between; font-size:13.5px; color:var(--muted) }
+.foot b { color:var(--ink); font-weight:600 }
+</style></head><body>
+<div class="page">
+  <div class="sim">SIMULATION: NOT FOR OPERATIONAL MEDICAL USE &middot; synthetic data</div>
+  <h1>VTE Watch <span>workflow</span></h1>
+  <div class="sub">From onboard measurements to a signed flight-surgeon decision. NASA's VTE Risk Score is used unchanged; every safety check runs onboard, offline.</div>
+
+  <div class="grid">
+    <div class="col">
+      <div class="colhead">1 &middot; Inputs</div>
+      <div class="actor"><b>Astronaut</b><p>Daily symptom check-in in plain words. Ticking nothing never counts as "no clot".</p></div>
+      <div class="actor"><b>Crew medical officer</b><p>IJV duplex ultrasound (L+30, L+60, R-42 and any extra scan), D-dimer, medication list.</p></div>
+      <div class="actor dim"><b>Wearable Doppler <span style="font-weight:400;color:var(--muted)">(optional)</span></b><p>Logged on its own timeline. Never scored against NASA's &lt;10 cm/s rule.</p></div>
+    </div>
+
+    <div class="arrow"><svg viewBox="0 0 30 30"><path d="M3 15h20M17 8l7 7-7 7" fill="none" stroke="#5cc8da" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+    <div class="col">
+      <div class="colhead">2 &middot; VTE Watch engine</div>
+      <div class="engine">
+        <div class="tag"><b>Onboard, offline, no AI model</b><span>rules + sources shown</span></div>
+        <div class="step"><div class="num">1</div><div><b>Append-only record</b><p>Provenance on every value, four timelines (ultrasound, lab, wearable, symptoms). Corrections never overwrite; nothing is filled in between scans.</p></div></div>
+        <div class="step"><div class="num">2</div><div><b>NASA VTE Risk Score, unchanged</b><p>Every point shown with the NASA rule and source. Only a duplex scan can earn the +4.</p></div></div>
+        <div class="step"><div class="num">3</div><div><b>Trend state, never a new score</b>
+          <div class="chips"><span class="chip">STABLE</span><span class="chip">WATCH</span><span class="chip">DETERIORATING</span><span class="chip">DATA_INSUFFICIENT</span><span class="chip r">RED_FLAG_OVERRIDE</span></div></div></div>
+        <div class="step"><div class="num">4</div><div><b>Safety and medication checks</b><p>Blocked outputs (e.g. "safe to continue"), data-quality gate, FDA-label interaction flags, landing countdown only from a signed plan.</p></div></div>
+      </div>
+    </div>
+
+    <div class="arrow"><svg viewBox="0 0 30 30"><path d="M3 15h20M17 8l7 7-7 7" fill="none" stroke="#5cc8da" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+    <div class="col">
+      <div class="colhead">3 &middot; Packet</div>
+      <div class="packet">
+        <b>Flight-surgeon packet</b>
+        <div class="state i">INCOMPLETE</div>
+        <div class="vdots">missing, stale or conflicting data</div>
+        <div class="state p">PENDING_CLINICAL_REVIEW</div>
+        <div class="vdots">&darr;</div>
+        <div class="state s">SIGNED</div>
+        <p>Sources, data quality and warnings travel with it. Medical team only; family history and thrombophilia marked as genetic information.</p>
+      </div>
+    </div>
+
+    <div class="arrow"><svg viewBox="0 0 30 30"><path d="M3 15h20M17 8l7 7-7 7" fill="none" stroke="#5cc8da" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+    <div class="col">
+      <div class="colhead">4 &middot; Decision</div>
+      <div class="human">
+        <svg class="ic" viewBox="0 0 46 46"><circle cx="23" cy="15" r="8" fill="none" stroke="#062027" stroke-width="2.6"/><path d="M8 40c2-9 8-13 15-13s13 4 15 13" fill="none" stroke="#062027" stroke-width="2.6" stroke-linecap="round"/></svg>
+        <b>Flight surgeon decides and signs</b>
+        <p>Every medication and clinical decision stays human. The software only prompts.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="redflag">
+    <span class="lbl">EMERGENCY SYMPTOM</span>
+    <svg width="26" height="18" viewBox="0 0 26 18"><path d="M2 9h18M15 3l6 6-6 6" fill="none" stroke="#e5574b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <p><b>Overrides any score, even 1 point:</b> the astronaut is told at once to start the onboard emergency procedure, without waiting for the app or a ground reply. A high-priority packet follows.</p>
+  </div>
+
+  <div class="foot">
+    <span>Ground reply, earliest round trip (simulated): <b>LEO ~3 s</b> &middot; <b>Moon ~28 s</b> &middot; <b>Mars up to ~80 min</b></span>
+    <span>NASA/SP-20260005258 REV1 &middot; OCHMO-MTB-007 &middot; OCHMO-TB-007</span>
+  </div>
+</div>
+</body></html>
