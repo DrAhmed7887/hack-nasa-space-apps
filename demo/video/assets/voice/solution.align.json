@@ -1,0 +1,80 @@
+{
+ "text": "Scans and symptoms go in, checks run onboard, and the flight surgeon signs every decision.",
+ "words": [
+  {
+   "text": "Scans",
+   "start": 0.0,
+   "end": 0.48
+  },
+  {
+   "text": "and",
+   "start": 0.56,
+   "end": 0.64
+  },
+  {
+   "text": "symptoms",
+   "start": 0.72,
+   "end": 1.2
+  },
+  {
+   "text": "go",
+   "start": 1.32,
+   "end": 1.44
+  },
+  {
+   "text": "in,",
+   "start": 1.52,
+   "end": 2.16
+  },
+  {
+   "text": "checks",
+   "start": 2.24,
+   "end": 2.56
+  },
+  {
+   "text": "run",
+   "start": 2.64,
+   "end": 2.8
+  },
+  {
+   "text": "onboard,",
+   "start": 2.88,
+   "end": 3.68
+  },
+  {
+   "text": "and",
+   "start": 3.76,
+   "end": 3.84
+  },
+  {
+   "text": "the",
+   "start": 3.88,
+   "end": 3.92
+  },
+  {
+   "text": "flight",
+   "start": 4.0,
+   "end": 4.24
+  },
+  {
+   "text": "surgeon",
+   "start": 4.32,
+   "end": 4.8
+  },
+  {
+   "text": "signs",
+   "start": 4.96,
+   "end": 5.28
+  },
+  {
+   "text": "every",
+   "start": 5.44,
+   "end": 5.6
+  },
+  {
+   "text": "decision.",
+   "start": 5.88,
+   "end": 6.4
+  }
+ ]
+}

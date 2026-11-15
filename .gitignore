@@ -29,3 +29,5 @@ demo/video/audio_meta.json
 demo/video/.media/
 demo/video/assets/voice/close.wav
 demo/video/assets/voice/transcript.json
+demo/video/assets/voice/*.mp3
+demo/video/assets/voice/*.el.wav

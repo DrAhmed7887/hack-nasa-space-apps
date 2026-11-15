@@ -121,7 +121,7 @@
     </div>
   </div>
   <script>
-    const T_INPUTS = 0.15, T_ENGINE = 1.85, T_RED = 2.4, T_MEDS = 2.8, T_SIGN = 3.4; // voice anchors (s)
+    const T_INPUTS = 0.15, T_ENGINE = 2.05, T_RED = 2.6, T_MEDS = 3.0, T_SIGN = 3.65; // voice anchors (s)
     const tl = gsap.timeline({ paused: true });
     const IN = (sel, t) => tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.4, ease: "expo.out" }, t);
     IN("#wf-h", 0); IN("#wf-sub", 0.15);
