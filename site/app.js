@@ -193,7 +193,13 @@ function renderWatch(c, res) {
   const out = $("watch-out");
   out.replaceChildren();
   document.querySelectorAll("#watch-chips .chip").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.case === state.caseId && currentSigMatches())));
-  if (!c || !res || !lastRun) { out.append(h("p", { class: "hint" }, "Fix the case input below to see the agent's view.")); return; }
+  if (!c || !res || !lastRun) {
+    // Review fix: an emergency symptom stays visible even when the form or the engine cannot run.
+    const a = c ? assess(c.symptoms) : null;
+    if (a && a.level === "emergency") out.append(h("p", { class: "sym-msg emergency", role: "alert" }, a.message));
+    out.append(h("p", { class: "hint" }, c && res ? "Clinical engine stopped safely; see section 8." : "Fix the case input below to see the agent's view."));
+    return;
+  }
   const p = lastRun.packet, d = p.longitudinal_assessment;
   const latest = latestInFlight(c.scans);
   const left = latest ? classify(latest.left) : NOT_MEASURED;
@@ -204,11 +210,11 @@ function renderWatch(c, res) {
     h("div", { class: "watch-grid" },
       h("div", { class: "state-card st-" + d.state },
         h("div", { class: "k" }, "Agent state"),
-        h("div", { class: "state" }, d.state.replaceAll("_", " ")),
+        h("div", { class: "state" }, d.state === "STABLE" ? "NO PATTERN FLAGGED" : d.state.replaceAll("_", " ")),
         h("div", { class: "words" }, STATE_WORDS[d.state] || ""),
-        h("p", { class: "action" }, d.action),
+        h("p", d.emergency ? { class: "action", role: "alert" } : { class: "action" }, d.action),
         h("ul", { class: "why" }, (d.why || []).slice(0, 4).map((w) => h("li", {}, w))),
-        h("p", { class: "by" }, "Decided by: the flight surgeon. The agent only flags and prompts.")),
+        h("p", { class: "by" }, d.emergency ? "Follow the onboard emergency procedure now; the flight surgeon makes every later decision." : "Decided by: the flight surgeon. The agent only flags and prompts.")),
       h("div", { class: "side-col" }, h("div", { class: "tiles" },
         tile("NASA VTE score", `${res.total} pt${res.total === 1 ? "" : "s"}`, `NASA band, for clinician review: ${res.nasa_reference_band}`),
         tile("Latest left IJV (duplex)", lv !== null ? `${lv} cm/s` : "—", latest ? `${{ [FORWARD]: "Forward flow", [LOW]: "Below 10 cm/s", [RETRO]: "Retrograde", [NOT_MEASURED]: "Not measured" }[left]} · ${latest.label.split(" (")[0]}` : "No in-flight scan yet", left === LOW || left === RETRO ? "warn" : ""),
