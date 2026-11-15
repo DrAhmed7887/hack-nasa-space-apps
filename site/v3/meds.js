@@ -19,6 +19,11 @@ export const LANDING_GUIDANCE = Object.freeze({
 });
 export const LANDING_LABEL = "Illustrative countdown — flight-surgeon approval required. Do not change medication based on this display alone.";
 export const EVA_HOLD = Object.freeze({ hours: 24, applies_to: "prophylaxis", source: "SP-p11-landing" });
+// Context only, no rule (NASA says guidance is still needed): EVA aspirin for DCS, apixaban, and analgesics that may mask DCS.
+export const EVA_DCS_CONTEXT = Object.freeze({
+  text: "NASA's August 2026 working group: NASA currently gives aspirin before EVAs to reduce decompression sickness (DCS) risk; guidelines are needed for aspirin with prophylactic apixaban, \"as combining them significantly increases bleeding risks\"; pain medicines (acetaminophen, ibuprofen, naproxen, celecoxib) may mask DCS symptoms. Context only: VTE Watch has no DCS or EVA pain-medicine rules. The flight surgeon decides.",
+  source: "SP-9389-eva-meds",
+});
 
 // FDA label examples only. Anything not listed is UNRECONCILED, never "no interaction".
 const INH = { class: "combined P-gp and strong CYP3A4 inhibitor", effect: "increases apixaban levels", source: "FDA-apixaban-7" };
@@ -41,6 +46,7 @@ export function medicationReview({ meds, plan, today, concern = false }) {
     interactions: [], landing: null, evas: [], inventory: [],
     bleeding_context: { text: "NASA's table (SP p.11) lists AVERROES (apixaban 5 mg vs aspirin): major bleeding 1.4% vs 1.2%. Terrestrial reference; different population and dose (not 2.5 mg prophylaxis); not an individual or spaceflight estimate.", source: "SP-p11-averroes" },
     signoff_required: true,
+    eva_dcs_context: null,
   };
   if (regimen !== "none") {
     for (const d of meds?.concomitant || []) {
@@ -74,6 +80,7 @@ export function medicationReview({ meds, plan, today, concern = false }) {
       out.evas.push({ eva_day: d, text: `High-risk EVA on day ${d}: NASA reference is to stop prophylaxis 24 h before (no later than day ${d - 1}) or per an individual PK/PD plan, and restart after the EVA.${concern ? " Thrombosis not yet excluded; if found, NASA reference is no EVA or ARED for at least 30 days (MTB-007 p.12). The flight surgeon decides whether the EVA proceeds." : ""}`, source: EVA_HOLD.source });
     }
   }
+  if (regimen !== "none") out.eva_dcs_context = EVA_DCS_CONTEXT;
   if (regimen === "treatment") {
     out.evas.push({ eva_day: null, text: "Treatment dose: NASA reference for crew with thrombosis is to restrict EVA and ARED for at least 30 days.", source: "MTB-007-p12-eva" });
   }

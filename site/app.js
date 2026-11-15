@@ -343,6 +343,7 @@ function renderV3(c, res) {
       item("Recorded regimen", `${m.regimen_label}${m.recorded_by_role ? ` (recorded by ${m.recorded_by_role})` : ""}. `, v3src(m.regimen_source)),
       item("Landing", m.landing.label ? h("b", {}, m.landing.label, " ") : "", m.landing.text, m.landing.days_until != null ? (m.landing.days_until >= 0 ? ` Days until that point: ${m.landing.days_until}.` : " That day has already passed: the flight surgeon reviews the plan.") : "", m.landing.differs ? ` ${m.landing.differs}` : "", m.landing.source ? [" ", v3src(m.landing.source)] : ""),
       ...m.evas.map((x) => item("EVA", x.text, " ", v3src(x.source))),
+      ...(m.eva_dcs_context ? [item("EVA medicines and DCS (context, no rule)", m.eva_dcs_context.text, " ", v3src(m.eva_dcs_context.source))] : []),
       ...m.interactions.map((x) => item(`Interaction check: ${x.drug.replaceAll("_", " ")}`, `${x.class ? x.class + ", " + x.effect + ". " : ""}${x.flag} ${x.dose_note || ""} `, v3src(x.source))),
       item("Bleeding context", m.bleeding_context.text, " ", v3src(m.bleeding_context.source)),
       item("Bleeding-management inventory", m.inventory.length ? m.inventory.map((k) => `${k.item} ×${k.quantity} (exp. ${k.expires}): ${k.note}`).join(" ") : "No kit items recorded.", " ",
