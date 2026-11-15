@@ -296,7 +296,7 @@ function renderMission(c, res) {
   if (res) {
     out.append(h("p", {}, "The score does not change with distance. Only the review context does."));
     out.append(h("div", { class: "same", "aria-label": "Score by mission" },
-      Object.keys(MISSIONS).map((m) => h("span", { class: m === state.mission ? "on" : "" }, `${MISSIONS[m].name}: ${res.total} points, ${res.nasa_reference_band.split(" = ")[1] || "no band"}`))));
+      Object.keys(MISSIONS).map((m) => h("span", { class: m === state.mission ? "on" : "" }, `${MISSIONS[m].name}: ${res.total} point${res.total === 1 ? "" : "s"}, ${res.nasa_reference_band.split(" = ")[1] || "no band"}`))));
   }
 
   renderPacket(out, c, res, run0(c, res));
