@@ -3,7 +3,7 @@
 // score.js). It adds no clinical logic: it runs every synthetic crew case, sorts them by the agent's state and shows
 // the evidence for one. All text goes in as text nodes.
 import { runCase } from "./v3/pipeline.js";
-import { score, MISSIONS, SOURCES } from "./score.js";
+import { score, MISSIONS, SOURCES, STASIS_CM_S } from "./score.js";
 import { classify, latestInFlight, FORWARD, LOW, RETRO, NOT_MEASURED } from "./trend.js";
 
 const PRIORITY = { RED_FLAG_OVERRIDE: 0, DETERIORATING: 1, DATA_INSUFFICIENT: 2, WATCH: 3, STABLE: 4 };
@@ -52,8 +52,8 @@ function runAll() {
     }
   });
   state.rows.sort((a, b) => {
-    const pa = a.r ? PRIORITY[a.r.packet.longitudinal_assessment.state] ?? 9 : -1;
-    const pb = b.r ? PRIORITY[b.r.packet.longitudinal_assessment.state] ?? 9 : -1;
+    const pa = a.r ? PRIORITY[a.r.packet.longitudinal_assessment.state] ?? 9 : 0.5; // engine error: right after emergencies
+    const pb = b.r ? PRIORITY[b.r.packet.longitudinal_assessment.state] ?? 9 : 0.5;
     return pa - pb || (b.res?.total ?? 0) - (a.res?.total ?? 0) || a.c.id.localeCompare(b.c.id);
   });
 }
@@ -64,7 +64,7 @@ function renderQueue() {
   $("counts").replaceChildren(...Object.keys(PRIORITY).filter((k) => counts[k]).map((k) => h("span", { class: `badge b-${k}` }, `${counts[k]} ${STATE_LABEL[k]}`)));
   $("queue").replaceChildren(...state.rows.map((row) => {
     const d = row.r?.packet.longitudinal_assessment;
-    const btn = h("button", { type: "button", class: "q-btn", "aria-current": String(row.c.id === state.selected) },
+    const btn = h("button", { type: "button", class: "q-btn", "data-id": row.c.id, "aria-current": String(row.c.id === state.selected) },
       h("span", { class: "q-crew" }, crewName(row.c.id), h("small", {}, `L+${row.c.inflight.mission_day ?? "?"}`)),
       h("span", { class: "q-pts" }, row.res ? `NASA ${row.res.total} pt${row.res.total === 1 ? "" : "s"}` : ""),
       h("span", {}, d ? badge(d.state) : h("span", { class: "badge b-RED_FLAG_OVERRIDE" }, "Engine stopped")),
@@ -86,11 +86,12 @@ function sideKpi(c, side) {
   return kpi(`${side} IJV (duplex)`, v !== null ? `${v} cm/s` : "—", `${SIDE_SHORT[cl]} · ${latest.label.split(" (")[0]}`, cl === LOW || cl === RETRO ? "flag" : "");
 }
 
-function ddimerKpi(c) {
+function ddimerKpi(c, res) {
   const b = c.inflight?.ddimer_baseline ?? null, n = c.inflight?.ddimer_now ?? null;
   if (b === null || n === null || !b) return kpi("D-dimer vs baseline", "—", "Not measured (NASA does not test it routinely in flight)");
-  const pct = Math.round(((n - b) / b) * 100);
-  return kpi("D-dimer vs baseline", `${pct > 0 ? "+" : ""}${pct}%`, `${b} → ${n} · NASA rule: more than +60%`, pct > 60 ? "flag" : "");
+  const pct = Math.round(((n - b) / b) * 1000) / 10;
+  const scored = (res.items.find((i) => i.group === "D-dimer")?.points ?? 0) > 0; // the engine's own call, not a re-computed one
+  return kpi("D-dimer vs baseline", `${pct > 0 ? "+" : ""}${pct}%`, `${b} → ${n} · NASA rule: more than +60%${scored ? " (met: +2)" : ""}`, scored ? "flag" : "");
 }
 
 // Both IJVs per recorded duplex exam; retrograde plotted below zero; NASA's 10 cm/s line (SP-20260005258 REV1 p.20).
@@ -103,19 +104,20 @@ function chart(c) {
     }),
   }));
   const all = series.flatMap((x) => x.pts);
-  if (all.length < 2) return h("p", { class: "cap" }, "The chart appears once two or more duplex exams are recorded.");
+  if (new Set(all.map((p) => p.day)).size < 2) return h("p", { class: "cap" }, "The chart appears once two or more duplex exams are recorded.");
   const W = 640, H = 260, L = 46, R = 18, T = 16, B = 46;
-  const hi = Math.max(40, Math.ceil((Math.max(...all.map((p) => p.sv)) + 6) / 10) * 10); // headroom for the top label
-  const lo = Math.min(0, Math.floor(Math.min(...all.map((p) => p.sv)) / 10) * 10);
+  const rawHi = Math.max(40, Math.max(...all.map((p) => p.sv)) + 6); // headroom for the top label
+  const rawLo = Math.min(0, Math.min(...all.map((p) => p.sv)));
+  const step = rawHi - rawLo > 60 ? 20 : 10;
+  const hi = Math.ceil(rawHi / step) * step, lo = Math.floor(rawLo / step) * step; // step-aligned, so 0 is always a tick
   const d0 = Math.min(...all.map((p) => p.day)), d1 = Math.max(...all.map((p) => p.day));
   const x = (d) => L + (W - L - R) * ((d - d0) / ((d1 - d0) || 1));
   const y = (v) => T + (H - T - B) * ((hi - v) / (hi - lo));
-  const step = hi - lo > 60 ? 20 : 10;
   const g = [];
   for (let t = lo; t <= hi; t += step) g.push(s("line", { x1: L, x2: W - R, y1: y(t), y2: y(t), stroke: "#e3e8ee" }), s("text", { x: L - 8, y: y(t) + 4, "text-anchor": "end", fill: "#5d6b79", "font-size": 11 }, String(t)));
-  g.push(s("rect", { x: L, y: y(10), width: W - L - R, height: y(lo) - y(10), fill: "#fff6e6" }),
-    s("line", { x1: L, x2: W - R, y1: y(10), y2: y(10), stroke: "#b54708", "stroke-width": 2, "stroke-dasharray": "6 4" }),
-    s("text", { x: L + 6, y: y(10) - 6, fill: "#a14b00", "font-size": 11.5, "font-weight": 700 }, "10 cm/s: NASA duplex criterion"),
+  g.push(s("rect", { x: L, y: y(STASIS_CM_S), width: W - L - R, height: y(lo) - y(STASIS_CM_S), fill: "#fff6e6" }),
+    s("line", { x1: L, x2: W - R, y1: y(STASIS_CM_S), y2: y(STASIS_CM_S), stroke: "#b54708", "stroke-width": 2, "stroke-dasharray": "6 4" }),
+    s("text", { x: L + 6, y: y(STASIS_CM_S) - 6, fill: "#a14b00", "font-size": 11.5, "font-weight": 700 }, "10 cm/s: NASA duplex criterion"),
     s("text", { x: 2, y: 11, fill: "#5d6b79", "font-size": 11 }, "cm/s"));
   const days = [...new Map(all.map((p) => [p.day, p.label])).entries()];
   for (const [d, label] of days) g.push(s("text", { x: x(d), y: H - 22, "text-anchor": x(d) < L + 30 ? "start" : x(d) > W - R - 30 ? "end" : "middle", fill: "#5d6b79", "font-size": 11 }, label));
@@ -124,13 +126,13 @@ function chart(c) {
     const left = ser.side === "left";
     g.push(s("polyline", { points: ser.pts.map((p) => `${x(p.day)},${y(p.sv)}`).join(" "), fill: "none", stroke: left ? "#1d4ed8" : "#6b7a8a", "stroke-width": left ? 3 : 2, "stroke-dasharray": left ? "" : "5 4" }));
     for (const p of ser.pts) {
-      const flag = p.v < 10 || p.retro;
+      const flag = p.v < STASIS_CM_S || p.retro;
       g.push(s("circle", { cx: x(p.day), cy: y(p.sv), r: left ? 5.5 : 4, fill: flag ? "#f79009" : "#fff", stroke: left ? "#1d4ed8" : "#6b7a8a", "stroke-width": 2 }));
       if (left) g.push(s("text", { x: x(p.day), y: y(p.sv) - 10, "text-anchor": x(p.day) < L + 30 ? "start" : x(p.day) > W - R - 30 ? "end" : "middle", fill: "#0f1720", "font-size": 12, "font-weight": 700 }, `${p.v.toFixed(1)}${p.retro ? " retro" : ""}`));
     }
   }
-  const nLeft = series[0].pts.length;
-  const desc = `Synthetic IJV mean peak velocity per duplex exam. Left: ${series[0].pts.map((p) => `${p.label} ${p.sv} cm/s`).join(", ") || "none"}. Dashed line: NASA's 10 cm/s duplex criterion.`;
+  const nLeft = new Set(series[0].pts.map((p) => p.day)).size;
+  const desc = `Synthetic IJV mean peak velocity per duplex exam. Left: ${series[0].pts.map((p) => `${p.label} ${p.sv} cm/s`).join(", ") || "none"}. Right: ${series[1].pts.map((p) => `${p.label} ${p.sv} cm/s`).join(", ") || "none"}. Dashed line: NASA's 10 cm/s duplex criterion; negative values are retrograde flow.`;
   return h("div", { class: "chart" },
     s("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": desc }, s("title", {}, desc), g),
     h("div", { class: "legend" }, h("span", {}, h("i", {}), "Left IJV"), h("span", {}, h("i", { class: "r" }), "Right IJV"), h("span", {}, h("i", { class: "n" }), "NASA 10 cm/s criterion")),
@@ -170,8 +172,13 @@ function scoreTable(res) {
 }
 
 function renderDetail() {
-  const row = state.rows.find((x) => x.c.id === state.selected) || state.rows[0];
   const out = $("detail");
+  try { buildDetail(out); } catch (e) {
+    out.replaceChildren(h("p", { class: "err" }, `Clinical engine stopped safely for this crew member: ${e.message}. Open the full record for details.`));
+  }
+}
+function buildDetail(out) {
+  const row = state.rows.find((x) => x.c.id === state.selected) || state.rows[0];
   if (!row) { out.replaceChildren(h("p", { class: "err" }, "No synthetic crew cases could be loaded.")); return; }
   const { c, r, res } = row;
   const head = h("div", { class: "card patient" },
@@ -188,10 +195,10 @@ function renderDetail() {
     h("p", { class: "by" }, d.emergency ? "Follow the onboard emergency procedure now; the flight surgeon makes every later decision." : "Decided by the flight surgeon. The agent flags and prompts; it does not diagnose or prescribe."));
   const sym = p.symptom_report;
   const kpis = h("div", { class: "kpis" },
-    kpi("NASA VTE score", `${res.total} pt${res.total === 1 ? "" : "s"}`, "Band shown for clinician review", res.total > 6 ? "flag" : ""),
-    sideKpi(c, "left"), sideKpi(c, "right"), ddimerKpi(c),
+    kpi("NASA VTE score", `${res.total} pt${res.total === 1 ? "" : "s"}`, "Band shown for clinician review"),
+    sideKpi(c, "left"), sideKpi(c, "right"), ddimerKpi(c, res),
     kpi("Symptoms today", sym.ticked.length ? `${sym.ticked.length} reported` : "None", sym.ticked.length ? sym.ticked.join("; ") : "Checklist: none ticked. Does not exclude thrombosis.", d.emergency ? "em" : sym.ticked.length ? "flag" : ""),
-    kpi("Review packet", p.packet_status === "INCOMPLETE" ? "Incomplete" : "Pending review", blocking.length ? short(blocking.join("; "), 80) : "No blocking data problems", blocking.length ? "flag" : ""));
+    kpi("Review packet", p.packet_status === "INCOMPLETE" ? "Incomplete" : p.packet_status === "PENDING_CLINICAL_REVIEW" ? "Pending review" : p.packet_status.replaceAll("_", " ").toLowerCase(), blocking.length ? short(blocking.join("; "), 80) : "No blocking data problems", blocking.length ? "flag" : ""));
   const two = h("div", { class: "two" },
     h("div", { class: "card" }, h("h2", {}, "IJV duplex trend"), chart(c)),
     h("div", { class: "card" }, h("h2", {}, "Evidence timeline"), timeline(c, p)));
@@ -201,9 +208,11 @@ function renderDetail() {
 }
 
 function select(id, push) {
+  const hadFocus = document.activeElement?.classList?.contains("q-btn");
   state.selected = id;
   renderQueue();
   renderDetail();
+  if (hadFocus) document.querySelector(`.q-btn[data-id="${CSS.escape(id)}"]`)?.focus(); // keep keyboard focus on the chosen row
   if (push) {
     const u = new URL(location.href);
     u.searchParams.set("crew", id);
