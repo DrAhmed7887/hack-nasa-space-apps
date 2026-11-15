@@ -153,3 +153,5 @@ a:hover { color: #9be3ef; }
 .scope summary { cursor: pointer; font-weight: 600; }
 .scope ul { margin: 0.4rem 0; padding-left: 1.2rem; }
 .scope p { margin: 0.3rem 0; }
+.vel { margin: var(--s3) 0; max-width: 640px; }
+.vel figcaption { margin-top: var(--s1); }

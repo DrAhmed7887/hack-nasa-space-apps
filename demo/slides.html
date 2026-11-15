@@ -31,7 +31,7 @@ ul { padding-left:32px }
 li { margin-bottom:10px }
 a { color:var(--teal) }
 ol li { font-size:25px; margin-bottom:6px }
-.sim { position:absolute; left:0; right:0; top:0; background:#8f1a12; border-bottom:1px solid #ff6b5e; color:#fff; text-align:center; font-size:20px; padding:7px; letter-spacing:.05em }
+.sim { position:absolute; z-index:10; left:0; right:0; top:0; background:#8f1a12; border-bottom:1px solid #ff6b5e; color:#fff; text-align:center; font-size:20px; padding:7px; letter-spacing:.05em }
 .meta p { font-size:30px; margin-bottom:8px }
 </style></head><body>
 
@@ -40,8 +40,9 @@ ol li { font-size:25px; margin-bottom:6px }
   <div class="sim">SIMULATION: NOT FOR OPERATIONAL MEDICAL USE &middot; synthetic data</div>
   <p class="muted" style="font-size:24px; margin-top:20px">NASA Space Apps Challenge 2026 &middot; Boston (Virtual)</p>
   <h1 id="app-name" style="margin-top:30px">VTE Watch</h1>
-  <p style="font-size:44px; margin:10px 0 40px; max-width:1000px">NASA-referenced clot risk, organized for flight-surgeon review</p>
-  <p class="note" style="margin:-24px 0 22px; font-size:26px; max-width:1100px">Case C11: 1 point on NASA's score, then a new change in vision. The app says: start the onboard emergency procedure now.</p>
+  <p class="muted" style="font-size:22px; margin:8px 0 2px">WHAT WE OFFER · THE IDEA</p>
+  <p style="font-size:36px; line-height:1.16; margin:4px 0 28px; max-width:1100px">An onboard surveillance agent that checks more than NASA's clot-risk score: scan trends, symptoms and missing data. It flags concerns for the flight surgeon, even when the astronaut feels well.</p>
+  <p class="note" style="margin:-24px 0 22px; font-size:25px; max-width:1100px">Why look beyond symptoms? NASA reports that an in-flight jugular clot may have no symptoms and may be detected by ultrasound.</p>
   <div class="meta">
     <p><b>Team:</b> Orbital Health Informatics</p>
     <p><b>Members:</b> <span id="members">{{MEMBERS}}</span></p>
@@ -107,41 +108,78 @@ ol li { font-size:25px; margin-bottom:6px }
 </section>
 
 <!-- 5 -->
-<section style="padding:0">
-  <img src="shots/workflow.jpg" style="width:1280px; height:720px; display:block" alt="VTE Watch workflow: astronaut and crew medical officer inputs, the onboard engine (append-only record, NASA score unchanged, trend state, safety and medication checks), the flight-surgeon packet (incomplete, pending review, signed) and the flight surgeon's signed decision; an emergency symptom overrides any score and the astronaut starts the onboard emergency procedure at once">
-  <div class="n" style="bottom:3px; font-size:14px">5 / 7</div>
+<section>
+  <div class="sim">SIMULATION: NOT FOR OPERATIONAL MEDICAL USE &middot; synthetic data</div>
+  <h2 style="margin-top:20px">How the agent should work</h2>
+  <p class="muted" style="font-size:23px; margin:-10px 0 24px">The concept is continuous watch; the demo shows its rule-based first step.</p>
+  <div class="kv" style="gap:16px; margin-top:18px">
+    <div class="card" style="text-align:left; min-height:300px; padding:20px">
+      <div class="big" style="font-size:54px">1</div>
+      <p style="font-size:26px; margin-top:12px"><strong>Collect signals</strong></p>
+      <p class="muted" style="font-size:22px; margin-top:8px">Track scans, symptoms, labs and medication over the mission. Demo: synthetic cases only.</p>
+    </div>
+    <div class="card" style="text-align:left; min-height:300px; padding:20px">
+      <div class="big" style="font-size:54px">2</div>
+      <p style="font-size:26px; margin-top:12px"><strong>Check together</strong></p>
+      <p class="muted" style="font-size:22px; margin-top:8px">Apply NASA's score and guidance; check trends and missing, stale or conflicting data.</p>
+    </div>
+    <div class="card" style="text-align:left; min-height:300px; padding:20px">
+      <div class="big" style="font-size:54px">3</div>
+      <p style="font-size:26px; margin-top:12px"><strong>Flag what may be missed</strong></p>
+      <p class="muted" style="font-size:22px; margin-top:8px">Surface a worsening trend, symptom or data gap for review—even if the score is low.</p>
+    </div>
+    <div class="card" style="text-align:left; min-height:300px; padding:20px">
+      <div class="big" style="font-size:54px">4</div>
+      <p style="font-size:26px; margin-top:12px"><strong>Alert the surgeon</strong></p>
+      <p class="muted" style="font-size:22px; margin-top:8px">Concept: send a cited alert. Demo: create a review packet; the surgeon decides.</p>
+    </div>
+  </div>
+  <p class="note" style="margin-top:22px; font-size:22px"><strong>What exists today:</strong> fixed, source-linked rules on synthetic cases—not an AI model, live feed or validated clot detector. The demo creates a packet; it does not send a live alert.</p>
+  <div class="n">5 / 7</div>
 </section>
 
 <!-- 6 -->
 <section>
   <div class="sim">SIMULATION: NOT FOR OPERATIONAL MEDICAL USE &middot; synthetic data</div>
-  <h2 style="margin-top:20px">NASA data, and the proof</h2>
-  <div class="kv" style="margin-bottom:26px">
-    <div class="card"><b>5</b><span>NASA sources used, plus the FDA apixaban label (all cited in the app)</span></div>
-    <div class="card"><b>12/12</b><span>synthetic cases match totals worked out by hand first (C12: the v3 longitudinal case)</span></div>
-    <div class="card"><b>163</b><span>automated tests (74 Python + 89 v3 acceptance)</span></div>
+  <h2 style="margin-top:20px">The agent watches the trend, not only the score</h2>
+  <div class="cols" style="gap:28px; margin-top:0">
+    <div style="flex:none; width:664px">
+      <div class="card" style="text-align:left; padding:14px 10px 6px; flex:none"><svg viewBox="0 0 700 370" width="640" height="338" role="img" aria-label="Synthetic left IJV mean peak velocity: 32.0, 17.5 and 8.0 cm/s at baseline, L+30 and L+47; dashed line at NASA's 10 cm/s duplex criterion">
+      <line x1="60" x2="676" y1="320.0" y2="320.0" stroke="#2b3b48"/><text x="50" y="326.0" text-anchor="end" fill="#a3b3c0" font-size="18">0</text><line x1="60" x2="676" y1="247.5" y2="247.5" stroke="#2b3b48"/><text x="50" y="253.5" text-anchor="end" fill="#a3b3c0" font-size="18">10</text><line x1="60" x2="676" y1="175.0" y2="175.0" stroke="#2b3b48"/><text x="50" y="181.0" text-anchor="end" fill="#a3b3c0" font-size="18">20</text><line x1="60" x2="676" y1="102.5" y2="102.5" stroke="#2b3b48"/><text x="50" y="108.5" text-anchor="end" fill="#a3b3c0" font-size="18">30</text><line x1="60" x2="676" y1="30.0" y2="30.0" stroke="#2b3b48"/><text x="50" y="36.0" text-anchor="end" fill="#a3b3c0" font-size="18">40</text>
+      <rect x="60" y="247.5" width="616" height="72.5" fill="#a07c22" opacity=".22"/>
+      <line x1="60" x2="676" y1="247.5" y2="247.5" stroke="#f2d98c" stroke-width="3" stroke-dasharray="10 7"/>
+      <text x="70" y="237.5" fill="#f2d98c" font-size="20" font-weight="700">10 cm/s: NASA duplex criterion</text>
+      <polyline points="60.0,88.0 453.2,193.1 676.0,262.0" fill="none" stroke="#5cc8da" stroke-width="4"/>
+      <circle cx="60.0" cy="88.0" r="9" fill="#e9eff4" stroke="#5cc8da" stroke-width="3"/><text x="60.0" y="72.0" text-anchor="start" fill="#fff" font-size="22" font-weight="700">32.0 cm/s</text><text x="60.0" y="352" text-anchor="start" fill="#a3b3c0" font-size="18">Baseline (pre-flight)</text><circle cx="453.2" cy="193.1" r="9" fill="#e9eff4" stroke="#5cc8da" stroke-width="3"/><text x="453.2" y="177.1" text-anchor="middle" fill="#fff" font-size="22" font-weight="700">17.5 cm/s</text><text x="453.2" y="352" text-anchor="middle" fill="#a3b3c0" font-size="18">L+30 days</text><circle cx="676.0" cy="262.0" r="9" fill="#f2d98c" stroke="#5cc8da" stroke-width="3"/><text x="676.0" y="296.0" text-anchor="end" fill="#fff" font-size="22" font-weight="700">8.0 cm/s</text><text x="676.0" y="352" text-anchor="end" fill="#a3b3c0" font-size="18">L+47 (extra scan)</text>
+      <text x="0" y="18" fill="#a3b3c0" font-size="18">cm/s</text>
+    </svg></div>
+      <p style="font-size:19px; line-height:1.25; margin-top:8px">Synthetic left IJV velocity observations from three examinations. The 10 cm/s reference is the NASA duplex criterion.</p>
+    </div>
+    <div style="flex:1">
+      <p class="muted" style="font-size:20px; margin-bottom:8px">SYNTHETIC CASE C12</p>
+      <p style="font-size:22px; line-height:1.26"><b>L+30:</b> 17.5 cm/s, above NASA's line: the score adds nothing. The flight surgeon orders an extra scan.</p>
+      <p style="font-size:22px; line-height:1.26; margin-top:10px"><b>L+47:</b> 8.0 cm/s, below the line: NASA's +4 applies. The agent marks the trend <b>DETERIORATING</b> (forward flow at L+30, slow now; echo contrast grade 2&rarr;3) and builds the surgeon's review packet.</p>
+      <p class="note" style="margin-top:14px; font-size:19px">A review alert, not a diagnosis: slow flow is not proof of a clot, and normal flow does not exclude one.</p>
+    </div>
   </div>
-  <ul style="margin-top:34px">
-    <li>NASA/SP-20260005258 REV1 &middot; OCHMO-MTB-007 &middot; OCHMO-TB-007 &middot; NTRS 20250002759 &middot; NASA/SP-20260009389</li>
-    <li>The 11 cases cover every band, every rule edge and the demo case. NASA's score is identical before and after the v3 engine.</li>
-  </ul>
-  <p class="note" style="margin-top:34px; font-size:28px"><b>Limits:</b> synthetic data; it ranks and organizes NASA-referenced risk, it does not detect or predict clots, and no performance was measured.</p>
+  <p class="note" style="margin-top:10px; font-size:18px; padding:8px 16px"><b>Prototype limit:</b> synthetic data, fixed rules, no live feed or AI model; trend rules are the team's, unvalidated; no detection performance measured.</p>
+  <p class="muted" style="font-size:14px; margin-top:5px; max-width:1060px">Sources: NASA/SP-20260005258 REV1, p.20: &ldquo;A case is defined as abnormal when mean peak velocity is less than 10 cm/s anterograde&rdquo; &middot; OCHMO-MTB-007/TB-007 &middot; NTRS 20250002759</p>
   <div class="n">6 / 7</div>
 </section>
 
 <!-- 7 -->
 <section>
   <div class="sim">SIMULATION: NOT FOR OPERATIONAL MEDICAL USE &middot; synthetic data</div>
-  <h2 style="margin-top:20px">Where it could go</h2>
+  <h2 style="margin-top:20px">What it would take to trust the agent</h2>
   <ul style="margin-top:10px">
-    <li>The score next to onboard ultrasound scans on long missions.</li>
-    <li>D-dimer scored once in-flight testing exists. NASA says there are no adequate in-flight methods today.</li>
-    <li>The same engine for other NASA risk tables; the team's own trend thresholds validated before any real use.</li>
-    <li>To validate it: individual-level in-flight jugular ultrasound with clinical outcomes, requested through NASA's Life Sciences Data Archive.</li>
+    <li>Connect authorized, individual crew timelines: ultrasound, symptoms, labs and medication—not group averages.</li>
+    <li>Compare new measurements with the astronaut's own baseline and NASA guidance; flag the evidence for surgeon review.</li>
+    <li>Test against individual data and clinical outcomes; measure missed cases and false alerts before claiming detection.</li>
+    <li>NASA itself calls for improved in-flight detection and validation. Human clinicians remain responsible for decisions.</li>
   </ul>
   <p style="margin-top:40px; font-size:30px"><b>App:</b> <a href="https://drahmed7887.github.io/hack-nasa-space-apps/">drahmed7887.github.io/hack-nasa-space-apps</a></p>
   <p style="font-size:30px"><b>Repo:</b> <a href="https://github.com/DrAhmed7887/hack-nasa-space-apps">github.com/DrAhmed7887/hack-nasa-space-apps</a></p>
-  <div class="foot">AI-assisted: built with Claude Code. Synthetic data only.</div>
+  <div class="foot" style="right:140px; font-size:18px; line-height:1.2">No AI runs in the app. ChatGPT assisted specifications; Claude Code assisted research and coding.</div>
   <div class="n">7 / 7</div>
 </section>
 </body></html>

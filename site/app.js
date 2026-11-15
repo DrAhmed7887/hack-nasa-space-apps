@@ -229,8 +229,47 @@ function renderTrend(c, res) {
         sc === latest ? h("span", { class: "tagx" }, "Used for the score") : null,
         ["left", "right"].map((side) => h("span", { class: "side " + LABEL_CLASS[r[side]] }, h("b", {}, side + " IJV"), r[side], sideDetail(sc, side) ? h("small", {}, h("br"), sideDetail(sc, side)) : null)));
     })),
+    velocityChart(c.scans),
     h("p", { class: "hint" }, TREND_NOTE, " Colour is only a hint; the words carry the meaning."),
     h("p", { class: "hint" }, res ? `The score's IJV row (${res.items.find((i) => i.group === "IJV flow").points ? "+4" : "0"}) is read from the scan marked above: the same latest recorded in-flight scan.` : ""));
+}
+
+// Left IJV mean peak velocity per recorded duplex exam, with NASA's 10 cm/s line (SP-20260005258 REV1 p.20).
+// Drawing only: the label for each scan still comes from trend.js, and the score reads only the latest in-flight scan.
+function velocityChart(scans) {
+  const pts = scans
+    .filter((sc) => sc.recorded && typeof sc.left?.mean_peak_velocity_cm_s === "number")
+    .map((sc) => ({ day: sc.day, v: sc.left.mean_peak_velocity_cm_s, retro: sc.left.direction === "retrograde", label: sc.label.split(" (")[0], pre: !sc.in_flight }));
+  if (pts.length < 2) return null;
+  const W = 520, H = 210, L = 44, R = 16, T = 18, B = 40;
+  const hi = Math.max(40, Math.ceil(Math.max(...pts.map((p) => p.v)) / 10) * 10);
+  const d0 = Math.min(...pts.map((p) => p.day)), d1 = Math.max(...pts.map((p) => p.day));
+  const x = (d) => L + (W - L - R) * ((d - d0) / ((d1 - d0) || 1));
+  const y = (v) => T + (H - T - B) * (1 - v / hi);
+  const g = [];
+  for (let t = 0; t <= hi; t += 10) {
+    g.push(svg("line", { x1: L, x2: W - R, y1: y(t), y2: y(t), stroke: "var(--line-2)", "stroke-width": 1, opacity: 0.5 }),
+      svg("text", { x: L - 6, y: y(t) + 4, "text-anchor": "end", fill: "var(--muted)", "font-size": 11 }, String(t)));
+  }
+  g.push(
+    svg("rect", { x: L, y: y(10), width: W - L - R, height: y(0) - y(10), fill: "var(--warn-line)", opacity: 0.18 }),
+    svg("line", { x1: L, x2: W - R, y1: y(10), y2: y(10), stroke: "var(--warn-ink)", "stroke-width": 2, "stroke-dasharray": "6 4" }),
+    svg("text", { x: L + 6, y: y(10) - 6, "text-anchor": "start", fill: "var(--warn-ink)", "font-size": 12, "font-weight": 600 }, "10 cm/s: NASA duplex criterion"),
+    svg("polyline", { points: pts.map((p) => `${x(p.day)},${y(p.v)}`).join(" "), fill: "none", stroke: "var(--accent)", "stroke-width": 2.5 }),
+    svg("text", { x: 4, y: T - 6, fill: "var(--muted)", "font-size": 11 }, "cm/s"));
+  pts.forEach((p) => {
+    const below = p.v < 10 || p.retro;
+    const anchor = x(p.day) < L + 30 ? "start" : x(p.day) > W - R - 30 ? "end" : "middle";
+    g.push(
+      svg("circle", { cx: x(p.day), cy: y(p.v), r: 6, fill: below ? "var(--warn-ink)" : "var(--ink)", stroke: "var(--accent)", "stroke-width": 2 }),
+      svg("text", { x: x(p.day), y: below ? y(p.v) + 22 : y(p.v) - 11, "text-anchor": anchor, fill: "var(--ink)", "font-size": 12, "font-weight": 600 }, `${p.v.toFixed(1)} cm/s${p.retro ? " retrograde" : ""}`),
+      svg("text", { x: x(p.day), y: H - 20, "text-anchor": anchor, fill: "var(--muted)", "font-size": 11 }, p.label + (p.pre ? " (pre-flight)" : "")));
+  });
+  const n = pts.length;
+  const desc = `Synthetic left IJV mean peak velocity from ${n} examinations: ${pts.map((p) => `${p.label} ${p.v} cm/s`).join(", ")}. Dashed line: NASA's 10 cm/s duplex criterion.`;
+  return h("figure", { class: "vel" },
+    svg("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": desc, class: "i4-svg" }, svg("title", {}, desc), g),
+    h("figcaption", { class: "hint" }, `Synthetic left IJV velocity observations from ${n === 3 ? "three" : n} examinations. The 10 cm/s reference is the NASA duplex criterion (`, sourceLink("VTE-2026"), ", p.20). Only the latest in-flight exam feeds NASA's score; the line is a review cue, not a diagnosis."));
 }
 
 function renderSchedule(c, res) {
