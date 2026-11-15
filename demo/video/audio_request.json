@@ -12,12 +12,12 @@
       "text": "Near Mars, a clot can't wait: NASA lists delays of up to 40 minutes, and no evacuation."
     },
     {
-      "id": "diagnosis",
-      "text": "NASA's risk score is one snapshot. VTE Watch keeps that same score, and watches it all mission."
+      "id": "data",
+      "text": "In our twelve test cases, five scored low. VTE Watch still flagged three: a seventy-five percent flow drop, a missing scan, and an emergency symptom."
     },
     {
       "id": "solution",
-      "text": "Scans and symptoms go in. Onboard checks flag an emergency at once, and check blood thinners before landing. Then the flight surgeon signs."
+      "text": "Scans and symptoms go in, checks run onboard, and the flight surgeon signs every decision."
     }
   ],
   "bgm": {
