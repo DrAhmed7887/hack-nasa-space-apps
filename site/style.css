@@ -147,3 +147,9 @@ a:hover { color: #9be3ef; }
   main > section:not(#v3), header, footer, #v3 > .hint, #v3-out > *:not(#v3-summary) { display: none !important; }
   #v3-summary { display: block !important; color: #000; font-size: 11pt; }
 }
+
+/* AI-assisted (Claude Code): clinical scope box (spec v3.2 §21.3-21.4, §29.1) */
+.scope { margin: 0.5rem 0 0; font-size: 0.92rem; }
+.scope summary { cursor: pointer; font-weight: 600; }
+.scope ul { margin: 0.4rem 0; padding-left: 1.2rem; }
+.scope p { margin: 0.3rem 0; }
