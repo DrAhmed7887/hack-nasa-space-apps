@@ -28,10 +28,10 @@ def classify(side: dict | None) -> str:
     """Neutral label for one side of one scan. Retrograde wins; below 10.0 cm/s (strictly) is low velocity."""
     side = side or {}
     v, d = side.get("mean_peak_velocity_cm_s"), side.get("direction")
-    if v is None and d is None:
-        return NOT_MEASURED
     if d == "retrograde":
         return RETRO
+    if v is None:
+        return NOT_MEASURED  # no velocity measured: never label it forward flow
     if v is not None and v < STASIS_CM_S:
         return LOW
     return FORWARD

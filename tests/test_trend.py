@@ -72,7 +72,7 @@ class TestLabels(unittest.TestCase):
         self.assertEqual(stasis_points(s), 0)
 
     def test_velocity_and_direction_are_separate(self):
-        self.assertEqual(classify(side(None, "anterograde")), FORWARD)  # direction known, velocity not recorded
+        self.assertEqual(classify(side(None, "anterograde")), NOT_MEASURED)  # direction known, velocity not recorded: never shown as forward flow
         self.assertEqual(classify(side(5.0, None)), LOW)
         self.assertEqual(classify(side(None, None)), NOT_MEASURED)
 

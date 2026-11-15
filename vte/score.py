@@ -166,7 +166,7 @@ def score_inflight(inf: dict | None) -> tuple[list[dict], list[str]]:
         if hits:
             items.append(_item("IJV flow", RULE_STASIS, 4, "; ".join(hits)))
         else:
-            items.append(_item("IJV flow", "No stasis (<10 cm/s) or retrograde flow found: 0 points", 0, "normal"))
+            items.append(_item("IJV flow", "No stasis (<10 cm/s) or retrograde flow found: 0 points", 0, "no stasis or retrograde flow"))
 
     base, now = inf.get("ddimer_baseline"), inf.get("ddimer_now")
     if base is None or now is None:

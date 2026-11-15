@@ -5,7 +5,7 @@ An entry for the **NASA Space Apps Challenge 2026**, challenge [Create Health Mo
 **What it is:** a synthetic-data prototype that puts three things side by side for a flight surgeon: NASA's own VTE risk score with its sources, the crew member's jugular-vein scan trend, and a daily symptom checklist, then hands them to the ground over A2A with a simulated delay.
 **What it is not:** a detector, a diagnosis, a prediction or a validated early-warning system. It measures no diagnostic or predictive performance.
 
-**Try it in 30 seconds:** `python3 -m http.server -d site 8000`, open http://localhost:8000, pick case **C11** (score 1 point, yet a new change in vision is ticked): the score stays at 1, the checklist shows its own message, the packet panel shows what the ground receives. No login. The hosted link goes here once GitHub Pages is live. **Rebuild everything:** `bash scripts/reproduce.sh` (offline, no keys).
+**Try it in 30 seconds:** `python3 -m http.server -d site 8000`, open http://localhost:8000, pick case **C11** (score 1 point, yet a new change in vision is ticked): the score stays at 1, the checklist shows its own message, the packet panel shows what the ground receives. No login. Hosted: https://drahmed7887.github.io/hack-nasa-space-apps/ (no login). **Rebuild everything:** `bash scripts/reproduce.sh` (offline, no keys).
 
 > **SIMULATION: NOT FOR OPERATIONAL MEDICAL USE.** Synthetic data only. VTE Watch ranks and organizes NASA-referenced risk for flight-surgeon review. It does not detect, diagnose or predict clots, and the risk score is not a diagnostic test. New symptoms need their own assessment whatever the score.
 
@@ -58,7 +58,7 @@ This follows the Space Apps rules on AI ("SI") use.
 
 - **The idea comes from the team.** The team physician chose the target (VTE in spaceflight), the use of A2A agents and the mission-distance angle. At the team's request, AI tools also critiqued and compared the team's own candidate ideas; no AI tool proposed the core idea.
 - **Claude Code (Anthropic)** helped with research checks (each fact traced to its NASA source), code, tests and editing.
-- **Lawrence used ChatGPT (OpenAI)** to explore features after the team chose VTE; the features were adapted and checked against NASA sources with Claude Code.
+- **A teammate used ChatGPT (OpenAI)** to explore features after the team chose VTE; the features were adapted and checked against NASA sources with Claude Code.
 - **Other models** (Qwen, GPT, Gemini) were asked to compare and critique the team's own candidate directions in a private review.
 - **Where it shows:** every code file starts with an "AI-assisted" header, every data JSON carries an `_ai_assisted` key, and other data files are listed in the data card. CI fails if a file is missing its mark (`scripts/check_ai_mark.py`).
 - No AI-generated images, video or audio are used. No NASA logos, flags or mission identifiers.

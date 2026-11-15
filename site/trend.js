@@ -13,8 +13,8 @@ export function classify(side) {
   side = side || {};
   const v = side.mean_peak_velocity_cm_s ?? null;
   const d = side.direction ?? null;
-  if (v === null && d === null) return NOT_MEASURED;
   if (d === "retrograde") return RETRO;
+  if (v === null) return NOT_MEASURED; // no velocity measured: never label it forward flow
   if (v !== null && v < STASIS_CM_S) return LOW;
   return FORWARD;
 }
