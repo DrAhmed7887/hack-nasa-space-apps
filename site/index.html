@@ -80,23 +80,41 @@
     <p class="safety" id="score-safety"></p>
   </section>
 
+  <section aria-labelledby="h-sym">
+    <h2 id="h-sym">3. Daily symptom report <span class="tagline">(separate from the score; adds no points)</span></h2>
+    <p class="hint">NASA gives no points for symptoms. This checklist is shown on its own and travels in the hand-off packet.</p>
+    <form id="sym-form" autocomplete="off">
+      <div id="sym-checks" class="checks" role="group" aria-label="Symptoms since the last check"></div>
+      <label class="inline sev"><input id="sym-severe" type="checkbox"> Any of these is sudden or severe</label>
+      <label class="inline"><input id="sym-done" type="checkbox"> Checklist done today</label>
+      <div class="flight-bar"><button type="button" id="sym-clear">Clear checklist</button></div>
+    </form>
+    <div id="sym-out" role="status" aria-live="polite"></div>
+  </section>
+
+  <section aria-labelledby="h-trend">
+    <h2 id="h-trend">4. Scan trend: internal jugular vein flow</h2>
+    <div id="trend-out"></div>
+  </section>
+
   <section aria-labelledby="h-sched">
-    <h2 id="h-sched">3. Ultrasound scan schedule</h2>
+    <h2 id="h-sched">5. Ultrasound scan schedule</h2>
     <div id="sched-out"></div>
   </section>
 
   <section aria-labelledby="h-mission">
-    <h2 id="h-mission">4. Mission and hand-off to the ground</h2>
+    <h2 id="h-mission">6. Mission and hand-off to the ground</h2>
     <div class="seg" role="radiogroup" aria-label="Mission">
       <label><input type="radio" name="mission" value="leo"> LEO</label>
       <label><input type="radio" name="mission" value="moon"> Moon</label>
       <label><input type="radio" name="mission" value="mars"> Mars</label>
     </div>
+    <label class="inline"><input id="fail-handoff" type="checkbox"> Simulate a failed hand-off (ground not reached)</label>
     <div id="mission-out"></div>
   </section>
 
   <section aria-labelledby="h-replay">
-    <h2 id="h-replay">5. A2A replay</h2>
+    <h2 id="h-replay">7. A2A replay</h2>
     <p class="replay-label"><strong>SIMULATED: replay of a recorded A2A run (agents/handoff.py, a2a-sdk 1.3.0).</strong> Two local agents on one computer exchanged these HTTP messages; the communication delay is simulated and nothing below is sent live.</p>
     <p id="replay-status" class="hint"></p>
     <div id="replay-out"></div>

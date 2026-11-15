@@ -37,7 +37,7 @@ from a2a.utils.constants import PROTOCOL_VERSION_CURRENT
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from vte.missions import MISSIONS, review_context  # noqa: E402
-from vte.score import next_scan, scan_schedule, score  # noqa: E402
+from vte.packet import PACKET_PARTS, build_packet  # noqa: E402
 from vte.sources import SOURCES  # noqa: E402
 
 HOST = "127.0.0.1"
@@ -102,6 +102,22 @@ async def ask(url: str, payload: dict) -> dict:
         return json.loads(reply)
 
 
+async def deliver(ground_url: str, packet: dict) -> dict:
+    """Hand the packet to the ground. If the ground cannot be reached, say so: the message the crew was shown does not depend on it."""
+    try:
+        return await ask(ground_url, packet)
+    except Exception as exc:  # keep running: a failed hand-off must not stop the onboard side
+        return {
+            "from": "onboard-crew-medical-monitor",
+            "case_id": packet["score"]["case_id"],
+            "status": "Hand-off failed: ground not reached. Packet not delivered.",
+            "delivered": False,
+            "error": type(exc).__name__,
+            "ground_decision": None,
+            "note": "The message shown to the crew does not wait for the ground.",
+        }
+
+
 class Ground(AgentExecutor):
     """Flight surgeon desk: receives the packet and queues it for a human. No clinical decision."""
 
@@ -115,6 +131,8 @@ class Ground(AgentExecutor):
             "received_at_mission_s": sent + delay,
             "reply_reaches_crew_at_mission_s": sent + 2 * delay,
             "status": "Queued for flight surgeon review",
+            "delivered": True,
+            "packet_parts_received": [k for k in PACKET_PARTS if k in packet],
             "ground_decision": None,
             "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet.",
         }
@@ -132,17 +150,8 @@ class Onboard(AgentExecutor):
 
     async def execute(self, context: RequestContext, event_queue: EventQueue) -> None:
         req = json.loads(context.get_user_input())
-        case, mission = req["case"], req["mission"]
-        day = case["inflight"].get("mission_day", 0) if case.get("inflight") else 0
-        packet = {
-            "from": "onboard-crew-medical-monitor",
-            "sent_at_mission_s": day * 86400,
-            "score": score(case),
-            "schedule": scan_schedule(case["mission_days"]),
-            "next_scan": next_scan(case["mission_days"], day + 1),
-            "review_context": review_context(mission),
-        }
-        ack = await ask(self.ground_url, packet)
+        packet = build_packet(req["case"], req["mission"])
+        ack = await deliver(self.ground_url, packet)
         out = {"packet": packet, "ground_ack": ack}
         await event_queue.enqueue_event(new_text_message(json.dumps(out), context_id=context.context_id))
 

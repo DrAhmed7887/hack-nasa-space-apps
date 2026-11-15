@@ -187,7 +187,11 @@ def score(case: dict) -> dict:
     if not isinstance(case, dict) or not isinstance(case.get("preflight"), dict):
         raise InputError("case must be an object with a 'preflight' object")
     pre_items, pre_flags = score_preflight(case["preflight"])
-    in_items, in_flags = score_inflight(case.get("inflight"))
+    inflight = case.get("inflight")
+    if "scans" in case:  # the +4 comes from the latest recorded in-flight scan, the same one the trend shows
+        from vte.trend import ijv_from_scans  # local import: vte.trend imports this module
+        inflight = {**(inflight or {}), "ijv": ijv_from_scans(case["scans"])}
+    in_items, in_flags = score_inflight(inflight)
     items = pre_items + in_items
     total = sum(i["points"] for i in items)
     return {
