@@ -18,3 +18,14 @@ runs/
 # Demo deck
 demo/team.local.json
 demo/out/
+
+# Demo film: renders, caches, licensed music, raw voice takes
+demo/video/renders/
+demo/video/.hyperframes/
+demo/video/assets/bgm/
+demo/video/assets/voice/*_raw.wav
+demo/video/assets/*.png
+demo/video/audio_meta.json
+demo/video/.media/
+demo/video/assets/voice/close.wav
+demo/video/assets/voice/transcript.json

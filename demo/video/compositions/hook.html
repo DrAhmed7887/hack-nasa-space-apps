@@ -1,0 +1,63 @@
+<template>
+<!-- AI-assisted: written with Claude Code (Anthropic) for the NASA Space Apps 2026 entry. -->
+  <style>
+    #hook { position:absolute; inset:0; background:#eef2f5; color:#0b1a22; font-family:Inter, sans-serif; overflow:hidden }
+    #hook-num { position:absolute; left:150px; top:150px; font-size:230px; font-weight:900; letter-spacing:-6px; line-height:1 }
+    #hook-num .of { color:#4f5f6b; font-weight:700; font-size:120px; letter-spacing:-2px }
+    #hook-num .amber { color:#a8650c }
+    #hook-cap { position:absolute; left:156px; top:405px; font-size:40px; font-weight:500; color:#24323c; max-width:1200px; line-height:1.25 }
+    #hook-cap b { color:#0b1a22; font-weight:800 }
+    #hook-strip { position:absolute; left:150px; right:150px; bottom:220px; height:190px; display:flex; gap:18px; align-items:flex-end }
+    .hk-bar { flex:1; height:100%; border-radius:12px; background:#c9d3da }
+    #hook-src { position:absolute; left:156px; bottom:150px; font-family:"JetBrains Mono", monospace; font-size:28px; color:#4f5f6b }
+  </style>
+  <div id="hook" data-composition-id="hook" data-width="1920" data-height="1080">
+    <div id="hook-strip" class="clip" data-start="0" data-duration="20">
+      <div class="hk-bar" id="hk-b0"></div>
+      <div class="hk-bar" id="hk-b1"></div>
+      <div class="hk-bar hk-hit" id="hk-b2"></div>
+      <div class="hk-bar" id="hk-b3"></div>
+      <div class="hk-bar" id="hk-b4"></div>
+      <div class="hk-bar" id="hk-b5"></div>
+      <div class="hk-bar hk-hit" id="hk-b6"></div>
+      <div class="hk-bar" id="hk-b7"></div>
+      <div class="hk-bar" id="hk-b8"></div>
+      <div class="hk-bar hk-hit" id="hk-b9"></div>
+      <div class="hk-bar" id="hk-b10"></div>
+      <div class="hk-bar" id="hk-b11"></div>
+      <div class="hk-bar" id="hk-b12"></div>
+      <div class="hk-bar hk-hit" id="hk-b13"></div>
+      <div class="hk-bar" id="hk-b14"></div>
+      <div class="hk-bar" id="hk-b15"></div>
+      <div class="hk-bar" id="hk-b16"></div>
+      <div class="hk-bar hk-hit" id="hk-b17"></div>
+      <div class="hk-bar" id="hk-b18"></div>
+      <div class="hk-bar" id="hk-b19"></div>
+      <div class="hk-bar" id="hk-b20"></div>
+      <div class="hk-bar" id="hk-b21"></div>
+      <div class="hk-bar hk-hit" id="hk-b22"></div>
+      <div class="hk-bar" id="hk-b23"></div>
+      <div class="hk-bar" id="hk-b24"></div>
+      <div class="hk-bar hk-hit" id="hk-b25"></div>
+      <div class="hk-bar" id="hk-b26"></div>
+      <div class="hk-bar" id="hk-b27"></div>
+      <div class="hk-bar" id="hk-b28"></div>
+      <div class="hk-bar hk-hit" id="hk-b29"></div>
+      <div class="hk-bar" id="hk-b30"></div>
+    </div>
+    <div id="hook-num" class="clip" data-start="0" data-duration="20"><span class="amber">8</span><span class="of"> of </span>31</div>
+    <div id="hook-cap" class="clip" data-start="0" data-duration="20">astronauts with a <b>left jugular-vein flow anomaly</b> in flight</div>
+    <div id="hook-src" class="clip" data-start="0" data-duration="20">NASA/SP-20260005258 REV1 &middot; one bar per astronaut</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#hook-strip .hk-bar", { scaleY: 0.55, transformOrigin: "50% 100%" }, { scaleY: 1, duration: 0.7, ease: "expo.out", stagger: 0.012 }, 0);
+    tl.fromTo("#hook-strip .hk-hit", { backgroundColor: "#c9d3da" }, { backgroundColor: "#e8a33d", duration: 0.25, ease: "power2.out", stagger: 0.11 }, 1.1);
+    tl.fromTo("#hook-num", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "expo.out" }, 0.35);
+    tl.fromTo("#hook-cap", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "expo.out" }, 1.0);
+    tl.fromTo("#hook-src", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 1.6);
+    tl.to("#hook-strip .hk-bar:not(.hk-hit)", { opacity: 0.4, duration: 0.6, ease: "power2.inOut" }, 3.0);
+    tl.fromTo("#hook-strip .hk-hit", { scaleY: 1 }, { scaleY: 1.12, duration: 0.6, ease: "expo.out", stagger: 0.04 }, 3.1);
+    window.__timelines["hook"] = tl;
+  </script>
+</template>

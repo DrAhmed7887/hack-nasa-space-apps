@@ -1,0 +1,22 @@
+<template>
+<!-- AI-assisted: written with Claude Code (Anthropic) for the NASA Space Apps 2026 entry. -->
+  <style>
+    #close { position:absolute; inset:0; background:#5cc8da; color:#062027; font-family:Inter, sans-serif; overflow:hidden }
+    #cl-name { position:absolute; left:150px; top:330px; font-size:220px; font-weight:900; letter-spacing:-7px; line-height:1 }
+    #cl-line { position:absolute; left:156px; top:590px; font-size:52px; font-weight:700; letter-spacing:-1px }
+    #cl-credit { position:absolute; left:156px; top:760px; font-size:30px; font-weight:500; line-height:1.5 }
+  </style>
+  <div id="close" data-composition-id="close" data-width="1920" data-height="1080">
+    <div id="cl-name" class="clip" data-start="0" data-duration="20">VTE Watch</div>
+    <div id="cl-line" class="clip" data-start="0" data-duration="20">NASA's score. Onboard. The flight surgeon decides.</div>
+    <div id="cl-credit" class="clip" data-start="0" data-duration="20">NASA Space Apps 2026 &middot; Orbital Health Informatics</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#close", { clipPath: "circle(0% at 80% 50%)" }, { clipPath: "circle(150% at 80% 50%)", duration: 0.35, ease: "power2.inOut" }, 0);
+    tl.fromTo("#cl-name", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "expo.out" }, 0.15);
+    tl.fromTo("#cl-line", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, 0.25);
+    tl.fromTo("#cl-credit", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, 0.3);
+    window.__timelines["close"] = tl;
+  </script>
+</template>
