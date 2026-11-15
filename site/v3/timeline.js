@@ -35,7 +35,7 @@ export function studyVisits(timelines, acceptSimulated) {
 }
 
 // Component 8. Returns issues; any "blocking" issue makes the packet INCOMPLETE.
-export function dataQuality(store, timelines, { today, acceptSimulated, staleDays }) {
+export function dataQuality(store, timelines, { today, acceptSimulated, schedule = [], windowDays = 7 }) {
   const issues = [];
   const add = (code, detail, blocking, obs) => issues.push({ code, detail, blocking, observation_id: obs ? obs.observation_id : null });
   const chain = store.verifyChain();
@@ -56,14 +56,19 @@ export function dataQuality(store, timelines, { today, acceptSimulated, staleDay
       add(same ? "DUPLICATE" : "CONFLICT", `${e.payload.side} IJV, day ${e.effective_day}: ${prev.observation_id} vs ${e.observation_id}`, !same, e);
     } else seen.set(k, e);
   }
-  // staleness: the newest usable in-flight duplex study must be recent
+  // staleness (team rule, follows NASA's schedule): the scan data are stale once a scheduled scan milestone after the
+  // newest usable in-flight scan has passed its 7-day window with no scan.
+  if (!Number.isFinite(today)) add("MISSION_DAY_UNSET", "mission day not set, so staleness and today's checklist cannot be checked", true);
   const visits = studyVisits(timelines, acceptSimulated).filter((v) => v.day > 0);
   const latest = visits[visits.length - 1];
-  if (latest && Number.isFinite(today) && today - latest.day > staleDays) add("STALE", `newest scan is ${today - latest.day} days old (limit ${staleDays})`, true);
+  if (latest && Number.isFinite(today)) {
+    const missed = schedule.filter((m) => m.day > latest.day + windowDays && today > m.day + windowDays);
+    if (missed.length) add("STALE", `scheduled scan ${missed[0].label} (day ${missed[0].day}) has no result; newest scan is day ${latest.day}`, true);
+  }
   if (!latest) add("NO_INFLIGHT_SCAN", "no usable in-flight duplex study yet", true);
   const sym = timelines.symptom.filter((e) => isUsable(e, acceptSimulated));
   const lastSym = sym[sym.length - 1];
-  if (!lastSym || lastSym.effective_day !== today || !lastSym.payload.checklist_done) add("CHECKLIST_NOT_TODAY", "symptom checklist not done today", true);
+  if (Number.isFinite(today) && (!lastSym || lastSym.effective_day !== today || !lastSym.payload.checklist_done)) add("CHECKLIST_NOT_TODAY", "symptom checklist not done today", true);
   return { issues, blocking: issues.filter((i) => i.blocking), chain };
 }
 

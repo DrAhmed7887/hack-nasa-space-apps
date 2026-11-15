@@ -1,28 +1,35 @@
-<!-- AI-assisted: drafted with Claude Code (Anthropic) from the team's v3 specification; every rule is checked against the quoted source. -->
-# VTE Watch v3: rules, sources and sign-off
+<!-- AI-assisted: drafted with Claude Code (Anthropic) from the team's v3.1 specification; every rule is checked against the quoted source. -->
+# VTE Watch v3.1: rules, sources and sign-off
 
-Every rule the v3 engine applies, where it comes from, and whether it is NASA's, the FDA label's or ours.
-**NASA's VTE Risk Score (Engine A) is unchanged.** Nothing in v3 adds, removes or changes a point.
+Every rule the v3.1 engine applies, where it comes from, and whether it is NASA's, the FDA label's or ours.
+**NASA's VTE Risk Score (Engine A) is unchanged.** Nothing in v3.1 adds, removes or changes a point. Kinds follow the spec:
+NASA-derived, label-derived, PROPOSED_LOCAL (team rule, not clinically validated) and clinician-governed (needs a signed plan or order).
 
 | # | Rule in the app | Kind | Source (exact words in `site/v3/sources.js`) | Code |
 |---|---|---|---|---|
-| 1 | Only a duplex ultrasound study can feed NASA's "<10 cm/s or retrograde" row; wearable Doppler never can | Claim boundary | NASA/SP-20260005258 REV1 p.20: "A case is defined as abnormal when mean peak velocity is less than 10 cm/s anterograde" (measured by in-flight ultrasound) | `pipeline.js` `scansFromStore` |
-| 2 | An ultrasound milestone (L+30, L+60, R-42) is met only by a duplex study within 7 days; a lab result (e.g. an L+14 D-dimer) never meets one | Team rule on NASA's schedule | OCHMO-MTB-007 example schedule; 7-day window is ours | `timeline.js` `milestoneStatus` |
-| 3 | Any emergency symptom overrides every score and trend (RED_FLAG_OVERRIDE) | Signed 15 Nov (v2) | SP-20260005258 p.34 (CVST symptoms); the jugular protocol does not exclude sinus clots | `states.js` |
-| 4 | No trend statement with fewer than 2 usable scan visits (DATA_INSUFFICIENT) | Team rule | none (conservative default) | `states.js` `MIN_STUDIES` |
-| 5 | DETERIORATING = forward flow earlier and low/retrograde now on the same side, or SEC grade rising to 3 or 4 | Team rule using NASA's definitions | SP p.20: abnormal flow definition; SEC grades 1-4 | `states.js` |
-| 6 | FLOW_RESPONSE_ASSESSMENT_INDICATED = latest scan low/retrograde, SEC 3-4, or NASA band 2-3 | Team rule (from the team spec) | none: not validated | `states.js` |
-| 7 | Flow-response study: logged only with a flight-surgeon order; "positive" = low/retrograde before and forward after; always shown with "does not exclude thrombosis or reduce future VTE risk"; normal flow before = not applicable | Team rule | none: measurement log only | `states.js` `flowResponse` |
-| 8 | Newest in-flight scan older than 45 days, a conflicting value, a broken audit chain, no in-flight scan, or no checklist today = packet INCOMPLETE | Team rule | 45 days is ours (NASA's example scans are 30 days apart) | `timeline.js` `dataQuality` |
-| 9 | Apixaban regimens shown as recorded by the flight surgeon: prophylaxis 2.5 mg twice a day; treatment 10 mg twice a day for 7 days, then 5 mg twice a day | NASA reference | OCHMO-MTB-007 p.12 | `meds.js` |
-| 10 | Landing hold: treatment 48 h, prophylaxis 24 h (MTB-007) or 48 h for apixaban use (SP-20260005258). The approved plan must name which document; the app never picks | NASA reference | MTB-007 p.13; SP p.11 and p.25 | `meds.js` |
-| 11 | No countdown without a clinician-approved plan | Claim boundary | — | `meds.js` |
-| 12 | EVA: prophylaxis reference hold 24 h before a high-risk EVA | NASA reference | SP p.11 and p.25 | `meds.js` |
-| 13 | Interaction flag for combined P-gp and strong CYP3A4 inhibitors (ketoconazole, itraconazole, ritonavir; clarithromycin with the label's no-adjustment note) and inducers (rifampin, carbamazepine, phenytoin, St John's wort). Unlisted drugs: "not a statement that there is no interaction" | FDA label | ELIQUIS label section 7 (DailyMed, 12 Nov 2026) | `meds.js` |
-| 14 | Reversal register is an inventory only, shown with NASA's and the label's notes | NASA + FDA reference | MTB-007 p.13; label section 5.2 | `meds.js` |
-| 15 | Bleeding context: AVERROES major bleeding 1.4% vs 1.2% per year (context, not a prediction) | NASA reference | SP p.11 | `meds.js` |
-| 16 | IJV right/left ratio: 0 NASA points; >1.55 "not a validated predictor"; exactly 1.55 "not defined" | Claim boundary | SP p.21 | `pipeline.js` |
-| 17 | Forbidden outputs (THROMBOSIS_ABSENT, VTE_RISK_REDUCED, SAFE_TO_CONTINUE, ANTICOAGULATION_INDICATED, REVERSAL_REQUIRED, "all clear", ...) stop the packet | Safety interlock | — | `orchestrator.js` |
+| 1 | Only a duplex ultrasound study can feed NASA's "<10 cm/s or retrograde" row; wearable Doppler never can | Claim boundary | SP-20260005258 REV1 p.20: "A case is defined as abnormal when mean peak velocity is less than 10 cm/s anterograde" | `pipeline.js` `scansFromStore` |
+| 2 | A scan milestone (L+30, L+60, R-42) is met only by a duplex study within 7 days; a lab result (e.g. the L+14 D-dimer baseline) never meets one | PROPOSED_LOCAL on NASA's schedule | OCHMO-MTB-007 example schedule; 7-day window is ours | `timeline.js` `milestoneStatus` |
+| 3 | Any emergency symptom overrides every score and trend (RED_FLAG_OVERRIDE) and locks the flow assessment | Signed 15 Nov (v2) | SP-20260005258 p.34 (CVST symptoms); the jugular protocol does not exclude sinus clots | `states.js` |
+| 4 | DATA_INSUFFICIENT when there is no usable in-flight scan, or stale, conflicting or unverifiable data; a known abnormal last scan is still named | PROPOSED_LOCAL | — | `states.js` |
+| 5 | DETERIORATING = forward flow on an earlier in-flight scan and low/retrograde now on the same side, or SEC grade rising to 3-4 between in-flight scans. Pre-flight vs first in-flight is only WATCH ("new in-flight finding") | PROPOSED_LOCAL using NASA's definitions | SP p.20: abnormal-flow definition; SEC grades 1-4 | `states.js` |
+| 6 | STABLE only when the NASA score is 0 or 1, no deterioration pattern, SEC below 3, checklist done with nothing ticked. Score 2 or more is at least WATCH and names the NASA band | PROPOSED_LOCAL (safety: never reassure over the band) | — | `states.js` |
+| 7 | Venous Flow Response Assessment: offered (INDICATED_PENDING_AUTHORIZATION) when the latest in-flight scan is low/retrograde or SEC 3-4; logged only with a flight-surgeon order; FORWARD_FLOW_DURING_MANEUVER always shown with "does not exclude thrombosis and does not prove that future VTE risk has been reduced"; no manoeuvre instructions | PROPOSED_LOCAL + clinician-governed | — | `states.js` `flowLifecycle` |
+| 8 | Packet INCOMPLETE when: no in-flight scan, a scheduled scan has passed its 7-day window with no result (stale), a conflicting value, a broken audit chain, mission day unset, or no checklist today | PROPOSED_LOCAL | Staleness follows NASA's schedule (L+60 to R-42 is 78 days on a 180-day mission) | `timeline.js` `dataQuality` |
+| 9 | Apixaban regimens shown only as recorded by the flight surgeon: prophylaxis 2.5 mg twice a day; treatment 10 mg twice a day for 7 days, then 5 mg twice a day | NASA reference | OCHMO-MTB-007 p.12 | `meds.js` |
+| 10 | Landing: MTB-007 (Jan 2026) 48 h treatment, 24 h prophylaxis; SP-20260005258 REV1 (July 2026, newer) 48 h for any apixaban use. No default: the signed plan names the document; text says "at least" and "no later than"; label "Illustrative countdown — flight-surgeon approval required. Do not change medication based on this display alone." | NASA reference, clinician-governed | MTB-007 p.13; SP p.11 and p.25 | `meds.js` |
+| 11 | EVA: prophylaxis stopped 24 h before a high-risk EVA or per an individual PK/PD plan, restarted after; treatment dose: restrict EVA and ARED for at least 30 days | NASA reference | SP p.11 and p.25; MTB-007 p.12 | `meds.js` |
+| 12 | Interaction flags: combined P-gp and strong CYP3A4 inhibitors (with the 2.5 mg "avoid coadministration" note) and inducers (label 7.1, 7.2); bleeding-risk drugs: antiplatelets, aspirin, heparin and other anticoagulants, fibrinolytics, NSAIDs, SSRIs, SNRIs (label 5.2, 7.3). Unlisted drugs: UNRECONCILED, "not a statement that there is no interaction" | FDA label | ELIQUIS label effective 17 Aug 2026 | `meds.js` |
+| 13 | Bleeding-management inventory is a record only, shown with NASA's note ("reversal agents are difficult to administer in space") and the label's (PCC not evaluated; protamine and vitamin K not expected to work; no experience with tranexamic acid). Andexanet alfa: not assumed available | NASA + FDA reference | MTB-007 p.13; label 5.2 | `meds.js` |
+| 14 | Bleeding context: AVERROES, ~1.4%/year major bleeding, atrial-fibrillation population (mean age 70, 5 mg twice daily); not an individual or spaceflight estimate | NASA reference | SP p.11 | `meds.js` |
+| 15 | Jugular anatomy watchlist: 0 NASA points; badge only for a confirmed diameter metric > 1.55; exactly 1.55 "not defined"; unconfirmed metric gives ANATOMY_METRIC_UNRESOLVED; NASA's printed "cm" and area/diameter ambiguity is shown | NASA reference, exploratory | SP p.21 | `pipeline.js` `anatomyWatch` |
+| 16 | Forbidden outputs (THROMBOSIS_ABSENT, CLOT_REVERSED, VTE_RISK_REDUCED, SAFE_TO_CONTINUE, ANTICOAGULATION_INDICATED, REVERSAL_REQUIRED, AUTONOMOUS_ONBOARD_PROTOCOL_AUTHORIZED, "all clear", ...) stop the packet | Safety interlock | spec v3.1 §2.6, §9.5, §12.5 | `orchestrator.js` |
+| 17 | Packet: INCOMPLETE / PENDING_CLINICAL_REVIEW / SIGNED; sign-off decisions ACKNOWLEDGED, ESCALATED, PROPHYLAXIS_APPROVED, PROPHYLAXIS_DECLINED, HOLD_SCHEDULE_APPROVED, OVERRIDE_WITH_REASON (an audit record, not a prescription); any edit clears the sign-off; medication authority always the human flight surgeon, whatever the delay | Clinician-governed | spec v3.1 §12 | `pipeline.js`, `app.js` |
+
+## Test baseline (spec v3.1 §15.1, §15.9)
+Before v3 the suite had 79 tests. The 5 tests in `tests/test_handoff.py` tested the A2A agents, which the spec requires to be removed (§2.1); they were removed with them. The remaining 74 Python tests pass unchanged except one path list in `tests/test_i4_context.py` (the deleted `vte/packet.py` swapped for the v3 files). The v3.1 criteria are tested in `tests/v3/`.
+
+## Not built (documented for later)
+Five-stage manoeuvre logger with abort and adverse-event capture, astronaut and flight-surgeon split views, encryption at rest and role-based access, ground acknowledgement, D-dimer assay comparability metadata, sync-conflict resolution UI.
 
 ## Sign-off
-Rules 2, 4-8 are team rules, not clinically validated. Team physician sign-off: **pending** (status is updated here when signed).
+Rules 2, 4-8 are PROPOSED_LOCAL team rules, not clinically validated. Team physician sign-off: **pending** (status is updated here when signed).

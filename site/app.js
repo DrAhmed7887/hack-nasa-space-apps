@@ -3,7 +3,7 @@
 import { SYMPTOMS, assess, emptyReport } from "./symptoms.js";
 import { classify, ijvFromScans, latestInFlight, scanState, trendRows, FORWARD, LOW, RETRO, NOT_MEASURED, TREND_NOTE } from "./trend.js";
 import { score, scanSchedule, nextScan, reviewContext, fmtSeconds, MISSIONS, SOURCES, InputError } from "./score.js";
-import { runCase, packetSummary } from "./v3/pipeline.js";
+import { runCase, packetSummary, SIGNOFF_DECISIONS } from "./v3/pipeline.js";
 import { V3_SOURCES } from "./v3/sources.js";
 
 const APP_NAME = "VTE Watch"; // working name: change it here only
@@ -270,39 +270,49 @@ function renderMission(c, res) {
   }
 }
 
-// ---------- 8. clinical engine v3 ----------
-const STATE_CLASS = { RED_FLAG_OVERRIDE: "emergency", DETERIORATING: "report_today", FLOW_RESPONSE_ASSESSMENT_INDICATED: "report_today", WATCH: "none_reported", STABLE: "none_reported", DATA_INSUFFICIENT: "not_done" };
+// ---------- 8. clinical engine (spec v3.1) ----------
+const STATE_CLASS = { RED_FLAG_OVERRIDE: "emergency", DETERIORATING: "report_today", WATCH: "report_today", STABLE: "none_reported", DATA_INSUFFICIENT: "not_done" };
 const v3src = (id) => {
+  if (!id || !Object.hasOwn(V3_SOURCES, id)) return "";
   const s = V3_SOURCES[id];
-  if (!s) return id || "";
   return s.url ? h("a", { href: s.url, target: "_blank", rel: "noopener", title: s.quote }, s.doc) : s.doc;
 };
 let lastRun = null;
+
+// Scenario extras belong to a stock case only while it is unedited; an edited case is "custom" and gets none.
+function activeExtras() {
+  if (!state.caseId || !currentSigMatches()) return {};
+  const x = Object.hasOwn(state.extras.cases || {}, state.caseId) ? { ...state.extras.cases[state.caseId] } : {};
+  x.meds = { ...(x.meds || { regimen: "none" }), kit: state.extras.kit || [] };
+  return x;
+}
 
 function renderV3(c, res) {
   const out = $("v3-out");
   out.replaceChildren();
   lastRun = null;
   if (!c || !res) { out.append(h("p", { class: "hint" }, "Fix the case input above to run the clinical engine.")); return; }
+  const stock = !!state.caseId && currentSigMatches();
   let r;
   try {
-    const extras = { ...(state.extras.cases?.[state.caseId] || {}) };
-    extras.meds = extras.meds ? { ...extras.meds, kit: state.extras.kit || [] } : { regimen: "none", kit: state.extras.kit || [] };
-    r = runCase(c, extras, { signoff: state.signoff });
+    r = runCase(c, activeExtras(), { signoff: state.signoff, mission: state.mission });
   } catch (e) {
     out.append(h("p", { class: "error" }, `Clinical engine stopped safely: ${e.message}`));
     return;
   }
   lastRun = r;
-  const p = r.packet, d = r.decision;
+  const p = r.packet, d = p.longitudinal_assessment, fr = d.flow_response;
   const item = (k, ...v) => h("li", {}, h("b", {}, k), ...v);
-  out.append(
+  const nodes = [
     h("p", { class: "sym-msg " + (STATE_CLASS[d.state] || "") }, h("b", {}, d.state.replaceAll("_", " ")), ": ", d.action),
     h("ul", { class: "hint" }, d.why.map((w) => h("li", {}, w))),
-    ...(d.flow_response ? [h("p", { class: "notice" }, h("b", {}, `Flow response (order ${r.flow.order_id}, ${r.flow.ordered_by_role}): ${r.flow.before} → ${r.flow.after}. `), d.flow_response.note, " ", d.flow_response.action)] : []),
-    h("p", { class: "hint" }, "Bounded states, never a score: NASA's points above are unchanged by anything in this panel. Thresholds are team rules, signed by the team physician, not clinically validated."));
+    h("p", { class: "notice" }, h("b", {}, `Venous Flow Response Assessment: ${fr.status.replaceAll("_", " ")}. `),
+      fr.before ? `Order ${fr.order_id} (${fr.ordered_by_role}, ${fr.protocol}): ${fr.before} → ${fr.after}. ` : "", fr.note || "", fr.action ? ` ${fr.action}` : ""),
+    h("p", { class: "hint" }, "Bounded states, never a score: NASA's points above are unchanged by anything in this panel. Trend rules are the team's (PROPOSED_LOCAL), not clinically validated."),
+  ];
+  if (!stock && state.caseId) nodes.push(h("p", { class: "hint" }, "Custom (edited) case: scenario extras such as SEC grades, medication and the landing plan are not applied."));
+  out.append(...nodes);
 
-  // timelines
   const tl = r.timelines;
   const rowsFor = (k) => tl[k].map((e) => {
     const pl = e.payload;
@@ -318,47 +328,49 @@ function renderV3(c, res) {
       h("summary", {}, `${k.replace("_", " ")} (${tl[k].length})`),
       tl[k].length ? h("div", { class: "i4-tablewrap" }, h("table", { class: "i4-table" },
         h("thead", {}, h("tr", {}, ["Mission day", "What", "Value", "Provenance", "Quality", "ID"].map((x) => h("th", { scope: "col" }, x)))),
-        h("tbody", {}, rowsFor(k)))) : h("p", { class: "hint" }, "No entries. Nothing is filled in between scans."),
-      k === "wearable_telemetry" && tl[k].length ? h("p", { class: "hint" }, "Trend-only telemetry; not diagnostic for IJV stasis and never used for NASA's <10 cm/s rule.") : null)),
+        h("tbody", {}, rowsFor(k)))) : h("p", { class: "hint" }, k === "wearable_telemetry" ? "No entries. A missing wearable signal is not evidence of normal flow." : "No entries. Nothing is filled in between scans."),
+      k === "wearable_telemetry" && tl[k].length ? h("p", { class: "hint" }, "Wearable Doppler is not validated against the NASA duplex threshold in this application: trend only, never used for NASA's <10 cm/s rule.") : null)),
     h("p", { class: "hint" }, "Scan milestones (only a duplex ultrasound study can meet one): ",
       r.milestones.map((m, i) => [i ? " · " : "", `${m.label}: ${m.satisfied ? "met" : "open"}`])));
 
-  // anatomy
-  if (p.anatomy) out.append(h("p", { class: "notice" }, h("b", {}, `IJV right/left ratio ${p.anatomy.ijv_ratio_r_to_l}: `), p.anatomy.text, " Source: ", v3src(p.anatomy.source), "."));
+  const an = p.anatomical_watchlist;
+  if (an) out.append(h("p", { class: "notice" }, h("b", {}, `Jugular anatomy watchlist${an.right_to_left_ratio !== null ? ` (R:L ${an.ratio_type ? an.ratio_type.toLowerCase() : ""} ratio ${an.right_to_left_ratio})` : ""}: `), an.text, " ", an.caveat, " Source: ", v3src(an.source), "."));
 
-  // medication
   const m = p.medication;
-  out.append(h("h3", {}, "Medication safety and landing (human sign-off on every change)"),
+  out.append(h("h3", {}, "Medication safety and landing (every change needs flight-surgeon sign-off)"),
     h("ul", { class: "pkt" },
-      item("Recorded regimen", `${m.regimen_label}${m.recorded_by_role ? ` (recorded by ${m.recorded_by_role})` : ""}. `, m.regimen_source ? v3src(m.regimen_source) : ""),
-      item("Landing", m.landing.text, m.landing.days_until_hold != null ? ` Days until the reference hold: ${m.landing.days_until_hold}.` : "", m.landing.differs ? ` ${m.landing.differs}` : "", m.landing.source ? [" ", v3src(m.landing.source)] : ""),
+      item("Recorded regimen", `${m.regimen_label}${m.recorded_by_role ? ` (recorded by ${m.recorded_by_role})` : ""}. `, v3src(m.regimen_source)),
+      item("Landing", m.landing.label ? h("b", {}, m.landing.label, " ") : "", m.landing.text, m.landing.days_until != null ? ` Days until that point: ${m.landing.days_until}.` : "", m.landing.differs ? ` ${m.landing.differs}` : "", m.landing.source ? [" ", v3src(m.landing.source)] : ""),
       ...m.evas.map((x) => item("EVA", x.text, " ", v3src(x.source))),
-      ...m.interactions.map((x) => item(`Interaction check: ${x.drug.replaceAll("_", " ")}`, `${x.class ? x.class + ", " + x.effect + ". " : ""}${x.flag} `, x.source ? v3src(x.source) : "")),
+      ...m.interactions.map((x) => item(`Interaction check: ${x.drug.replaceAll("_", " ")}`, `${x.class ? x.class + ", " + x.effect + ". " : ""}${x.flag} ${x.dose_note || ""} `, v3src(x.source))),
       item("Bleeding context", m.bleeding_context.text, " ", v3src(m.bleeding_context.source)),
-      item("Reversal register", m.reversal_register.length ? m.reversal_register.map((k) => `${k.item} ×${k.quantity} (exp. ${k.expires})`).join("; ") : "No kit items recorded.", ". ",
-        m.reversal_notes.map((n, i) => [i ? " " : "", n.text, " ", v3src(n.source)]))),
-    h("p", { class: "hint" }, "The app never starts, stops, doses or reverses a medicine. It shows NASA and FDA reference text and flags what the flight surgeon must review."));
+      item("Bleeding-management inventory", m.inventory.length ? m.inventory.map((k) => `${k.item} ×${k.quantity} (exp. ${k.expires}): ${k.note}`).join(" ") : "No kit items recorded.", " ",
+        m.inventory_notes.map((n, i) => [i ? " " : "", n.text, n.source ? [" ", v3src(n.source)] : ""]))),
+    h("p", { class: "hint" }, "The app never starts, stops, holds, doses, restarts or reverses a medicine. It shows NASA and FDA reference text and flags what the flight surgeon must review."));
 
-  // data quality + packet
   const dq = p.data_quality;
-  out.append(h("h3", {}, "Data quality, provenance and the packet"),
-    h("p", { class: p.status === "COMPLETE" ? "hint" : "error" }, `Packet status: ${p.status}. `, p.status === "INCOMPLETE" ? `Not decision-ready: ${p.missing_or_blocking.join("; ")}.` : "All mandatory inputs present (simulated data: never operational)."),
-    h("p", { class: "hint" }, `Provenance: ${Object.entries(p.provenance).map(([k, v]) => `${k} ${v}`).join(", ")}. Audit chain ${dq.audit_chain.ok ? "intact" : "BROKEN at " + dq.audit_chain.broken_at}. Unresolved conflicts: ${dq.unresolved_conflicts}.`),
+  out.append(h("h3", {}, "Data quality, provenance and the Flight-Surgeon Packet"),
+    h("p", { class: p.packet_status === "INCOMPLETE" ? "error" : "hint" }, `Packet ${p.packet_id}: ${p.packet_status.replaceAll("_", " ")}. `,
+      p.packet_status === "INCOMPLETE" ? `Not decision-ready: ${p.missing_or_blocking.join("; ")}.` : p.packet_status === "SIGNED" ? "Signed (simulation; never operational)." : "Evidence complete; awaiting flight-surgeon review."),
+    h("p", { class: "hint" }, `Provenance: ${Object.entries(p.provenance).map(([k, v]) => `${k} ${v}`).join(", ")}. Audit chain ${dq.audit_chain.ok ? "intact" : "BROKEN at " + dq.audit_chain.broken_at}. Unresolved conflicts: ${dq.unresolved_conflicts}. Ground review: ${p.comms_profile.ground_review_mode.toLowerCase()}, medication authority: human flight surgeon.`),
     h("details", {}, h("summary", {}, `Data-quality notes (${dq.issues.length})`), h("ul", { class: "hint" }, dq.issues.map((i) => h("li", {}, `${i.code}${i.blocking ? " (blocking)" : ""}: ${i.detail}`)))),
     h("div", { class: "flight-bar" },
-      h("button", { type: "button", id: "v3-sign" }, p.signoff.status === "SIGNED" ? "Signed (simulation): undo" : "Sign as flight surgeon (simulation)"),
+      h("label", { for: "v3-decision" }, "Flight-surgeon decision (simulation) "),
+      h("select", { id: "v3-decision", disabled: p.packet_status === "INCOMPLETE" ? true : null }, ["", ...SIGNOFF_DECISIONS].map((x) => h("option", { value: x, selected: (state.signoff?.decision || "") === x ? true : null }, x ? x.replaceAll("_", " ").toLowerCase() : "not signed"))),
       h("button", { type: "button", id: "v3-json" }, "Download packet (JSON)"),
       h("button", { type: "button", id: "v3-print" }, "Print one-page summary")),
-    h("p", { class: "hint" }, `Sign-off: ${p.signoff.status}${p.signoff.by_role ? ` by ${p.signoff.by_role}, mission day ${p.signoff.day}` : ""}. Engine versions and claim boundaries travel inside the packet.`),
+    h("p", { class: "hint" }, "A sign-off decision is an audit record, not a prescription. Editing any input clears it."),
     h("ol", { class: "hint", id: "v3-summary" }, packetSummary(p).map((l) => h("li", {}, l))));
-  $("v3-sign").addEventListener("click", () => {
-    state.signoff = state.signoff?.status === "SIGNED" ? null : { status: "SIGNED", by_role: "flight surgeon (simulation)", day: c.inflight.mission_day };
+  $("v3-decision").addEventListener("change", (ev) => {
+    const v = ev.target.value;
+    state.signoff = v ? { decision: v, by_role: "flight surgeon (simulation)", day: c.inflight.mission_day } : null;
     render();
   });
   $("v3-json").addEventListener("click", () => {
     const blob = new Blob([JSON.stringify(lastRun.packet, null, 1)], { type: "application/json" });
-    const a = h("a", { href: URL.createObjectURL(blob), download: `vte-watch-packet-${state.caseId || "custom"}.json` });
-    document.body.append(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);
+    const a = h("a", { href: URL.createObjectURL(blob), download: `vte-watch-packet-${stock ? state.caseId : "custom"}.json` });
+    document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 0);
   });
   $("v3-print").addEventListener("click", () => window.print());
 }
@@ -392,6 +404,7 @@ function setMission(m) {
 }
 
 function onEdit() {
+  state.signoff = null; // a signature never carries over to data the flight surgeon has not seen
   if (state.caseId && !currentSigMatches()) {
     $("case-note").textContent = `Custom case (edited from ${state.caseId}).`;
   } else if (state.caseId) {
@@ -493,6 +506,7 @@ async function init() {
 
   $("sym-checks").replaceChildren(...SYMPTOMS.map((x) => h("label", {}, h("input", { type: "checkbox", name: "sym", value: x.id }), ` ${x.label}`)));
   const pick = $("case-pick");
+  for (const ec of state.extras.extra_cases || []) if (!Object.hasOwn(state.stock, ec.id)) state.stock[ec.id] = ec;
   const ids = Object.keys(state.stock);
   if (ids.length) {
     pick.replaceChildren(...ids.map((id) => h("option", { value: id }, `${id}: ${state.stock[id].label}`)));

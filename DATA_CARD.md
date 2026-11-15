@@ -11,10 +11,14 @@
 - **Symptom tags** (`emergency: true/false` per symptom, `vte/symptoms.py`) are the team physician's signed rule, not NASA's.
 - **Not real:** the velocities and D-dimer values are not drawn from astronaut measurements, and the cases don't represent any person or crew.
 
-## `site/replay.json`
-- **What:** a recorded real run of the two A2A agents in `agents/handoff.py` over every case at LEO, the Moon and Mars (33 handoffs, 66 A2A message calls), with the HTTP exchanges (full bodies kept for case `C05` only).
-- **Delay:** simulated on a mission clock, at the upper end of each published range (see below). No waiting happens during the run.
-- **Rebuild:** `bash scripts/reproduce.sh`. A test checks the committed file matches a fresh run.
+## `site/cases.json`
+- A byte-for-byte copy of `data/crew_cases.json` that the static app loads (written by `data/generate.py`; a test checks they match).
+
+## `site/v3_extras.json` (synthetic v3 scenario inputs)
+- **C12** (in `extra_cases`): a 12th synthetic case for the longitudinal story, total worked out by hand before the run (age 44 +1, non-O +1, unscheduled L+47 left IJV 8.0 cm/s +4, D-dimer 300 vs an L+14 baseline of 210 = +42.9%, 0) = 6 points. It lives in this file, so the original 11 hand-worked cases are unchanged.
+- **What:** for C05, C11, C04 and C12: SEC grades per scan (NASA's 1-4 scale, SP-20260005258 p.20), wearable Doppler readings (C05; trend-only), one flight-surgeon-ordered flow-response study (C05), raw right and left IJV diameters with the ratio type and whether the metric is confirmed (C04 unconfirmed, to show that no flag appears), the apixaban regimen recorded by the flight surgeon, concomitant medicines, a clinician-approved landing plan (C04 has none, to show that no countdown appears), and a synthetic bleeding-management inventory with the label's notes.
+- **How it's made:** written by hand with Claude Code to exercise each v3 rule once. Not measured data, not any person.
+- **(Removed 15 Nov)** `site/replay.json`, the recorded A2A run, was removed with the A2A agents when the team chose the v3 no-agent architecture.
 
 ## Real aggregate data (separate from the synthetic cases): `site/i4_context.json`
 - **What:** group summaries only, from NASA's Open Science Data Repository, for the 4 Inspiration4 crew (3-day orbital flight, 2021): n, min, max and mean per analyte and timepoint (L-92, L-44, L-3, R+1, R+45, R+82, R+194; blood was drawn before and after flight, none in flight). Analytes: Fibrinogen and PF4 (ng/ml, OSD-575, Eve Technologies HDCVD9 panel, file `LSDS-8_Multiplex_serum.cardiovascular.EvePanel_SUBMITTED.csv`) and Platelet count (Thousand/uL, OSD-569, file `LSDS-7_Complete_Blood_Count_CBC.upload_SUBMITTED.csv`).

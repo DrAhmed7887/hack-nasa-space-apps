@@ -71,7 +71,7 @@ test("AC11: two different usable duplex values for same side and day give CONFLI
   const more = [duplex({ label: "L+60 days", effective_day: 60, payload: { side: "left", velocity: 25, unit: "cm/s", direction: "anterograde" } })];
   const r = runCase(byId("C05"), extrasFor("C05"), { moreObservations: more });
   assert.ok(r.quality.blocking.some((i) => i.code === "CONFLICT"));
-  assert.equal(r.packet.status, "INCOMPLETE");
+  assert.equal(r.packet.packet_status, "INCOMPLETE");
   assert.equal(r.packet.decision_ready, false);
   assert.equal(r.trend.state, "DATA_INSUFFICIENT");
   assert.equal(r.packet.data_quality.unresolved_conflicts, 1);
@@ -82,38 +82,38 @@ test("AC11: an identical duplicate is DUPLICATE, not blocking", () => {
   assert.ok(r.quality.issues.some((i) => i.code === "DUPLICATE"));
   assert.ok(!r.quality.blocking.some((i) => i.code === "CONFLICT"));
 });
-test("AC11: scan within staleDays is not stale; same scan with mission_day 80 is STALE", () => {
-  const fresh = runCase(byId("C05"), extrasFor("C05"), { staleDays: 10 });
+test("AC11: STALE only when a scheduled scan has passed day+7 with no scan (C04: R-42 is day 138, so day 146 is STALE)", () => {
+  const fresh = runCase(byId("C05"), extrasFor("C05"));
   assert.ok(!fresh.quality.issues.some((i) => i.code === "STALE"));
-  const c = byId("C05"); c.inflight.mission_day = 80;
-  const stale = runCase(c, extrasFor("C05"), { staleDays: 10 });
+  const c = byId("C04"); c.inflight.mission_day = 146;
+  const stale = runCase(c, extrasFor("C04"));
   assert.ok(stale.quality.blocking.some((i) => i.code === "STALE"));
-  assert.equal(stale.packet.status, "INCOMPLETE");
+  assert.equal(stale.packet.packet_status, "INCOMPLETE");
   assert.equal(stale.trend.state, "DATA_INSUFFICIENT");
 });
 
 test("AC12: acceptSimulated false ignores simulated data: DATA_INSUFFICIENT and INCOMPLETE for C05", () => {
   const r = runCase(byId("C05"), extrasFor("C05"), { acceptSimulated: false });
   assert.equal(r.trend.state, "DATA_INSUFFICIENT");
-  assert.equal(r.packet.status, "INCOMPLETE");
+  assert.equal(r.packet.packet_status, "INCOMPLETE");
   assert.equal(r.visits.length, 0);
 });
 test("AC12: with acceptSimulated true (default) C05 has usable visits and is COMPLETE", () => {
   const r = runCase(byId("C05"), extrasFor("C05"));
   assert.ok(r.visits.length >= 2);
-  assert.equal(r.packet.status, "COMPLETE");
+  assert.equal(r.packet.packet_status, "PENDING_CLINICAL_REVIEW");
 });
 
 test("AC9: C10 (no in-flight scan yet) is INCOMPLETE and not decision-ready", () => {
   const r = runCase(byId("C10"));
-  assert.equal(r.packet.status, "INCOMPLETE");
+  assert.equal(r.packet.packet_status, "INCOMPLETE");
   assert.equal(r.packet.decision_ready, false);
   assert.ok(r.packet.missing_or_blocking.some((m) => m.startsWith("NO_INFLIGHT_SCAN")));
 });
 test("AC9: symptom checklist not done today is INCOMPLETE", () => {
   const c = byId("C05"); c.symptoms.checklist_done = false;
   const r = runCase(c, extrasFor("C05"));
-  assert.equal(r.packet.status, "INCOMPLETE");
+  assert.equal(r.packet.packet_status, "INCOMPLETE");
   assert.ok(r.packet.missing_or_blocking.some((m) => m.startsWith("CHECKLIST_NOT_TODAY")));
 });
 test("AC9: every packet carries the required sections", () => {

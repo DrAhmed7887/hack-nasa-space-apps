@@ -53,7 +53,7 @@ test("AC2: zero NASA points plus only sudden_or_severe overrides", () => {
   assert.ok(r.decision.action.includes(EMERGENCY_MESSAGE));
 });
 test("AC2: emergency exports the packet at once", () => {
-  assert.equal(runCase(byId("C11"), extrasFor("C11")).decision.export_packet_now, true);
+  assert.equal(runCase(byId("C11"), extrasFor("C11")).decision.high_priority_packet, true);
 });
 
 test("AC3: an L+14 D-dimer never satisfies an ultrasound milestone", () => {
@@ -61,7 +61,7 @@ test("AC3: an L+14 D-dimer never satisfies an ultrasound milestone", () => {
   const base = runCase(byId("C10"));
   const r = runCase(byId("C10"), {}, { moreObservations: more });
   assert.deepEqual(r.milestones, base.milestones);
-  assert.ok(r.milestones.every((m) => !m.satisfied || m.label === base.milestones.find((b) => b.label === m.label).label && base.milestones.find((b) => b.label === m.label).satisfied));
+  for (const m of r.milestones) assert.equal(m.satisfied, base.milestones.find((b) => b.label === m.label).satisfied, `${m.label} satisfaction changed by a D-dimer`);
   assert.ok(r.milestones.filter((m) => m.by).every((m) => r.store.all.find((e) => e.observation_id === m.by).observation_type === "IJV_DUPLEX_STUDY"));
 });
 test("AC3: a D-dimer exactly on a milestone day (L+30) still does not satisfy the milestone", () => {
@@ -85,16 +85,18 @@ test("AC4: wearable Doppler at 2 cm/s cannot trigger NASA's <10 cm/s rule", () =
 test("AC5: C05 ratio 1.7 adds zero NASA points", () => {
   const c = byId("C05");
   const r = runCase(c, extrasFor("C05"));
-  assert.equal(r.packet.anatomy.ijv_ratio_r_to_l, 1.7);
-  assert.equal(r.packet.anatomy.nasa_points, 0);
+  assert.equal(r.packet.anatomical_watchlist.right_to_left_ratio, 1.704); // 12.1 mm / 7.1 mm; the old 1.7 was a rounded input
+  assert.equal(r.packet.anatomical_watchlist.nasa_points, 0);
+  assert.equal(r.packet.anatomical_watchlist.state, "ANATOMICAL_SURVEILLANCE_FLAG");
   assert.equal(r.nasa.total, score(byId("C05")).total);
   assert.equal(r.packet.nasa_score.total, score(byId("C05")).total);
 });
 test("AC5: ratio exactly 1.55 says NASA does not define it", () => {
-  const r = runCase(byId("C04"), extrasFor("C04"));
-  assert.equal(r.packet.anatomy.ijv_ratio_r_to_l, 1.55);
-  assert.match(r.packet.anatomy.text, /does not define/);
-  assert.equal(r.packet.anatomy.nasa_points, 0);
+  const e = extrasFor("C04"); e.anatomy = { right_mm: 15.5, left_mm: 10, ratio_type: "DIAMETER", metric_definition_status: "CONFIRMED" };
+  const r = runCase(byId("C04"), e);
+  assert.equal(r.packet.anatomical_watchlist.right_to_left_ratio, 1.55);
+  assert.match(r.packet.anatomical_watchlist.text, /does not define/);
+  assert.equal(r.packet.anatomical_watchlist.nasa_points, 0);
 });
 
 test("AC6: assertNoForbidden passes on every packet and decision (with and without extras)", () => {
@@ -115,17 +117,18 @@ test("AC6: assertNoForbidden really throws on a forbidden word", () => {
 });
 test("AC6: positive flow response note says it does not exclude thrombosis", () => {
   const r = runCase(byId("C05"), extrasFor("C05"));
-  assert.equal(r.flow.result, "FLOW_RESPONSE_POSITIVE");
+  assert.equal(r.flow.status, "FORWARD_FLOW_DURING_MANEUVER");
   assert.match(r.flow.note, /does not exclude thrombosis/);
   assert.match(r.decision.flow_response.note, /does not exclude thrombosis/);
   assert.match(r.decision.flow_response.action, /does not show lower risk/);
+  assert.equal(r.packet.longitudinal_assessment.flow_response.status, "FORWARD_FLOW_DURING_MANEUVER");
 });
-test("AC6: flow-response study with normal 'before' flow is NOT_APPLICABLE", () => {
+test("AC6: flow-response study with normal 'before' flow is INCOMPLETE", () => {
   const e = extrasFor("C05");
   e.flow_response.before = { velocity: 25, direction: "anterograde" };
   const r = runCase(byId("C05"), e);
-  assert.equal(r.flow.result, "NOT_APPLICABLE");
-  assert.equal(r.decision.flow_response, null);
+  assert.equal(r.flow.status, "INCOMPLETE");
+  assert.match(r.flow.note, /no response can be judged/);
 });
 
 test("AC13: STABLE and WATCH action texts say the NASA band still applies", () => {

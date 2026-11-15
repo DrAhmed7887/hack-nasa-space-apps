@@ -11,39 +11,41 @@ const byId = (id) => clone(CASES.find((c) => c.id === id));
 const extrasFor = (id) => clone(EXTRAS.cases[id] || {});
 
 import { runCase } from "../../site/v3/pipeline.js";
-import { medicationReview } from "../../site/v3/meds.js";
+import { medicationReview, LANDING_LABEL } from "../../site/v3/meds.js";
 
-test("AC7: C04 (plan null) has no landing countdown: UNAVAILABLE", () => {
+test("AC7: C04 (plan null) has no landing countdown: PENDING_FLIGHT_SURGEON_APPROVAL", () => {
   const r = runCase(byId("C04"), extrasFor("C04"));
-  assert.equal(r.meds.landing.status, "UNAVAILABLE");
+  assert.equal(r.meds.landing.status, "PENDING_FLIGHT_SURGEON_APPROVAL");
   assert.ok(!("hold_from_day" in r.meds.landing));
-  assert.equal(r.packet.medication.landing.status, "UNAVAILABLE");
+  assert.equal(r.packet.medication.landing.status, "PENDING_FLIGHT_SURGEON_APPROVAL");
 });
 test("AC7: a plan without approval gives no countdown", () => {
   const e = extrasFor("C05"); delete e.plan.approved_by_role;
-  assert.equal(runCase(byId("C05"), e).meds.landing.status, "UNAVAILABLE");
+  assert.equal(runCase(byId("C05"), e).meds.landing.status, "PENDING_FLIGHT_SURGEON_APPROVAL");
 });
 test("AC7: a plan with unknown guidance_id gives no countdown", () => {
   const e = extrasFor("C05"); e.plan.guidance_id = "MADE-UP";
-  assert.equal(runCase(byId("C05"), e).meds.landing.status, "UNAVAILABLE");
+  assert.equal(runCase(byId("C05"), e).meds.landing.status, "PENDING_FLIGHT_SURGEON_APPROVAL");
 });
 test("AC7: C05 prophylaxis with MTB-007 guidance holds 24 h from day 179", () => {
   const l = runCase(byId("C05"), extrasFor("C05")).meds.landing;
-  assert.equal(l.status, "FROM_APPROVED_PLAN");
+  assert.equal(l.status, "FROM_SIGNED_PLAN");
   assert.equal(l.hold_hours, 24);
-  assert.equal(l.hold_from_day, 179);
+  assert.equal(l.no_later_than_day, 179);
+  assert.equal(l.label, LANDING_LABEL);
+  assert.match(l.text, /at least/);
+  assert.match(l.differs, /differ/);
 });
 test("AC7: C05 with guidance SP-20260005258 holds 48 h", () => {
   const e = extrasFor("C05"); e.plan.guidance_id = "SP-20260005258";
   const l = runCase(byId("C05"), e).meds.landing;
   assert.equal(l.hold_hours, 48);
-  assert.equal(l.hold_from_day, 178);
+  assert.equal(l.no_later_than_day, 178);
 });
 test("AC7: itraconazole is flagged as an interaction", () => {
   const i = runCase(byId("C05"), extrasFor("C05")).meds.interactions;
-  assert.equal(i.length, 1);
-  assert.equal(i[0].drug, "itraconazole");
-  assert.match(i[0].flag, /Interaction flagged/);
+  const it = i.find((x) => x.drug === "itraconazole");
+  assert.match(it.flag, /Interaction flagged/);
 });
 test("AC7: an unknown drug is not reported as 'no interaction'", () => {
   const r = medicationReview({ meds: { regimen: "prophylaxis", concomitant: ["zzz_unknown"] }, plan: null, today: 10 });
@@ -63,6 +65,6 @@ test("AC7: medication output never contains dose instructions and always needs s
 test("AC7: no apixaban recorded means landing hold NOT_APPLICABLE", () => {
   assert.equal(runCase(byId("C11"), extrasFor("C11")).meds.landing.status, "NOT_APPLICABLE");
 });
-test("AC9: signoff defaults to UNSIGNED", () => {
-  assert.equal(runCase(byId("C05"), extrasFor("C05")).packet.signoff.status, "UNSIGNED");
+test("AC9: signoff defaults to no decision", () => {
+  assert.equal(runCase(byId("C05"), extrasFor("C05")).packet.signoff.decision, null);
 });
