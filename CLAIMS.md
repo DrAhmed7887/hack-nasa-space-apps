@@ -12,5 +12,6 @@ Every claim or number that appears in the README, the project page, the slides o
 | "The score and band stay the same at LEO, the Moon and Mars" | README, app | `tests/test_handoff.py::test_distance_changes_context_not_score` | 15 Nov |
 | "The ground agent makes no clinical decision" | README, app | `agents/handoff.py` `Ground`: `ground_decision: None`; test asserts it | 15 Nov |
 | NASA points and bands quoted in the app | app, DATA_CARD | `vte/score.py` strings vs NASA/SP-20260005258 REV1 page 8 table; `tests/test_score.py::test_bands_verbatim` | 15 Nov |
+| "41 automated tests" | slides (6) | `python -m unittest discover -s tests` in the project venv / CI: "Ran 41 tests ... OK" (outside the venv, 4 A2A tests skip) | 15 Nov |
 
 _AI-assisted: this file was drafted with Claude Code and is checked by the team._
