@@ -11,7 +11,7 @@ const clone = (x) => structuredClone(x);
 const byId = (id) => clone(CASES.find((c) => c.id === id) || EXTRAS.extra_cases.find((c) => c.id === id));
 const extrasFor = (id) => clone(EXTRAS.cases[id] || {});
 
-import { runCase, SIGNOFF_DECISIONS } from "../../site/v3/pipeline.js";
+import { runCase, SIGNOFF_DECISIONS, DATA_HANDLING, packetSummary } from "../../site/v3/pipeline.js";
 import { STATES, FLOW, flowLifecycle, flowIndicated, trendState } from "../../site/v3/states.js";
 import { FORBIDDEN, WARNINGS, assertNoForbidden, SafetyInterlockError } from "../../site/v3/orchestrator.js";
 import { medicationReview, LANDING_LABEL } from "../../site/v3/meds.js";
@@ -266,4 +266,15 @@ test("FORBIDDEN includes CLOT_REVERSED and AUTONOMOUS_ONBOARD_PROTOCOL_AUTHORIZE
   assert.throws(() => assertNoForbidden({ x: "there is no clot here" }), SafetyInterlockError);
   assert.doesNotThrow(() => assertNoForbidden({ x: "a clothing note; no clothes; knoclot" }));
   assert.doesNotThrow(() => assertNoForbidden({ x: "NOT_CLOT_REVERSED_X" }));
+});
+
+test("packet carries data handling: genetic factors marked, clinical distribution only, no network", () => {
+  for (const c of [...CASES, ...EXTRAS.extra_cases]) {
+    const p = runCase(clone(c), extrasFor(c.id), { mission: "mars" }).packet;
+    assert.deepEqual(Object.keys(DATA_HANDLING).every((k) => p.data_handling[k] === DATA_HANDLING[k]), true);
+    assert.deepEqual(p.data_handling.genetic_information_factors.map((f) => f.group).sort(), ["Family history", "Thrombophilia"]);
+    assert.match(p.data_handling.distribution, /not for crew selection, assignment/);
+    assert.match(p.data_handling.genetic_information, /GINA/);
+    assert.ok(packetSummary(p).some((l) => l.startsWith("Data handling:")));
+  }
 });

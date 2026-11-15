@@ -23,6 +23,16 @@ export const CLAIM_BOUNDARIES = Object.freeze([
   ...WARNINGS,
 ]);
 const CREW = "SYNTH-CREW-A"; // pseudonymous
+// Data handling (docs/REGULATORY.md). Team design rule, not a NASA policy statement: the packet is a clinical record.
+export const GENETIC_FACTORS = Object.freeze(["Family history", "Thrombophilia"]);
+export const DATA_HANDLING = Object.freeze({
+  data_class: "SYNTHETIC demo data. With real data this would be a Privacy Act medical record (NASA-STD-3001 Vol 1 [V1 7003]; NASA system of records 10HIMS).",
+  identity: "Pseudonymous crew id only; no name or date of birth is stored.",
+  genetic_information: "Family history and thrombophilia factors are genetic information under GINA (42 U.S.C. 2000ff(4)): clinical use only.",
+  distribution: "Flight surgeon and mission medical team only. Team rule: not for crew selection, assignment or any other employment decision.",
+  transmission: "Send as a private medical communication (NASA-STD-3001 Vol 1 [V1 6003]); this prototype sends nothing over a network.",
+  automated_decision: "No decision is made by the software alone; a named human role signs every decision.",
+});
 
 // Component 1 for the stock cases: turns a case (scans, D-dimer, checklist) plus optional extras into raw observations.
 export function caseToObservations(c, extras = {}) {
@@ -122,6 +132,7 @@ export function runCase(c, extras = {}, opts = {}) {
     anatomical_watchlist: anatomy,
     medication: meds,
     claim_boundaries: CLAIM_BOUNDARIES,
+    data_handling: { ...DATA_HANDLING, genetic_information_factors: nasa.items.filter((i) => GENETIC_FACTORS.includes(i.group)).map((i) => ({ group: i.group, points: i.points })) },
     signoff: signoff ? { ...signoff, note: "A sign-off decision is an audit record, not a prescription." } : { decision: null, by_role: null, day: null },
   };
   const packet = assertNoForbidden({ ...body, packet_id: `VTEW-PKT-${fnv1a(canon(body))}` });
@@ -142,6 +153,7 @@ export function packetSummary(p) {
     p.anatomical_watchlist ? `Anatomy: ${p.anatomical_watchlist.text}` : null,
     `Data quality: ${p.data_quality.issues.length} note(s), ${p.data_quality.unresolved_conflicts} unresolved conflict(s); audit chain ${p.data_quality.audit_chain.ok ? "intact" : "BROKEN"}.`,
     `Comms: ${p.comms_profile.workflow_state}; medication authority ${p.comms_profile.medication_authority}.`,
+    `Data handling: ${p.data_handling.distribution} ${p.data_handling.genetic_information}`,
     `Sign-off: ${p.signoff.decision || "none"}${p.signoff.by_role ? ` by ${p.signoff.by_role}, day ${p.signoff.day}` : ""}`,
     ...p.claim_boundaries,
   ];
