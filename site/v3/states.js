@@ -41,6 +41,23 @@ function abnormalSides(visit) {
   return ["left", "right"].filter((s) => abnormal(sideClass(visit[s]))).map((s) => `${s} IJV ${sideClass(visit[s]).toLowerCase()}`);
 }
 
+// Serial in-flight deterioration (team rules): forward flow earlier, abnormal now; or SEC grade rising to 3-4.
+function deteriorationReasons(inflight) {
+  const latest = inflight[inflight.length - 1];
+  const earlierInflight = inflight.slice(0, -1);
+  const why = [];
+  if (!latest) return why;
+  for (const side of ["left", "right"]) {
+    const now = sideClass(latest[side]);
+    const fwd = earlierInflight.find((v) => v[side] && sideClass(v[side]) === FORWARD);
+    if (abnormal(now) && fwd) why.push(`${side} IJV: forward flow on day ${fwd.day}, now "${now}" (day ${latest.day}).`);
+    const g = latest[side]?.payload.sec_grade ?? null;
+    const gPrev = [...earlierInflight].reverse().map((v) => v[side]?.payload.sec_grade ?? null).find((x) => x !== null) ?? null;
+    if (g !== null && gPrev !== null && g > gPrev && g >= 3) why.push(`${side} IJV: SEC grade rose ${gPrev} to ${g} between in-flight scans.`);
+  }
+  return why;
+}
+
 // visits: from studyVisits(); symptoms: assess() result; total and band: NASA score; blocking: data-quality blocking issues
 export function trendState({ visits, symptoms, total, band, blocking }) {
   if (symptoms && symptoms.level === "emergency") return { state: STATES.RED_FLAG_OVERRIDE, why: ["Emergency symptom on the checklist: overrides every score and trend."] };
@@ -52,21 +69,21 @@ export function trendState({ visits, symptoms, total, band, blocking }) {
   if (bad.length || inflight.length === 0) {
     const why = bad.length ? bad.map((i) => i.detail) : ["No usable in-flight scan yet. A single scan can still give NASA's +4."];
     if (known.length) why.unshift(`Last scan (day ${latest.day}) showed ${known.join(" and ")}: do not read this as normal.`);
+    // Review fix: a data problem never hides an earlier deterioration finding (the state stays DATA_INSUFFICIENT per AC11).
+    const earlier = deteriorationReasons(inflight);
+    if (earlier.length) why.push(`Deterioration found before this data problem (still applies until valid data arrive): ${earlier.join(" ")}`);
     if (note) why.push(note);
     return { state: STATES.DATA_INSUFFICIENT, why };
   }
-  const why = [];
-  let deteriorating = false;
+  const why = deteriorationReasons(inflight);
+  if (why.length) return { state: STATES.DETERIORATING, why: note ? [...why, note] : why };
   const earlierInflight = inflight.slice(0, -1);
+  // Review fix: a side measured on an earlier in-flight scan but missing from the latest one is flagged, never read as normal.
   for (const side of ["left", "right"]) {
-    const now = sideClass(latest[side]);
-    const fwd = earlierInflight.find((v) => v[side] && sideClass(v[side]) === FORWARD);
-    if (abnormal(now) && fwd) { deteriorating = true; why.push(`${side} IJV: forward flow on day ${fwd.day}, now "${now}" (day ${latest.day}).`); }
-    const g = latest[side]?.payload.sec_grade ?? null;
-    const gPrev = [...earlierInflight].reverse().map((v) => v[side]?.payload.sec_grade ?? null).find((x) => x !== null) ?? null;
-    if (g !== null && gPrev !== null && g > gPrev && g >= 3) { deteriorating = true; why.push(`${side} IJV: SEC grade rose ${gPrev} to ${g} between in-flight scans.`); }
+    if (sideClass(latest[side]) !== NOT_MEASURED) continue;
+    const last = [...earlierInflight].reverse().find((v) => sideClass(v[side]) !== NOT_MEASURED);
+    if (last) why.push(`${side} IJV not measured on day ${latest.day} (last measured day ${last.day}): a missing side is not a normal result.`);
   }
-  if (deteriorating) return { state: STATES.DETERIORATING, why: note ? [...why, note] : why };
   const secHigh = ["left", "right"].some((s) => (latest[s]?.payload.sec_grade ?? 0) >= 3);
   if (known.length) why.push(inflight.length < MIN_INFLIGHT_STUDIES ? `New in-flight finding vs the pre-flight baseline: ${known.join(" and ")}.` : `Latest scan: ${known.join(" and ")}.`);
   if (secHigh) why.push("Latest scan SEC grade 3 or 4.");
