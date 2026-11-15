@@ -3,13 +3,15 @@
 **All data in this repository is synthetic.** No real astronaut or patient data is used, stored or shown.
 
 ## `data/crew_cases.json`
-- **What:** 10 synthetic crew cases (`C01`–`C10`), each with pre-flight factors (age, family history, thrombophilia, ABO blood type, hormone use) and an in-flight snapshot (mission day, left and right internal jugular vein mean peak velocity and retrograde flow, D-dimer baseline and current value).
+- **What:** 11 synthetic crew cases (`C01`–`C11`), each with pre-flight factors (age, family history, thrombophilia, ABO blood type, hormone use) and a scan series (baseline, L+30, L+60, R-42: left and right internal jugular vein mean peak velocity and direction stored separately; slots after the mission day are "not recorded"), a symptom report (ticked symptoms, "sudden or severe", "checklist done today") and an in-flight snapshot (mission day, D-dimer baseline and current value). The score's IJV row is derived from the latest recorded in-flight scan.
 - **How it's made:** `data/generate.py`, seed `20261115`. Each case is designed to hit one NASA action band or one boundary of a NASA rule (age 40/41/50, 10.0 vs 9.9 cm/s, D-dimer +60% vs +60.5%). Values that only need to look plausible (normal velocities 14–30 cm/s, D-dimer baselines 150–250) come from the seeded generator, so every rerun is identical.
-- **Expected results:** written by hand from the NASA table in `tests/test_score.py` before the first run. Measured: 10 of 10 cases match (see `tests/test_score.py`).
+- **Expected results:** written by hand from the NASA table in `tests/test_score.py` before the first run. Measured: 11 of 11 cases match (see `tests/test_score.py`).
+- **C11** is the demo case: a low score (1 point, age 43) with a new change in vision ticked. Earlier scans are seeded normal flow; C05 has a falling left IJV velocity (19.8 baseline, 14.5, 8.5 cm/s) to show a trend. None of it is measured data.
+- **Symptom tags** (`emergency: true/false` per symptom, `vte/symptoms.py`) are the team physician's signed rule, not NASA's.
 - **Not real:** the velocities and D-dimer values are not drawn from astronaut measurements, and the cases don't represent any person or crew.
 
 ## `site/replay.json`
-- **What:** a recorded real run of the two A2A agents in `agents/handoff.py` over every case at LEO, the Moon and Mars (30 handoffs, 60 A2A message calls), with the HTTP exchanges (full bodies kept for case `C05` only).
+- **What:** a recorded real run of the two A2A agents in `agents/handoff.py` over every case at LEO, the Moon and Mars (33 handoffs, 66 A2A message calls), with the HTTP exchanges (full bodies kept for case `C05` only).
 - **Delay:** simulated on a mission clock, at the upper end of each published range (see below). No waiting happens during the run.
 - **Rebuild:** `bash scripts/reproduce.sh`. A test checks the committed file matches a fresh run.
 
@@ -30,6 +32,7 @@
 - 0 points: the report lists no band, so the app says so instead of mapping it to a band.
 - Two or more non-Factor V Leiden thrombophilias: the report doesn't say how to combine them; the app sums them and flags the case for clinician review.
 - The simulated delay is the upper end of each published range.
+- The symptom checklist adds no points and its emergency rule is ours (signed 15 Nov 2026); NASA lists the symptoms only as "considered as part of the risk assessment".
 - The scan schedule applies the 180-day example's day offsets to the case's mission length.
 
 _AI-assisted: drafted with Claude Code (Anthropic) and checked by the team._

@@ -15,18 +15,71 @@
    },
    "inflight": {
     "mission_day": 30,
-    "ijv": {
-     "left": {
-      "mean_peak_velocity_cm_s": 18.8,
-      "retrograde": false
-     },
-     "right": {
-      "mean_peak_velocity_cm_s": 21.6,
-      "retrograde": false
-     }
-    },
     "ddimer_baseline": null,
     "ddimer_now": null
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 14.4,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 25.2,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 25.5,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 27.3,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
    }
   },
   {
@@ -42,18 +95,71 @@
    },
    "inflight": {
     "mission_day": 30,
-    "ijv": {
-     "left": {
-      "mean_peak_velocity_cm_s": 26.3,
-      "retrograde": false
-     },
-     "right": {
-      "mean_peak_velocity_cm_s": 24.6,
-      "retrograde": false
-     }
-    },
     "ddimer_baseline": null,
     "ddimer_now": null
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 19.6,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 25.2,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 26.5,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 21.2,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
    }
   },
   {
@@ -69,23 +175,76 @@
    },
    "inflight": {
     "mission_day": 60,
-    "ijv": {
+    "ddimer_baseline": 180,
+    "ddimer_now": 216
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 23.7,
-      "retrograde": false
+      "mean_peak_velocity_cm_s": 28.7,
+      "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 19.6,
-      "retrograde": false
+      "mean_peak_velocity_cm_s": 25.9,
+      "direction": "anterograde"
      }
     },
-    "ddimer_baseline": 230,
-    "ddimer_now": 276
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 15.5,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 14.7,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 22.3,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 17.0,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
    }
   },
   {
    "id": "C04",
-   "label": "Retrograde flow in the left IJV",
+   "label": "Retrograde flow in the left IJV (normal speed)",
    "mission_days": 180,
    "preflight": {
     "age": 38,
@@ -96,18 +255,71 @@
    },
    "inflight": {
     "mission_day": 60,
-    "ijv": {
-     "left": {
-      "mean_peak_velocity_cm_s": 25.2,
-      "retrograde": true
-     },
-     "right": {
-      "mean_peak_velocity_cm_s": 26.5,
-      "retrograde": false
-     }
-    },
     "ddimer_baseline": null,
     "ddimer_now": null
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 22.7,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 21.9,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 27.9,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 27.2,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 25.5,
+      "direction": "retrograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 19.4,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
    }
   },
   {
@@ -125,18 +337,71 @@
    },
    "inflight": {
     "mission_day": 60,
-    "ijv": {
-     "left": {
-      "mean_peak_velocity_cm_s": 8.5,
-      "retrograde": false
-     },
-     "right": {
-      "mean_peak_velocity_cm_s": 21.2,
-      "retrograde": false
-     }
-    },
     "ddimer_baseline": 200,
     "ddimer_now": 340
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 19.8,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 19.9,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 14.5,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 24.1,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 8.5,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 22.7,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
    }
   },
   {
@@ -152,18 +417,71 @@
    },
    "inflight": {
     "mission_day": 30,
-    "ijv": {
-     "left": {
-      "mean_peak_velocity_cm_s": 10.0,
-      "retrograde": false
-     },
-     "right": {
-      "mean_peak_velocity_cm_s": 17.1,
-      "retrograde": false
-     }
-    },
     "ddimer_baseline": 200,
     "ddimer_now": 320
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 20.8,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 19.8,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 10.0,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 22.9,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
    }
   },
   {
@@ -179,18 +497,71 @@
    },
    "inflight": {
     "mission_day": 30,
-    "ijv": {
-     "left": {
-      "mean_peak_velocity_cm_s": 9.9,
-      "retrograde": false
-     },
-     "right": {
-      "mean_peak_velocity_cm_s": 29.2,
-      "retrograde": false
-     }
-    },
     "ddimer_baseline": 200,
     "ddimer_now": 321
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 28.3,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 19.7,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 9.9,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 29.1,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
    }
   },
   {
@@ -206,18 +577,71 @@
    },
    "inflight": {
     "mission_day": 60,
-    "ijv": {
-     "left": {
-      "mean_peak_velocity_cm_s": 29.9,
-      "retrograde": false
-     },
-     "right": {
-      "mean_peak_velocity_cm_s": 28.1,
-      "retrograde": false
-     }
-    },
     "ddimer_baseline": 200,
     "ddimer_now": 240
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 15.4,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 17.4,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 26.3,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 14.6,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 24.2,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 21.1,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
    }
   },
   {
@@ -236,18 +660,71 @@
    },
    "inflight": {
     "mission_day": 30,
-    "ijv": {
-     "left": {
-      "mean_peak_velocity_cm_s": 17.8,
-      "retrograde": false
-     },
-     "right": {
-      "mean_peak_velocity_cm_s": 24.9,
-      "retrograde": false
-     }
-    },
     "ddimer_baseline": null,
     "ddimer_now": null
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 29.5,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 25.9,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 27.7,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 17.8,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
    }
   },
   {
@@ -263,9 +740,153 @@
    },
    "inflight": {
     "mission_day": 20,
-    "ijv": null,
     "ddimer_baseline": null,
     "ddimer_now": null
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 15.8,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 28.7,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
+   }
+  },
+  {
+   "id": "C11",
+   "label": "Demo case: low score (1 point), then a new change in vision",
+   "mission_days": 180,
+   "preflight": {
+    "age": 43,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": false,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 60,
+    "ddimer_baseline": null,
+    "ddimer_now": null
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 26.8,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 19.6,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 14.0,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 18.2,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 19.0,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 24.8,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [
+     "vision_change"
+    ],
+    "sudden_or_severe": false,
+    "checklist_done": true
    }
   }
  ]

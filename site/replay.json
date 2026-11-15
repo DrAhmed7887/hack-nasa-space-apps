@@ -1,7 +1,7 @@
 {
  "_ai_assisted": "Recorded by agents/handoff.py (written with Claude Code). Synthetic cases only.",
  "what": "Replay of a recorded real run: two A2A agents on 127.0.0.1; mission delay simulated on a mission clock.",
- "recorded_at_utc": "2026-11-14T23:27:32Z",
+ "recorded_at_utc": "2026-11-15T09:56:30Z",
  "a2a_sdk": "a2a-sdk 1.3.0 (A2A protocol 1.0)",
  "error": "",
  "sources": {
@@ -85,18 +85,71 @@
    },
    "inflight": {
     "mission_day": 30,
-    "ijv": {
-     "left": {
-      "mean_peak_velocity_cm_s": 18.8,
-      "retrograde": false
-     },
-     "right": {
-      "mean_peak_velocity_cm_s": 21.6,
-      "retrograde": false
-     }
-    },
     "ddimer_baseline": null,
     "ddimer_now": null
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 14.4,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 25.2,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 25.5,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 27.3,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
    }
   },
   {
@@ -112,18 +165,71 @@
    },
    "inflight": {
     "mission_day": 30,
-    "ijv": {
-     "left": {
-      "mean_peak_velocity_cm_s": 26.3,
-      "retrograde": false
-     },
-     "right": {
-      "mean_peak_velocity_cm_s": 24.6,
-      "retrograde": false
-     }
-    },
     "ddimer_baseline": null,
     "ddimer_now": null
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 19.6,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 25.2,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 26.5,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 21.2,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
    }
   },
   {
@@ -139,23 +245,76 @@
    },
    "inflight": {
     "mission_day": 60,
-    "ijv": {
+    "ddimer_baseline": 180,
+    "ddimer_now": 216
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
      "left": {
-      "mean_peak_velocity_cm_s": 23.7,
-      "retrograde": false
+      "mean_peak_velocity_cm_s": 28.7,
+      "direction": "anterograde"
      },
      "right": {
-      "mean_peak_velocity_cm_s": 19.6,
-      "retrograde": false
+      "mean_peak_velocity_cm_s": 25.9,
+      "direction": "anterograde"
      }
     },
-    "ddimer_baseline": 230,
-    "ddimer_now": 276
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 15.5,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 14.7,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 22.3,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 17.0,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
    }
   },
   {
    "id": "C04",
-   "label": "Retrograde flow in the left IJV",
+   "label": "Retrograde flow in the left IJV (normal speed)",
    "mission_days": 180,
    "preflight": {
     "age": 38,
@@ -166,18 +325,71 @@
    },
    "inflight": {
     "mission_day": 60,
-    "ijv": {
-     "left": {
-      "mean_peak_velocity_cm_s": 25.2,
-      "retrograde": true
-     },
-     "right": {
-      "mean_peak_velocity_cm_s": 26.5,
-      "retrograde": false
-     }
-    },
     "ddimer_baseline": null,
     "ddimer_now": null
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 22.7,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 21.9,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 27.9,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 27.2,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 25.5,
+      "direction": "retrograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 19.4,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
    }
   },
   {
@@ -195,18 +407,71 @@
    },
    "inflight": {
     "mission_day": 60,
-    "ijv": {
-     "left": {
-      "mean_peak_velocity_cm_s": 8.5,
-      "retrograde": false
-     },
-     "right": {
-      "mean_peak_velocity_cm_s": 21.2,
-      "retrograde": false
-     }
-    },
     "ddimer_baseline": 200,
     "ddimer_now": 340
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 19.8,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 19.9,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 14.5,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 24.1,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 8.5,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 22.7,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
    }
   },
   {
@@ -222,18 +487,71 @@
    },
    "inflight": {
     "mission_day": 30,
-    "ijv": {
-     "left": {
-      "mean_peak_velocity_cm_s": 10.0,
-      "retrograde": false
-     },
-     "right": {
-      "mean_peak_velocity_cm_s": 17.1,
-      "retrograde": false
-     }
-    },
     "ddimer_baseline": 200,
     "ddimer_now": 320
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 20.8,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 19.8,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 10.0,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 22.9,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
    }
   },
   {
@@ -249,18 +567,71 @@
    },
    "inflight": {
     "mission_day": 30,
-    "ijv": {
-     "left": {
-      "mean_peak_velocity_cm_s": 9.9,
-      "retrograde": false
-     },
-     "right": {
-      "mean_peak_velocity_cm_s": 29.2,
-      "retrograde": false
-     }
-    },
     "ddimer_baseline": 200,
     "ddimer_now": 321
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 28.3,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 19.7,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 9.9,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 29.1,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
    }
   },
   {
@@ -276,18 +647,71 @@
    },
    "inflight": {
     "mission_day": 60,
-    "ijv": {
-     "left": {
-      "mean_peak_velocity_cm_s": 29.9,
-      "retrograde": false
-     },
-     "right": {
-      "mean_peak_velocity_cm_s": 28.1,
-      "retrograde": false
-     }
-    },
     "ddimer_baseline": 200,
     "ddimer_now": 240
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 15.4,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 17.4,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 26.3,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 14.6,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 24.2,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 21.1,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
    }
   },
   {
@@ -306,18 +730,71 @@
    },
    "inflight": {
     "mission_day": 30,
-    "ijv": {
-     "left": {
-      "mean_peak_velocity_cm_s": 17.8,
-      "retrograde": false
-     },
-     "right": {
-      "mean_peak_velocity_cm_s": 24.9,
-      "retrograde": false
-     }
-    },
     "ddimer_baseline": null,
     "ddimer_now": null
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 29.5,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 25.9,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 27.7,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 17.8,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
    }
   },
   {
@@ -333,9 +810,153 @@
    },
    "inflight": {
     "mission_day": 20,
-    "ijv": null,
     "ddimer_baseline": null,
     "ddimer_now": null
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 15.8,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 28.7,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [],
+    "sudden_or_severe": false,
+    "checklist_done": true
+   }
+  },
+  {
+   "id": "C11",
+   "label": "Demo case: low score (1 point), then a new change in vision",
+   "mission_days": 180,
+   "preflight": {
+    "age": 43,
+    "family_history": "none",
+    "thrombophilia": [],
+    "abo_non_o": false,
+    "hormone": "none"
+   },
+   "inflight": {
+    "mission_day": 60,
+    "ddimer_baseline": null,
+    "ddimer_now": null
+   },
+   "scans": [
+    {
+     "label": "Baseline",
+     "day": 0,
+     "in_flight": false,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 26.8,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 19.6,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+30 days",
+     "day": 30,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 14.0,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 18.2,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "L+60 days",
+     "day": 60,
+     "in_flight": true,
+     "recorded": true,
+     "left": {
+      "mean_peak_velocity_cm_s": 19.0,
+      "direction": "anterograde"
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": 24.8,
+      "direction": "anterograde"
+     }
+    },
+    {
+     "label": "R-42 days",
+     "day": 138,
+     "in_flight": true,
+     "recorded": false,
+     "left": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     },
+     "right": {
+      "mean_peak_velocity_cm_s": null,
+      "direction": null
+     }
+    }
+   ],
+   "symptoms": {
+    "ticked": [
+     "vision_change"
+    ],
+    "sudden_or_severe": false,
+    "checklist_done": true
    }
   }
  ],
@@ -409,6 +1030,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -444,7 +1072,28 @@
      "sources": [
       "TB-007"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+30 days",
+     "day": 30,
+     "left": "Forward flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 25.5,
+     "right_velocity_cm_s": 27.3,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -452,6 +1101,14 @@
     "received_at_mission_s": 2592001.5,
     "reply_reaches_crew_at_mission_s": 2592003.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -525,6 +1182,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -561,7 +1225,28 @@
       "TB-007",
       "NTRS-20250002759"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+30 days",
+     "day": 30,
+     "left": "Forward flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 25.5,
+     "right_velocity_cm_s": 27.3,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -569,6 +1254,14 @@
     "received_at_mission_s": 2592014.0,
     "reply_reaches_crew_at_mission_s": 2592028.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -642,6 +1335,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -677,7 +1377,28 @@
      "sources": [
       "TB-007"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+30 days",
+     "day": 30,
+     "left": "Forward flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 25.5,
+     "right_velocity_cm_s": 27.3,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -685,6 +1406,14 @@
     "received_at_mission_s": 2594400.0,
     "reply_reaches_crew_at_mission_s": 2596800.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -758,6 +1487,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -793,7 +1529,28 @@
      "sources": [
       "TB-007"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+30 days",
+     "day": 30,
+     "left": "Forward flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 26.5,
+     "right_velocity_cm_s": 21.2,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -801,6 +1558,14 @@
     "received_at_mission_s": 2592001.5,
     "reply_reaches_crew_at_mission_s": 2592003.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -874,6 +1639,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -910,7 +1682,28 @@
       "TB-007",
       "NTRS-20250002759"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+30 days",
+     "day": 30,
+     "left": "Forward flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 26.5,
+     "right_velocity_cm_s": 21.2,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -918,6 +1711,14 @@
     "received_at_mission_s": 2592014.0,
     "reply_reaches_crew_at_mission_s": 2592028.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -991,6 +1792,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -1026,7 +1834,28 @@
      "sources": [
       "TB-007"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+30 days",
+     "day": 30,
+     "left": "Forward flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 26.5,
+     "right_velocity_cm_s": 21.2,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -1034,6 +1863,14 @@
     "received_at_mission_s": 2594400.0,
     "reply_reaches_crew_at_mission_s": 2596800.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -1105,6 +1942,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -1140,7 +1984,28 @@
      "sources": [
       "TB-007"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+60 days",
+     "day": 60,
+     "left": "Forward flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 22.3,
+     "right_velocity_cm_s": 17.0,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -1148,6 +2013,14 @@
     "received_at_mission_s": 5184001.5,
     "reply_reaches_crew_at_mission_s": 5184003.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -1219,6 +2092,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -1255,7 +2135,28 @@
       "TB-007",
       "NTRS-20250002759"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+60 days",
+     "day": 60,
+     "left": "Forward flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 22.3,
+     "right_velocity_cm_s": 17.0,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -1263,6 +2164,14 @@
     "received_at_mission_s": 5184014.0,
     "reply_reaches_crew_at_mission_s": 5184028.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -1334,6 +2243,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -1369,7 +2285,28 @@
      "sources": [
       "TB-007"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+60 days",
+     "day": 60,
+     "left": "Forward flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 22.3,
+     "right_velocity_cm_s": 17.0,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -1377,6 +2314,14 @@
     "received_at_mission_s": 5186400.0,
     "reply_reaches_crew_at_mission_s": 5188800.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -1450,6 +2395,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -1485,7 +2437,28 @@
      "sources": [
       "TB-007"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+60 days",
+     "day": 60,
+     "left": "Retrograde flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 25.5,
+     "right_velocity_cm_s": 19.4,
+     "left_direction": "retrograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -1493,6 +2466,14 @@
     "received_at_mission_s": 5184001.5,
     "reply_reaches_crew_at_mission_s": 5184003.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -1566,6 +2547,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -1602,7 +2590,28 @@
       "TB-007",
       "NTRS-20250002759"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+60 days",
+     "day": 60,
+     "left": "Retrograde flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 25.5,
+     "right_velocity_cm_s": 19.4,
+     "left_direction": "retrograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -1610,6 +2619,14 @@
     "received_at_mission_s": 5184014.0,
     "reply_reaches_crew_at_mission_s": 5184028.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -1683,6 +2700,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -1718,7 +2742,28 @@
      "sources": [
       "TB-007"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+60 days",
+     "day": 60,
+     "left": "Retrograde flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 25.5,
+     "right_velocity_cm_s": 19.4,
+     "left_direction": "retrograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -1726,6 +2771,14 @@
     "received_at_mission_s": 5186400.0,
     "reply_reaches_crew_at_mission_s": 5188800.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -1797,6 +2850,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -1832,7 +2892,28 @@
      "sources": [
       "TB-007"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+60 days",
+     "day": 60,
+     "left": "Low velocity (mean peak <10 cm/s anterograde)",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 8.5,
+     "right_velocity_cm_s": 22.7,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -1840,6 +2921,14 @@
     "received_at_mission_s": 5184001.5,
     "reply_reaches_crew_at_mission_s": 5184003.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -1911,6 +3000,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -1947,7 +3043,28 @@
       "TB-007",
       "NTRS-20250002759"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+60 days",
+     "day": 60,
+     "left": "Low velocity (mean peak <10 cm/s anterograde)",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 8.5,
+     "right_velocity_cm_s": 22.7,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -1955,6 +3072,14 @@
     "received_at_mission_s": 5184014.0,
     "reply_reaches_crew_at_mission_s": 5184028.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -2026,6 +3151,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -2061,7 +3193,28 @@
      "sources": [
       "TB-007"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+60 days",
+     "day": 60,
+     "left": "Low velocity (mean peak <10 cm/s anterograde)",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 8.5,
+     "right_velocity_cm_s": 22.7,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -2069,6 +3222,14 @@
     "received_at_mission_s": 5186400.0,
     "reply_reaches_crew_at_mission_s": 5188800.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -2140,6 +3301,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -2175,7 +3343,28 @@
      "sources": [
       "TB-007"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+30 days",
+     "day": 30,
+     "left": "Forward flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 10.0,
+     "right_velocity_cm_s": 22.9,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -2183,6 +3372,14 @@
     "received_at_mission_s": 2592001.5,
     "reply_reaches_crew_at_mission_s": 2592003.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -2254,6 +3451,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -2290,7 +3494,28 @@
       "TB-007",
       "NTRS-20250002759"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+30 days",
+     "day": 30,
+     "left": "Forward flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 10.0,
+     "right_velocity_cm_s": 22.9,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -2298,6 +3523,14 @@
     "received_at_mission_s": 2592014.0,
     "reply_reaches_crew_at_mission_s": 2592028.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -2369,6 +3602,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -2404,7 +3644,28 @@
      "sources": [
       "TB-007"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+30 days",
+     "day": 30,
+     "left": "Forward flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 10.0,
+     "right_velocity_cm_s": 22.9,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -2412,6 +3673,14 @@
     "received_at_mission_s": 2594400.0,
     "reply_reaches_crew_at_mission_s": 2596800.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -2483,6 +3752,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -2518,7 +3794,28 @@
      "sources": [
       "TB-007"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+30 days",
+     "day": 30,
+     "left": "Low velocity (mean peak <10 cm/s anterograde)",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 9.9,
+     "right_velocity_cm_s": 29.1,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -2526,6 +3823,14 @@
     "received_at_mission_s": 2592001.5,
     "reply_reaches_crew_at_mission_s": 2592003.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -2597,6 +3902,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -2633,7 +3945,28 @@
       "TB-007",
       "NTRS-20250002759"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+30 days",
+     "day": 30,
+     "left": "Low velocity (mean peak <10 cm/s anterograde)",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 9.9,
+     "right_velocity_cm_s": 29.1,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -2641,6 +3974,14 @@
     "received_at_mission_s": 2592014.0,
     "reply_reaches_crew_at_mission_s": 2592028.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -2712,6 +4053,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -2747,7 +4095,28 @@
      "sources": [
       "TB-007"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+30 days",
+     "day": 30,
+     "left": "Low velocity (mean peak <10 cm/s anterograde)",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 9.9,
+     "right_velocity_cm_s": 29.1,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -2755,6 +4124,14 @@
     "received_at_mission_s": 2594400.0,
     "reply_reaches_crew_at_mission_s": 2596800.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -2826,6 +4203,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -2861,7 +4245,28 @@
      "sources": [
       "TB-007"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+60 days",
+     "day": 60,
+     "left": "Forward flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 24.2,
+     "right_velocity_cm_s": 21.1,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -2869,6 +4274,14 @@
     "received_at_mission_s": 5184001.5,
     "reply_reaches_crew_at_mission_s": 5184003.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -2940,6 +4353,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -2976,7 +4396,28 @@
       "TB-007",
       "NTRS-20250002759"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+60 days",
+     "day": 60,
+     "left": "Forward flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 24.2,
+     "right_velocity_cm_s": 21.1,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -2984,6 +4425,14 @@
     "received_at_mission_s": 5184014.0,
     "reply_reaches_crew_at_mission_s": 5184028.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -3055,6 +4504,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -3090,7 +4546,28 @@
      "sources": [
       "TB-007"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+60 days",
+     "day": 60,
+     "left": "Forward flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 24.2,
+     "right_velocity_cm_s": 21.1,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -3098,6 +4575,14 @@
     "received_at_mission_s": 5186400.0,
     "reply_reaches_crew_at_mission_s": 5188800.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -3175,6 +4660,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -3210,7 +4702,28 @@
      "sources": [
       "TB-007"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+30 days",
+     "day": 30,
+     "left": "Forward flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 27.7,
+     "right_velocity_cm_s": 17.8,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -3218,6 +4731,14 @@
     "received_at_mission_s": 2592001.5,
     "reply_reaches_crew_at_mission_s": 2592003.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -3295,6 +4816,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -3331,7 +4859,28 @@
       "TB-007",
       "NTRS-20250002759"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+30 days",
+     "day": 30,
+     "left": "Forward flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 27.7,
+     "right_velocity_cm_s": 17.8,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -3339,6 +4888,14 @@
     "received_at_mission_s": 2592014.0,
     "reply_reaches_crew_at_mission_s": 2592028.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -3416,6 +4973,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -3451,7 +5015,28 @@
      "sources": [
       "TB-007"
      ]
-    }
+    },
+    "scan_state": {
+     "label": "L+30 days",
+     "day": 30,
+     "left": "Forward flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 27.7,
+     "right_velocity_cm_s": 17.8,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -3459,6 +5044,14 @@
     "received_at_mission_s": 2594400.0,
     "reply_reaches_crew_at_mission_s": 2596800.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -3533,6 +5126,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -3568,7 +5168,23 @@
      "sources": [
       "TB-007"
      ]
-    }
+    },
+    "scan_state": {
+     "label": null,
+     "left": "Not measured",
+     "right": "Not measured",
+     "note": "No in-flight scan recorded yet. These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -3576,6 +5192,14 @@
     "received_at_mission_s": 1728001.5,
     "reply_reaches_crew_at_mission_s": 1728003.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -3650,6 +5274,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -3686,7 +5317,23 @@
       "TB-007",
       "NTRS-20250002759"
      ]
-    }
+    },
+    "scan_state": {
+     "label": null,
+     "left": "Not measured",
+     "right": "Not measured",
+     "note": "No in-flight scan recorded yet. These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -3694,6 +5341,14 @@
     "received_at_mission_s": 1728014.0,
     "reply_reaches_crew_at_mission_s": 1728028.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -3768,6 +5423,13 @@
      "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
      "source": "VTE-2026"
     },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
     "schedule": [
      {
       "day": 30,
@@ -3803,7 +5465,23 @@
      "sources": [
       "TB-007"
      ]
-    }
+    },
+    "scan_state": {
+     "label": null,
+     "left": "Not measured",
+     "right": "Not measured",
+     "note": "No in-flight scan recorded yet. These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "none_reported",
+     "message": "No listed symptoms reported. This does not exclude thrombosis.",
+     "ticked": [],
+     "ticked_labels": [],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "No listed symptoms reported. This does not exclude thrombosis."
    },
    "ground_ack": {
     "from": "ground-flight-surgeon-desk",
@@ -3811,6 +5489,483 @@
     "received_at_mission_s": 1730400.0,
     "reply_reaches_crew_at_mission_s": 1732800.0,
     "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C11",
+   "mission": "leo",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 5184000,
+    "score": {
+     "case_id": "C11",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "Over 40 years of age: +1 point",
+       "points": 1,
+       "value": 43.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No stasis (<10 cm/s) or retrograde flow found: 0 points",
+       "points": 0,
+       "value": "normal",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Not measured: not scored",
+       "points": 0,
+       "value": null,
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 1,
+     "inflight_points": 0,
+     "total": 1,
+     "nasa_reference_band": "1 point = no additional action",
+     "flags": [
+      "D-dimer not measured. The report: 'NASA does not routinely test D-dimer levels in astronauts. There are no existing adequate in-flight testing methods'."
+     ],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 138,
+     "label": "R-42 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "leo",
+     "name": "Low Earth orbit",
+     "communication": "Near real-time communications (1-1.5 seconds)",
+     "evacuation": "Evacuation capabilities; Distance from Earth / Evacuation: 1 day or less",
+     "ground_support": "Reliance on Earth",
+     "simulated_one_way_delay_s": 1.5,
+     "earliest_ground_reply_s": 3.0,
+     "summary": "Simulated delay 1.5 s each way: the earliest ground reply comes 3 s after sending.",
+     "delay_basis": "upper end of '1-1.5 seconds' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    },
+    "scan_state": {
+     "label": "L+60 days",
+     "day": 60,
+     "left": "Forward flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 19.0,
+     "right_velocity_cm_s": 24.8,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "emergency",
+     "message": "Start your onboard medical emergency procedure now; do not wait for this app or a ground reply.",
+     "ticked": [
+      "vision_change"
+     ],
+     "ticked_labels": [
+      "New change in vision"
+     ],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "Start your onboard medical emergency procedure now; do not wait for this app or a ground reply."
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C11",
+    "received_at_mission_s": 5184001.5,
+    "reply_reaches_crew_at_mission_s": 5184003.0,
+    "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C11",
+   "mission": "moon",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 5184000,
+    "score": {
+     "case_id": "C11",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "Over 40 years of age: +1 point",
+       "points": 1,
+       "value": 43.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No stasis (<10 cm/s) or retrograde flow found: 0 points",
+       "points": 0,
+       "value": "normal",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Not measured: not scored",
+       "points": 0,
+       "value": null,
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 1,
+     "inflight_points": 0,
+     "total": 1,
+     "nasa_reference_band": "1 point = no additional action",
+     "flags": [
+      "D-dimer not measured. The report: 'NASA does not routinely test D-dimer levels in astronauts. There are no existing adequate in-flight testing methods'."
+     ],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 138,
+     "label": "R-42 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "moon",
+     "name": "Lunar mission",
+     "communication": "Minor communication latencies",
+     "evacuation": "Evacuation capabilities (3-11 days)",
+     "ground_support": "Restrictions in onboard medical capability",
+     "simulated_one_way_delay_s": 14.0,
+     "earliest_ground_reply_s": 28.0,
+     "summary": "Simulated delay 14 s each way: the earliest ground reply comes 28 s after sending.",
+     "delay_basis": "upper end of 'Comm Latency 5-14 sec' (NTRS 20250002759)",
+     "sources": [
+      "TB-007",
+      "NTRS-20250002759"
+     ]
+    },
+    "scan_state": {
+     "label": "L+60 days",
+     "day": 60,
+     "left": "Forward flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 19.0,
+     "right_velocity_cm_s": 24.8,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "emergency",
+     "message": "Start your onboard medical emergency procedure now; do not wait for this app or a ground reply.",
+     "ticked": [
+      "vision_change"
+     ],
+     "ticked_labels": [
+      "New change in vision"
+     ],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "Start your onboard medical emergency procedure now; do not wait for this app or a ground reply."
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C11",
+    "received_at_mission_s": 5184014.0,
+    "reply_reaches_crew_at_mission_s": 5184028.0,
+    "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
+    "ground_decision": null,
+    "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
+   }
+  },
+  {
+   "case_id": "C11",
+   "mission": "mars",
+   "packet": {
+    "from": "onboard-crew-medical-monitor",
+    "sent_at_mission_s": 5184000,
+    "score": {
+     "case_id": "C11",
+     "items": [
+      {
+       "group": "Age",
+       "rule": "Over 40 years of age: +1 point",
+       "points": 1,
+       "value": 43.0,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Family history",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Thrombophilia",
+       "rule": "None reported: no points listed",
+       "points": 0,
+       "value": [],
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Blood type",
+       "rule": "O/O: no points listed",
+       "points": 0,
+       "value": false,
+       "source": "VTE-2026"
+      },
+      {
+       "group": "Hormone use",
+       "rule": "No hormone use: 0 points",
+       "points": 0,
+       "value": "none",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "IJV flow",
+       "rule": "No stasis (<10 cm/s) or retrograde flow found: 0 points",
+       "points": 0,
+       "value": "normal",
+       "source": "VTE-2026"
+      },
+      {
+       "group": "D-dimer",
+       "rule": "Not measured: not scored",
+       "points": 0,
+       "value": null,
+       "source": "VTE-2026"
+      }
+     ],
+     "preflight_points": 1,
+     "inflight_points": 0,
+     "total": 1,
+     "nasa_reference_band": "1 point = no additional action",
+     "flags": [
+      "D-dimer not measured. The report: 'NASA does not routinely test D-dimer levels in astronauts. There are no existing adequate in-flight testing methods'."
+     ],
+     "note": "Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.",
+     "source": "VTE-2026"
+    },
+    "score_sources": [
+     {
+      "id": "VTE-2026",
+      "title": "NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf"
+     }
+    ],
+    "schedule": [
+     {
+      "day": 30,
+      "label": "L+30 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 60,
+      "label": "L+60 days",
+      "source": "MTB-007"
+     },
+     {
+      "day": 138,
+      "label": "R-42 days",
+      "source": "MTB-007"
+     }
+    ],
+    "next_scan": {
+     "day": 138,
+     "label": "R-42 days",
+     "source": "MTB-007"
+    },
+    "review_context": {
+     "mission": "mars",
+     "name": "Mars mission",
+     "communication": "Extended communication latencies (0-40 minutes)",
+     "evacuation": "No evacuation capability",
+     "ground_support": "Limited ground medical support/autonomous Medical Care",
+     "simulated_one_way_delay_s": 2400.0,
+     "earliest_ground_reply_s": 4800.0,
+     "summary": "Simulated delay 40 min each way: the earliest ground reply comes 80 min after sending.",
+     "delay_basis": "upper end of '0-40 minutes' (TB-007)",
+     "sources": [
+      "TB-007"
+     ]
+    },
+    "scan_state": {
+     "label": "L+60 days",
+     "day": 60,
+     "left": "Forward flow",
+     "right": "Forward flow",
+     "left_velocity_cm_s": 19.0,
+     "right_velocity_cm_s": 24.8,
+     "left_direction": "anterograde",
+     "right_direction": "anterograde",
+     "note": "These observations neither diagnose nor exclude thrombosis."
+    },
+    "symptom_report": {
+     "level": "emergency",
+     "message": "Start your onboard medical emergency procedure now; do not wait for this app or a ground reply.",
+     "ticked": [
+      "vision_change"
+     ],
+     "ticked_labels": [
+      "New change in vision"
+     ],
+     "sudden_or_severe": false,
+     "checklist_done": true,
+     "adds_points": 0
+    },
+    "message_shown": "Start your onboard medical emergency procedure now; do not wait for this app or a ground reply."
+   },
+   "ground_ack": {
+    "from": "ground-flight-surgeon-desk",
+    "case_id": "C11",
+    "received_at_mission_s": 5186400.0,
+    "reply_reaches_crew_at_mission_s": 5188800.0,
+    "status": "Queued for flight surgeon review",
+    "delivered": true,
+    "packet_parts_received": [
+     "score",
+     "score_sources",
+     "scan_state",
+     "symptom_report",
+     "message_shown"
+    ],
     "ground_decision": null,
     "note": "The ground agent makes no clinical decision. A flight surgeon reviews the packet."
    }
@@ -3842,7 +5997,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 723
+   "bytes": 1593
   },
   {
    "case_id": "C01",
@@ -3869,7 +6024,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2635
+   "bytes": 3614
   },
   {
    "case_id": "C01",
@@ -3878,7 +6033,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C01",
@@ -3887,7 +6042,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 3000
+   "bytes": 4114
   },
   {
    "case_id": "C01",
@@ -3914,7 +6069,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 724
+   "bytes": 1594
   },
   {
    "case_id": "C01",
@@ -3941,7 +6096,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2648
+   "bytes": 3627
   },
   {
    "case_id": "C01",
@@ -3950,7 +6105,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C01",
@@ -3959,7 +6114,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 3013
+   "bytes": 4127
   },
   {
    "case_id": "C01",
@@ -3986,7 +6141,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 724
+   "bytes": 1594
   },
   {
    "case_id": "C01",
@@ -4013,7 +6168,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2633
+   "bytes": 3612
   },
   {
    "case_id": "C01",
@@ -4022,7 +6177,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C01",
@@ -4031,7 +6186,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 2998
+   "bytes": 4112
   },
   {
    "case_id": "C02",
@@ -4058,52 +6213,52 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
+   "bytes": 1557
+  },
+  {
+   "case_id": "C02",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C02",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C02",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 3552
+  },
+  {
+   "case_id": "C02",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
    "bytes": 687
   },
   {
    "case_id": "C02",
    "mission": "leo",
-   "dir": "request",
-   "method": "GET",
-   "path": "/.well-known/agent-card.json",
-   "port_role": "ground",
-   "bytes": 0
-  },
-  {
-   "case_id": "C02",
-   "mission": "leo",
-   "dir": "response",
-   "path": "/.well-known/agent-card.json",
-   "port_role": "ground",
-   "status": 200,
-   "bytes": 535
-  },
-  {
-   "case_id": "C02",
-   "mission": "leo",
-   "dir": "request",
-   "method": "POST",
-   "path": "/",
-   "port_role": "ground",
-   "bytes": 2573
-  },
-  {
-   "case_id": "C02",
-   "mission": "leo",
-   "dir": "response",
-   "path": "/",
-   "port_role": "ground",
-   "status": 200,
-   "bytes": 552
-  },
-  {
-   "case_id": "C02",
-   "mission": "leo",
    "dir": "response",
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 2938
+   "bytes": 4052
   },
   {
    "case_id": "C02",
@@ -4130,7 +6285,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 688
+   "bytes": 1558
   },
   {
    "case_id": "C02",
@@ -4157,7 +6312,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2586
+   "bytes": 3565
   },
   {
    "case_id": "C02",
@@ -4166,7 +6321,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C02",
@@ -4175,7 +6330,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 2951
+   "bytes": 4065
   },
   {
    "case_id": "C02",
@@ -4202,7 +6357,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 688
+   "bytes": 1558
   },
   {
    "case_id": "C02",
@@ -4229,7 +6384,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2571
+   "bytes": 3550
   },
   {
    "case_id": "C02",
@@ -4238,7 +6393,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C02",
@@ -4247,7 +6402,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 2936
+   "bytes": 4050
   },
   {
    "case_id": "C03",
@@ -4274,7 +6429,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 700
+   "bytes": 1591
   },
   {
    "case_id": "C03",
@@ -4301,7 +6456,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2495
+   "bytes": 3474
   },
   {
    "case_id": "C03",
@@ -4310,7 +6465,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C03",
@@ -4319,7 +6474,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 2860
+   "bytes": 3974
   },
   {
    "case_id": "C03",
@@ -4346,7 +6501,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 701
+   "bytes": 1592
   },
   {
    "case_id": "C03",
@@ -4373,7 +6528,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2508
+   "bytes": 3487
   },
   {
    "case_id": "C03",
@@ -4382,7 +6537,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C03",
@@ -4391,7 +6546,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 2873
+   "bytes": 3987
   },
   {
    "case_id": "C03",
@@ -4418,7 +6573,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 701
+   "bytes": 1592
   },
   {
    "case_id": "C03",
@@ -4445,7 +6600,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2493
+   "bytes": 3472
   },
   {
    "case_id": "C03",
@@ -4454,7 +6609,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C03",
@@ -4463,7 +6618,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 2858
+   "bytes": 3972
   },
   {
    "case_id": "C04",
@@ -4490,7 +6645,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 705
+   "bytes": 1611
   },
   {
    "case_id": "C04",
@@ -4517,7 +6672,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2633
+   "bytes": 3614
   },
   {
    "case_id": "C04",
@@ -4526,7 +6681,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C04",
@@ -4535,7 +6690,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 2998
+   "bytes": 4114
   },
   {
    "case_id": "C04",
@@ -4562,7 +6717,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 706
+   "bytes": 1612
   },
   {
    "case_id": "C04",
@@ -4589,7 +6744,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2646
+   "bytes": 3627
   },
   {
    "case_id": "C04",
@@ -4598,7 +6753,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C04",
@@ -4607,7 +6762,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 3011
+   "bytes": 4127
   },
   {
    "case_id": "C04",
@@ -4634,7 +6789,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 706
+   "bytes": 1612
   },
   {
    "case_id": "C04",
@@ -4661,7 +6816,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2631
+   "bytes": 3612
   },
   {
    "case_id": "C04",
@@ -4670,7 +6825,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C04",
@@ -4679,7 +6834,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 2996
+   "bytes": 4112
   },
   {
    "case_id": "C05",
@@ -4699,7 +6854,7 @@
    "port_role": "onboard",
    "status": 200,
    "bytes": 547,
-   "body": "{\"name\":\"onboard-crew-medical-monitor\",\"description\":\"Scores VTE risk with NASA's published method and sends it to the ground\",\"supportedInterfaces\":[{\"url\":\"http://127.0.0.1:50532/\",\"protocolBinding\":\"JSONRPC\",\"protocolVersion\":\"1.0\"}],\"version\":\"0.1.0\",\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"skills\":[{\"id\":\"score-vte-nasa\",\"name\":\"score-vte-nasa\",\"description\":\"Scores VTE risk with NASA's published method and sends it to the ground\",\"tags\":[\"vte\",\"synthetic\"]}]}"
+   "body": "{\"name\":\"onboard-crew-medical-monitor\",\"description\":\"Scores VTE risk with NASA's published method and sends it to the ground\",\"supportedInterfaces\":[{\"url\":\"http://127.0.0.1:53530/\",\"protocolBinding\":\"JSONRPC\",\"protocolVersion\":\"1.0\"}],\"version\":\"0.1.0\",\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"skills\":[{\"id\":\"score-vte-nasa\",\"name\":\"score-vte-nasa\",\"description\":\"Scores VTE risk with NASA's published method and sends it to the ground\",\"tags\":[\"vte\",\"synthetic\"]}]}"
   },
   {
    "case_id": "C05",
@@ -4708,8 +6863,8 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 730,
-   "body": "{\"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"d25adbca-e13e-4ca1-9c97-6b30fd3048ce\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"case\\\": {\\\"id\\\": \\\"C05\\\", \\\"label\\\": \\\"Several factors plus stasis and a D-dimer rise\\\", \\\"mission_days\\\": 180, \\\"preflight\\\": {\\\"age\\\": 47, \\\"family_history\\\": \\\"none\\\", \\\"thrombophilia\\\": [\\\"fvl_het\\\"], \\\"abo_non_o\\\": false, \\\"hormone\\\": \\\"none\\\"}, \\\"inflight\\\": {\\\"mission_day\\\": 60, \\\"ijv\\\": {\\\"left\\\": {\\\"mean_peak_velocity_cm_s\\\": 8.5, \\\"retrograde\\\": false}, \\\"right\\\": {\\\"mean_peak_velocity_cm_s\\\": 21.2, \\\"retrograde\\\": false}}, \\\"ddimer_baseline\\\": 200, \\\"ddimer_now\\\": 340}}, \\\"mission\\\": \\\"leo\\\"}\"}]},\"configuration\":{}},\"id\":\"1d751e2e-1b86-4283-9a87-8be9de23073d\",\"jsonrpc\":\"2.0\"}"
+   "bytes": 1621,
+   "body": "{\"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"00bd0343-fc5a-4ec5-98f8-d0cfc0f0e85f\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"case\\\": {\\\"id\\\": \\\"C05\\\", \\\"label\\\": \\\"Several factors plus stasis and a D-dimer rise\\\", \\\"mission_days\\\": 180, \\\"preflight\\\": {\\\"age\\\": 47, \\\"family_history\\\": \\\"none\\\", \\\"thrombophilia\\\": [\\\"fvl_het\\\"], \\\"abo_non_o\\\": false, \\\"hormone\\\": \\\"none\\\"}, \\\"inflight\\\": {\\\"mission_day\\\": 60, \\\"ddimer_baseline\\\": 200, \\\"ddimer_now\\\": 340}, \\\"scans\\\": [{\\\"label\\\": \\\"Baseline\\\", \\\"day\\\": 0, \\\"in_flight\\\": false, \\\"recorded\\\": true, \\\"left\\\": {\\\"mean_peak_velocity_cm_s\\\": 19.8, \\\"direction\\\": \\\"anterograde\\\"}, \\\"right\\\": {\\\"mean_peak_velocity_cm_s\\\": 19.9, \\\"direction\\\": \\\"anterograde\\\"}}, {\\\"label\\\": \\\"L+30 days\\\", \\\"day\\\": 30, \\\"in_flight\\\": true, \\\"recorded\\\": true, \\\"left\\\": {\\\"mean_peak_velocity_cm_s\\\": 14.5, \\\"direction\\\": \\\"anterograde\\\"}, \\\"right\\\": {\\\"mean_peak_velocity_cm_s\\\": 24.1, \\\"direction\\\": \\\"anterograde\\\"}}, {\\\"label\\\": \\\"L+60 days\\\", \\\"day\\\": 60, \\\"in_flight\\\": true, \\\"recorded\\\": true, \\\"left\\\": {\\\"mean_peak_velocity_cm_s\\\": 8.5, \\\"direction\\\": \\\"anterograde\\\"}, \\\"right\\\": {\\\"mean_peak_velocity_cm_s\\\": 22.7, \\\"direction\\\": \\\"anterograde\\\"}}, {\\\"label\\\": \\\"R-42 days\\\", \\\"day\\\": 138, \\\"in_flight\\\": true, \\\"recorded\\\": false, \\\"left\\\": {\\\"mean_peak_velocity_cm_s\\\": null, \\\"direction\\\": null}, \\\"right\\\": {\\\"mean_peak_velocity_cm_s\\\": null, \\\"direction\\\": null}}], \\\"symptoms\\\": {\\\"ticked\\\": [], \\\"sudden_or_severe\\\": false, \\\"checklist_done\\\": true}}, \\\"mission\\\": \\\"leo\\\"}\"}]},\"configuration\":{}},\"id\":\"861d6ed2-a4e0-401c-b35c-d94ebdc137b6\",\"jsonrpc\":\"2.0\"}"
   },
   {
    "case_id": "C05",
@@ -4729,7 +6884,7 @@
    "port_role": "ground",
    "status": 200,
    "bytes": 535,
-   "body": "{\"name\":\"ground-flight-surgeon-desk\",\"description\":\"Receives VTE review packets and queues them for a flight surgeon\",\"supportedInterfaces\":[{\"url\":\"http://127.0.0.1:50531/\",\"protocolBinding\":\"JSONRPC\",\"protocolVersion\":\"1.0\"}],\"version\":\"0.1.0\",\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"skills\":[{\"id\":\"queue-vte-review\",\"name\":\"queue-vte-review\",\"description\":\"Receives VTE review packets and queues them for a flight surgeon\",\"tags\":[\"vte\",\"synthetic\"]}]}"
+   "body": "{\"name\":\"ground-flight-surgeon-desk\",\"description\":\"Receives VTE review packets and queues them for a flight surgeon\",\"supportedInterfaces\":[{\"url\":\"http://127.0.0.1:53529/\",\"protocolBinding\":\"JSONRPC\",\"protocolVersion\":\"1.0\"}],\"version\":\"0.1.0\",\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"skills\":[{\"id\":\"queue-vte-review\",\"name\":\"queue-vte-review\",\"description\":\"Receives VTE review packets and queues them for a flight surgeon\",\"tags\":[\"vte\",\"synthetic\"]}]}"
   },
   {
    "case_id": "C05",
@@ -4738,8 +6893,8 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2541,
-   "body": "{\"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"91b81d2c-9ad5-45d8-bf29-a6d65e063dce\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"from\\\": \\\"onboard-crew-medical-monitor\\\", \\\"sent_at_mission_s\\\": 5184000, \\\"score\\\": {\\\"case_id\\\": \\\"C05\\\", \\\"items\\\": [{\\\"group\\\": \\\"Age\\\", \\\"rule\\\": \\\"Over 40 years of age: +1 point\\\", \\\"points\\\": 1, \\\"value\\\": 47.0, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Family history\\\", \\\"rule\\\": \\\"None reported: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Thrombophilia\\\", \\\"rule\\\": \\\"Factor V Leiden heterozygous: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"fvl_het\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Blood type\\\", \\\"rule\\\": \\\"O/O: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": false, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Hormone use\\\", \\\"rule\\\": \\\"No hormone use: 0 points\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"IJV flow\\\", \\\"rule\\\": \\\"Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points\\\", \\\"points\\\": 4, \\\"value\\\": \\\"left: 8.5 cm/s\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"D-dimer\\\", \\\"rule\\\": \\\">60% increase from established in-flight D-dimer baseline level: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"+70.0% from baseline\\\", \\\"source\\\": \\\"VTE-2026\\\"}], \\\"preflight_points\\\": 3, \\\"inflight_points\\\": 6, \\\"total\\\": 9, \\\"nasa_reference_band\\\": \\\"> 6 points = need clinical assessment\\\", \\\"flags\\\": [], \\\"note\\\": \\\"Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.\\\", \\\"source\\\": \\\"VTE-2026\\\"}, \\\"schedule\\\": [{\\\"day\\\": 30, \\\"label\\\": \\\"L+30 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 60, \\\"label\\\": \\\"L+60 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}], \\\"next_scan\\\": {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, \\\"review_context\\\": {\\\"mission\\\": \\\"leo\\\", \\\"name\\\": \\\"Low Earth orbit\\\", \\\"communication\\\": \\\"Near real-time communications (1-1.5 seconds)\\\", \\\"evacuation\\\": \\\"Evacuation capabilities; Distance from Earth / Evacuation: 1 day or less\\\", \\\"ground_support\\\": \\\"Reliance on Earth\\\", \\\"simulated_one_way_delay_s\\\": 1.5, \\\"earliest_ground_reply_s\\\": 3.0, \\\"summary\\\": \\\"Simulated delay 1.5 s each way: the earliest ground reply comes 3 s after sending.\\\", \\\"delay_basis\\\": \\\"upper end of '1-1.5 seconds' (TB-007)\\\", \\\"sources\\\": [\\\"TB-007\\\"]}}\"}]},\"configuration\":{}},\"id\":\"0caa7734-23d7-49f4-b516-edcbf52b2883\",\"jsonrpc\":\"2.0\"}"
+   "bytes": 3552,
+   "body": "{\"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"c6dc4c49-043c-480b-8a0b-090ae9f0c963\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"from\\\": \\\"onboard-crew-medical-monitor\\\", \\\"sent_at_mission_s\\\": 5184000, \\\"score\\\": {\\\"case_id\\\": \\\"C05\\\", \\\"items\\\": [{\\\"group\\\": \\\"Age\\\", \\\"rule\\\": \\\"Over 40 years of age: +1 point\\\", \\\"points\\\": 1, \\\"value\\\": 47.0, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Family history\\\", \\\"rule\\\": \\\"None reported: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Thrombophilia\\\", \\\"rule\\\": \\\"Factor V Leiden heterozygous: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"fvl_het\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Blood type\\\", \\\"rule\\\": \\\"O/O: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": false, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Hormone use\\\", \\\"rule\\\": \\\"No hormone use: 0 points\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"IJV flow\\\", \\\"rule\\\": \\\"Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points\\\", \\\"points\\\": 4, \\\"value\\\": \\\"left: 8.5 cm/s\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"D-dimer\\\", \\\"rule\\\": \\\">60% increase from established in-flight D-dimer baseline level: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"+70.0% from baseline\\\", \\\"source\\\": \\\"VTE-2026\\\"}], \\\"preflight_points\\\": 3, \\\"inflight_points\\\": 6, \\\"total\\\": 9, \\\"nasa_reference_band\\\": \\\"> 6 points = need clinical assessment\\\", \\\"flags\\\": [], \\\"note\\\": \\\"Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.\\\", \\\"source\\\": \\\"VTE-2026\\\"}, \\\"score_sources\\\": [{\\\"id\\\": \\\"VTE-2026\\\", \\\"title\\\": \\\"NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)\\\", \\\"url\\\": \\\"https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf\\\"}], \\\"schedule\\\": [{\\\"day\\\": 30, \\\"label\\\": \\\"L+30 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 60, \\\"label\\\": \\\"L+60 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}], \\\"next_scan\\\": {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, \\\"review_context\\\": {\\\"mission\\\": \\\"leo\\\", \\\"name\\\": \\\"Low Earth orbit\\\", \\\"communication\\\": \\\"Near real-time communications (1-1.5 seconds)\\\", \\\"evacuation\\\": \\\"Evacuation capabilities; Distance from Earth / Evacuation: 1 day or less\\\", \\\"ground_support\\\": \\\"Reliance on Earth\\\", \\\"simulated_one_way_delay_s\\\": 1.5, \\\"earliest_ground_reply_s\\\": 3.0, \\\"summary\\\": \\\"Simulated delay 1.5 s each way: the earliest ground reply comes 3 s after sending.\\\", \\\"delay_basis\\\": \\\"upper end of '1-1.5 seconds' (TB-007)\\\", \\\"sources\\\": [\\\"TB-007\\\"]}, \\\"scan_state\\\": {\\\"label\\\": \\\"L+60 days\\\", \\\"day\\\": 60, \\\"left\\\": \\\"Low velocity (mean peak <10 cm/s anterograde)\\\", \\\"right\\\": \\\"Forward flow\\\", \\\"left_velocity_cm_s\\\": 8.5, \\\"right_velocity_cm_s\\\": 22.7, \\\"left_direction\\\": \\\"anterograde\\\", \\\"right_direction\\\": \\\"anterograde\\\", \\\"note\\\": \\\"These observations neither diagnose nor exclude thrombosis.\\\"}, \\\"symptom_report\\\": {\\\"level\\\": \\\"none_reported\\\", \\\"message\\\": \\\"No listed symptoms reported. This does not exclude thrombosis.\\\", \\\"ticked\\\": [], \\\"ticked_labels\\\": [], \\\"sudden_or_severe\\\": false, \\\"checklist_done\\\": true, \\\"adds_points\\\": 0}, \\\"message_shown\\\": \\\"No listed symptoms reported. This does not exclude thrombosis.\\\"}\"}]},\"configuration\":{}},\"id\":\"efae3461-04e5-4f9e-b713-eeb5316285d6\",\"jsonrpc\":\"2.0\"}"
   },
   {
    "case_id": "C05",
@@ -4748,8 +6903,8 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552,
-   "body": "{\"result\":{\"message\":{\"messageId\":\"1c95c461-74e8-4795-bee0-2ec9aef74dae\",\"contextId\":\"3298eb2d-c0bf-4bec-aadf-432902e4bb0f\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"from\\\": \\\"ground-flight-surgeon-desk\\\", \\\"case_id\\\": \\\"C05\\\", \\\"received_at_mission_s\\\": 5184001.5, \\\"reply_reaches_crew_at_mission_s\\\": 5184003.0, \\\"status\\\": \\\"Queued for flight surgeon review\\\", \\\"ground_decision\\\": null, \\\"note\\\": \\\"The ground agent makes no clinical decision. A flight surgeon reviews the packet.\\\"}\"}]}},\"id\":\"0caa7734-23d7-49f4-b516-edcbf52b2883\",\"jsonrpc\":\"2.0\"}"
+   "bytes": 687,
+   "body": "{\"result\":{\"message\":{\"messageId\":\"3b6f1694-c83b-4c4a-bf6e-3898800c1748\",\"contextId\":\"8476e3ef-5e4f-4db6-bbde-8e7abcd54b2b\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"from\\\": \\\"ground-flight-surgeon-desk\\\", \\\"case_id\\\": \\\"C05\\\", \\\"received_at_mission_s\\\": 5184001.5, \\\"reply_reaches_crew_at_mission_s\\\": 5184003.0, \\\"status\\\": \\\"Queued for flight surgeon review\\\", \\\"delivered\\\": true, \\\"packet_parts_received\\\": [\\\"score\\\", \\\"score_sources\\\", \\\"scan_state\\\", \\\"symptom_report\\\", \\\"message_shown\\\"], \\\"ground_decision\\\": null, \\\"note\\\": \\\"The ground agent makes no clinical decision. A flight surgeon reviews the packet.\\\"}\"}]}},\"id\":\"efae3461-04e5-4f9e-b713-eeb5316285d6\",\"jsonrpc\":\"2.0\"}"
   },
   {
    "case_id": "C05",
@@ -4758,8 +6913,8 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 2906,
-   "body": "{\"result\":{\"message\":{\"messageId\":\"e8afce22-9f8b-4aac-914d-57ed3e627ca5\",\"contextId\":\"39ebf77b-3887-4da8-9922-ec0b16805c45\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"packet\\\": {\\\"from\\\": \\\"onboard-crew-medical-monitor\\\", \\\"sent_at_mission_s\\\": 5184000, \\\"score\\\": {\\\"case_id\\\": \\\"C05\\\", \\\"items\\\": [{\\\"group\\\": \\\"Age\\\", \\\"rule\\\": \\\"Over 40 years of age: +1 point\\\", \\\"points\\\": 1, \\\"value\\\": 47.0, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Family history\\\", \\\"rule\\\": \\\"None reported: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Thrombophilia\\\", \\\"rule\\\": \\\"Factor V Leiden heterozygous: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"fvl_het\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Blood type\\\", \\\"rule\\\": \\\"O/O: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": false, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Hormone use\\\", \\\"rule\\\": \\\"No hormone use: 0 points\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"IJV flow\\\", \\\"rule\\\": \\\"Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points\\\", \\\"points\\\": 4, \\\"value\\\": \\\"left: 8.5 cm/s\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"D-dimer\\\", \\\"rule\\\": \\\">60% increase from established in-flight D-dimer baseline level: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"+70.0% from baseline\\\", \\\"source\\\": \\\"VTE-2026\\\"}], \\\"preflight_points\\\": 3, \\\"inflight_points\\\": 6, \\\"total\\\": 9, \\\"nasa_reference_band\\\": \\\"> 6 points = need clinical assessment\\\", \\\"flags\\\": [], \\\"note\\\": \\\"Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.\\\", \\\"source\\\": \\\"VTE-2026\\\"}, \\\"schedule\\\": [{\\\"day\\\": 30, \\\"label\\\": \\\"L+30 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 60, \\\"label\\\": \\\"L+60 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}], \\\"next_scan\\\": {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, \\\"review_context\\\": {\\\"mission\\\": \\\"leo\\\", \\\"name\\\": \\\"Low Earth orbit\\\", \\\"communication\\\": \\\"Near real-time communications (1-1.5 seconds)\\\", \\\"evacuation\\\": \\\"Evacuation capabilities; Distance from Earth / Evacuation: 1 day or less\\\", \\\"ground_support\\\": \\\"Reliance on Earth\\\", \\\"simulated_one_way_delay_s\\\": 1.5, \\\"earliest_ground_reply_s\\\": 3.0, \\\"summary\\\": \\\"Simulated delay 1.5 s each way: the earliest ground reply comes 3 s after sending.\\\", \\\"delay_basis\\\": \\\"upper end of '1-1.5 seconds' (TB-007)\\\", \\\"sources\\\": [\\\"TB-007\\\"]}}, \\\"ground_ack\\\": {\\\"from\\\": \\\"ground-flight-surgeon-desk\\\", \\\"case_id\\\": \\\"C05\\\", \\\"received_at_mission_s\\\": 5184001.5, \\\"reply_reaches_crew_at_mission_s\\\": 5184003.0, \\\"status\\\": \\\"Queued for flight surgeon review\\\", \\\"ground_decision\\\": null, \\\"note\\\": \\\"The ground agent makes no clinical decision. A flight surgeon reviews the packet.\\\"}}\"}]}},\"id\":\"1d751e2e-1b86-4283-9a87-8be9de23073d\",\"jsonrpc\":\"2.0\"}"
+   "bytes": 4052,
+   "body": "{\"result\":{\"message\":{\"messageId\":\"4158cb19-1514-48d4-a550-d9cb2d2161b8\",\"contextId\":\"0e3f2368-af96-4509-a991-6787f3500c8b\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"packet\\\": {\\\"from\\\": \\\"onboard-crew-medical-monitor\\\", \\\"sent_at_mission_s\\\": 5184000, \\\"score\\\": {\\\"case_id\\\": \\\"C05\\\", \\\"items\\\": [{\\\"group\\\": \\\"Age\\\", \\\"rule\\\": \\\"Over 40 years of age: +1 point\\\", \\\"points\\\": 1, \\\"value\\\": 47.0, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Family history\\\", \\\"rule\\\": \\\"None reported: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Thrombophilia\\\", \\\"rule\\\": \\\"Factor V Leiden heterozygous: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"fvl_het\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Blood type\\\", \\\"rule\\\": \\\"O/O: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": false, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Hormone use\\\", \\\"rule\\\": \\\"No hormone use: 0 points\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"IJV flow\\\", \\\"rule\\\": \\\"Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points\\\", \\\"points\\\": 4, \\\"value\\\": \\\"left: 8.5 cm/s\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"D-dimer\\\", \\\"rule\\\": \\\">60% increase from established in-flight D-dimer baseline level: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"+70.0% from baseline\\\", \\\"source\\\": \\\"VTE-2026\\\"}], \\\"preflight_points\\\": 3, \\\"inflight_points\\\": 6, \\\"total\\\": 9, \\\"nasa_reference_band\\\": \\\"> 6 points = need clinical assessment\\\", \\\"flags\\\": [], \\\"note\\\": \\\"Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.\\\", \\\"source\\\": \\\"VTE-2026\\\"}, \\\"score_sources\\\": [{\\\"id\\\": \\\"VTE-2026\\\", \\\"title\\\": \\\"NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)\\\", \\\"url\\\": \\\"https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf\\\"}], \\\"schedule\\\": [{\\\"day\\\": 30, \\\"label\\\": \\\"L+30 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 60, \\\"label\\\": \\\"L+60 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}], \\\"next_scan\\\": {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, \\\"review_context\\\": {\\\"mission\\\": \\\"leo\\\", \\\"name\\\": \\\"Low Earth orbit\\\", \\\"communication\\\": \\\"Near real-time communications (1-1.5 seconds)\\\", \\\"evacuation\\\": \\\"Evacuation capabilities; Distance from Earth / Evacuation: 1 day or less\\\", \\\"ground_support\\\": \\\"Reliance on Earth\\\", \\\"simulated_one_way_delay_s\\\": 1.5, \\\"earliest_ground_reply_s\\\": 3.0, \\\"summary\\\": \\\"Simulated delay 1.5 s each way: the earliest ground reply comes 3 s after sending.\\\", \\\"delay_basis\\\": \\\"upper end of '1-1.5 seconds' (TB-007)\\\", \\\"sources\\\": [\\\"TB-007\\\"]}, \\\"scan_state\\\": {\\\"label\\\": \\\"L+60 days\\\", \\\"day\\\": 60, \\\"left\\\": \\\"Low velocity (mean peak <10 cm/s anterograde)\\\", \\\"right\\\": \\\"Forward flow\\\", \\\"left_velocity_cm_s\\\": 8.5, \\\"right_velocity_cm_s\\\": 22.7, \\\"left_direction\\\": \\\"anterograde\\\", \\\"right_direction\\\": \\\"anterograde\\\", \\\"note\\\": \\\"These observations neither diagnose nor exclude thrombosis.\\\"}, \\\"symptom_report\\\": {\\\"level\\\": \\\"none_reported\\\", \\\"message\\\": \\\"No listed symptoms reported. This does not exclude thrombosis.\\\", \\\"ticked\\\": [], \\\"ticked_labels\\\": [], \\\"sudden_or_severe\\\": false, \\\"checklist_done\\\": true, \\\"adds_points\\\": 0}, \\\"message_shown\\\": \\\"No listed symptoms reported. This does not exclude thrombosis.\\\"}, \\\"ground_ack\\\": {\\\"from\\\": \\\"ground-flight-surgeon-desk\\\", \\\"case_id\\\": \\\"C05\\\", \\\"received_at_mission_s\\\": 5184001.5, \\\"reply_reaches_crew_at_mission_s\\\": 5184003.0, \\\"status\\\": \\\"Queued for flight surgeon review\\\", \\\"delivered\\\": true, \\\"packet_parts_received\\\": [\\\"score\\\", \\\"score_sources\\\", \\\"scan_state\\\", \\\"symptom_report\\\", \\\"message_shown\\\"], \\\"ground_decision\\\": null, \\\"note\\\": \\\"The ground agent makes no clinical decision. A flight surgeon reviews the packet.\\\"}}\"}]}},\"id\":\"861d6ed2-a4e0-401c-b35c-d94ebdc137b6\",\"jsonrpc\":\"2.0\"}"
   },
   {
    "case_id": "C05",
@@ -4779,7 +6934,7 @@
    "port_role": "onboard",
    "status": 200,
    "bytes": 547,
-   "body": "{\"name\":\"onboard-crew-medical-monitor\",\"description\":\"Scores VTE risk with NASA's published method and sends it to the ground\",\"supportedInterfaces\":[{\"url\":\"http://127.0.0.1:50532/\",\"protocolBinding\":\"JSONRPC\",\"protocolVersion\":\"1.0\"}],\"version\":\"0.1.0\",\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"skills\":[{\"id\":\"score-vte-nasa\",\"name\":\"score-vte-nasa\",\"description\":\"Scores VTE risk with NASA's published method and sends it to the ground\",\"tags\":[\"vte\",\"synthetic\"]}]}"
+   "body": "{\"name\":\"onboard-crew-medical-monitor\",\"description\":\"Scores VTE risk with NASA's published method and sends it to the ground\",\"supportedInterfaces\":[{\"url\":\"http://127.0.0.1:53530/\",\"protocolBinding\":\"JSONRPC\",\"protocolVersion\":\"1.0\"}],\"version\":\"0.1.0\",\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"skills\":[{\"id\":\"score-vte-nasa\",\"name\":\"score-vte-nasa\",\"description\":\"Scores VTE risk with NASA's published method and sends it to the ground\",\"tags\":[\"vte\",\"synthetic\"]}]}"
   },
   {
    "case_id": "C05",
@@ -4788,8 +6943,8 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 731,
-   "body": "{\"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"c585ed02-a35e-4726-88c4-68e71e31e0c2\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"case\\\": {\\\"id\\\": \\\"C05\\\", \\\"label\\\": \\\"Several factors plus stasis and a D-dimer rise\\\", \\\"mission_days\\\": 180, \\\"preflight\\\": {\\\"age\\\": 47, \\\"family_history\\\": \\\"none\\\", \\\"thrombophilia\\\": [\\\"fvl_het\\\"], \\\"abo_non_o\\\": false, \\\"hormone\\\": \\\"none\\\"}, \\\"inflight\\\": {\\\"mission_day\\\": 60, \\\"ijv\\\": {\\\"left\\\": {\\\"mean_peak_velocity_cm_s\\\": 8.5, \\\"retrograde\\\": false}, \\\"right\\\": {\\\"mean_peak_velocity_cm_s\\\": 21.2, \\\"retrograde\\\": false}}, \\\"ddimer_baseline\\\": 200, \\\"ddimer_now\\\": 340}}, \\\"mission\\\": \\\"moon\\\"}\"}]},\"configuration\":{}},\"id\":\"c0d4a9e0-97eb-40f2-998b-e3405048e5f8\",\"jsonrpc\":\"2.0\"}"
+   "bytes": 1622,
+   "body": "{\"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"3b4dff58-7e9a-41c6-b22b-0bd03af87a22\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"case\\\": {\\\"id\\\": \\\"C05\\\", \\\"label\\\": \\\"Several factors plus stasis and a D-dimer rise\\\", \\\"mission_days\\\": 180, \\\"preflight\\\": {\\\"age\\\": 47, \\\"family_history\\\": \\\"none\\\", \\\"thrombophilia\\\": [\\\"fvl_het\\\"], \\\"abo_non_o\\\": false, \\\"hormone\\\": \\\"none\\\"}, \\\"inflight\\\": {\\\"mission_day\\\": 60, \\\"ddimer_baseline\\\": 200, \\\"ddimer_now\\\": 340}, \\\"scans\\\": [{\\\"label\\\": \\\"Baseline\\\", \\\"day\\\": 0, \\\"in_flight\\\": false, \\\"recorded\\\": true, \\\"left\\\": {\\\"mean_peak_velocity_cm_s\\\": 19.8, \\\"direction\\\": \\\"anterograde\\\"}, \\\"right\\\": {\\\"mean_peak_velocity_cm_s\\\": 19.9, \\\"direction\\\": \\\"anterograde\\\"}}, {\\\"label\\\": \\\"L+30 days\\\", \\\"day\\\": 30, \\\"in_flight\\\": true, \\\"recorded\\\": true, \\\"left\\\": {\\\"mean_peak_velocity_cm_s\\\": 14.5, \\\"direction\\\": \\\"anterograde\\\"}, \\\"right\\\": {\\\"mean_peak_velocity_cm_s\\\": 24.1, \\\"direction\\\": \\\"anterograde\\\"}}, {\\\"label\\\": \\\"L+60 days\\\", \\\"day\\\": 60, \\\"in_flight\\\": true, \\\"recorded\\\": true, \\\"left\\\": {\\\"mean_peak_velocity_cm_s\\\": 8.5, \\\"direction\\\": \\\"anterograde\\\"}, \\\"right\\\": {\\\"mean_peak_velocity_cm_s\\\": 22.7, \\\"direction\\\": \\\"anterograde\\\"}}, {\\\"label\\\": \\\"R-42 days\\\", \\\"day\\\": 138, \\\"in_flight\\\": true, \\\"recorded\\\": false, \\\"left\\\": {\\\"mean_peak_velocity_cm_s\\\": null, \\\"direction\\\": null}, \\\"right\\\": {\\\"mean_peak_velocity_cm_s\\\": null, \\\"direction\\\": null}}], \\\"symptoms\\\": {\\\"ticked\\\": [], \\\"sudden_or_severe\\\": false, \\\"checklist_done\\\": true}}, \\\"mission\\\": \\\"moon\\\"}\"}]},\"configuration\":{}},\"id\":\"10455cb8-5ca3-48e1-be76-94b38725460f\",\"jsonrpc\":\"2.0\"}"
   },
   {
    "case_id": "C05",
@@ -4809,7 +6964,7 @@
    "port_role": "ground",
    "status": 200,
    "bytes": 535,
-   "body": "{\"name\":\"ground-flight-surgeon-desk\",\"description\":\"Receives VTE review packets and queues them for a flight surgeon\",\"supportedInterfaces\":[{\"url\":\"http://127.0.0.1:50531/\",\"protocolBinding\":\"JSONRPC\",\"protocolVersion\":\"1.0\"}],\"version\":\"0.1.0\",\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"skills\":[{\"id\":\"queue-vte-review\",\"name\":\"queue-vte-review\",\"description\":\"Receives VTE review packets and queues them for a flight surgeon\",\"tags\":[\"vte\",\"synthetic\"]}]}"
+   "body": "{\"name\":\"ground-flight-surgeon-desk\",\"description\":\"Receives VTE review packets and queues them for a flight surgeon\",\"supportedInterfaces\":[{\"url\":\"http://127.0.0.1:53529/\",\"protocolBinding\":\"JSONRPC\",\"protocolVersion\":\"1.0\"}],\"version\":\"0.1.0\",\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"skills\":[{\"id\":\"queue-vte-review\",\"name\":\"queue-vte-review\",\"description\":\"Receives VTE review packets and queues them for a flight surgeon\",\"tags\":[\"vte\",\"synthetic\"]}]}"
   },
   {
    "case_id": "C05",
@@ -4818,8 +6973,8 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2554,
-   "body": "{\"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"0da8a6eb-44eb-45e6-8668-b4a214026d11\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"from\\\": \\\"onboard-crew-medical-monitor\\\", \\\"sent_at_mission_s\\\": 5184000, \\\"score\\\": {\\\"case_id\\\": \\\"C05\\\", \\\"items\\\": [{\\\"group\\\": \\\"Age\\\", \\\"rule\\\": \\\"Over 40 years of age: +1 point\\\", \\\"points\\\": 1, \\\"value\\\": 47.0, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Family history\\\", \\\"rule\\\": \\\"None reported: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Thrombophilia\\\", \\\"rule\\\": \\\"Factor V Leiden heterozygous: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"fvl_het\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Blood type\\\", \\\"rule\\\": \\\"O/O: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": false, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Hormone use\\\", \\\"rule\\\": \\\"No hormone use: 0 points\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"IJV flow\\\", \\\"rule\\\": \\\"Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points\\\", \\\"points\\\": 4, \\\"value\\\": \\\"left: 8.5 cm/s\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"D-dimer\\\", \\\"rule\\\": \\\">60% increase from established in-flight D-dimer baseline level: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"+70.0% from baseline\\\", \\\"source\\\": \\\"VTE-2026\\\"}], \\\"preflight_points\\\": 3, \\\"inflight_points\\\": 6, \\\"total\\\": 9, \\\"nasa_reference_band\\\": \\\"> 6 points = need clinical assessment\\\", \\\"flags\\\": [], \\\"note\\\": \\\"Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.\\\", \\\"source\\\": \\\"VTE-2026\\\"}, \\\"schedule\\\": [{\\\"day\\\": 30, \\\"label\\\": \\\"L+30 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 60, \\\"label\\\": \\\"L+60 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}], \\\"next_scan\\\": {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, \\\"review_context\\\": {\\\"mission\\\": \\\"moon\\\", \\\"name\\\": \\\"Lunar mission\\\", \\\"communication\\\": \\\"Minor communication latencies\\\", \\\"evacuation\\\": \\\"Evacuation capabilities (3-11 days)\\\", \\\"ground_support\\\": \\\"Restrictions in onboard medical capability\\\", \\\"simulated_one_way_delay_s\\\": 14.0, \\\"earliest_ground_reply_s\\\": 28.0, \\\"summary\\\": \\\"Simulated delay 14 s each way: the earliest ground reply comes 28 s after sending.\\\", \\\"delay_basis\\\": \\\"upper end of 'Comm Latency 5-14 sec' (NTRS 20250002759)\\\", \\\"sources\\\": [\\\"TB-007\\\", \\\"NTRS-20250002759\\\"]}}\"}]},\"configuration\":{}},\"id\":\"6330c267-e582-4190-a34a-f60c551aaa97\",\"jsonrpc\":\"2.0\"}"
+   "bytes": 3565,
+   "body": "{\"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"5d491cbf-3db1-4875-9745-9173a9dcd262\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"from\\\": \\\"onboard-crew-medical-monitor\\\", \\\"sent_at_mission_s\\\": 5184000, \\\"score\\\": {\\\"case_id\\\": \\\"C05\\\", \\\"items\\\": [{\\\"group\\\": \\\"Age\\\", \\\"rule\\\": \\\"Over 40 years of age: +1 point\\\", \\\"points\\\": 1, \\\"value\\\": 47.0, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Family history\\\", \\\"rule\\\": \\\"None reported: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Thrombophilia\\\", \\\"rule\\\": \\\"Factor V Leiden heterozygous: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"fvl_het\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Blood type\\\", \\\"rule\\\": \\\"O/O: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": false, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Hormone use\\\", \\\"rule\\\": \\\"No hormone use: 0 points\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"IJV flow\\\", \\\"rule\\\": \\\"Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points\\\", \\\"points\\\": 4, \\\"value\\\": \\\"left: 8.5 cm/s\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"D-dimer\\\", \\\"rule\\\": \\\">60% increase from established in-flight D-dimer baseline level: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"+70.0% from baseline\\\", \\\"source\\\": \\\"VTE-2026\\\"}], \\\"preflight_points\\\": 3, \\\"inflight_points\\\": 6, \\\"total\\\": 9, \\\"nasa_reference_band\\\": \\\"> 6 points = need clinical assessment\\\", \\\"flags\\\": [], \\\"note\\\": \\\"Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.\\\", \\\"source\\\": \\\"VTE-2026\\\"}, \\\"score_sources\\\": [{\\\"id\\\": \\\"VTE-2026\\\", \\\"title\\\": \\\"NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)\\\", \\\"url\\\": \\\"https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf\\\"}], \\\"schedule\\\": [{\\\"day\\\": 30, \\\"label\\\": \\\"L+30 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 60, \\\"label\\\": \\\"L+60 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}], \\\"next_scan\\\": {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, \\\"review_context\\\": {\\\"mission\\\": \\\"moon\\\", \\\"name\\\": \\\"Lunar mission\\\", \\\"communication\\\": \\\"Minor communication latencies\\\", \\\"evacuation\\\": \\\"Evacuation capabilities (3-11 days)\\\", \\\"ground_support\\\": \\\"Restrictions in onboard medical capability\\\", \\\"simulated_one_way_delay_s\\\": 14.0, \\\"earliest_ground_reply_s\\\": 28.0, \\\"summary\\\": \\\"Simulated delay 14 s each way: the earliest ground reply comes 28 s after sending.\\\", \\\"delay_basis\\\": \\\"upper end of 'Comm Latency 5-14 sec' (NTRS 20250002759)\\\", \\\"sources\\\": [\\\"TB-007\\\", \\\"NTRS-20250002759\\\"]}, \\\"scan_state\\\": {\\\"label\\\": \\\"L+60 days\\\", \\\"day\\\": 60, \\\"left\\\": \\\"Low velocity (mean peak <10 cm/s anterograde)\\\", \\\"right\\\": \\\"Forward flow\\\", \\\"left_velocity_cm_s\\\": 8.5, \\\"right_velocity_cm_s\\\": 22.7, \\\"left_direction\\\": \\\"anterograde\\\", \\\"right_direction\\\": \\\"anterograde\\\", \\\"note\\\": \\\"These observations neither diagnose nor exclude thrombosis.\\\"}, \\\"symptom_report\\\": {\\\"level\\\": \\\"none_reported\\\", \\\"message\\\": \\\"No listed symptoms reported. This does not exclude thrombosis.\\\", \\\"ticked\\\": [], \\\"ticked_labels\\\": [], \\\"sudden_or_severe\\\": false, \\\"checklist_done\\\": true, \\\"adds_points\\\": 0}, \\\"message_shown\\\": \\\"No listed symptoms reported. This does not exclude thrombosis.\\\"}\"}]},\"configuration\":{}},\"id\":\"f11146f0-0cb2-48bc-9892-00f44ce0658b\",\"jsonrpc\":\"2.0\"}"
   },
   {
    "case_id": "C05",
@@ -4828,8 +6983,8 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552,
-   "body": "{\"result\":{\"message\":{\"messageId\":\"7daac6d3-52f2-483a-8a16-4612319e5670\",\"contextId\":\"f3fec99d-ab68-4a7a-af8b-65cc3f3718d1\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"from\\\": \\\"ground-flight-surgeon-desk\\\", \\\"case_id\\\": \\\"C05\\\", \\\"received_at_mission_s\\\": 5184014.0, \\\"reply_reaches_crew_at_mission_s\\\": 5184028.0, \\\"status\\\": \\\"Queued for flight surgeon review\\\", \\\"ground_decision\\\": null, \\\"note\\\": \\\"The ground agent makes no clinical decision. A flight surgeon reviews the packet.\\\"}\"}]}},\"id\":\"6330c267-e582-4190-a34a-f60c551aaa97\",\"jsonrpc\":\"2.0\"}"
+   "bytes": 687,
+   "body": "{\"result\":{\"message\":{\"messageId\":\"97704e61-7ecf-4cb6-a535-f4e755122919\",\"contextId\":\"14b676fa-827b-464f-88b0-32920899b0ee\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"from\\\": \\\"ground-flight-surgeon-desk\\\", \\\"case_id\\\": \\\"C05\\\", \\\"received_at_mission_s\\\": 5184014.0, \\\"reply_reaches_crew_at_mission_s\\\": 5184028.0, \\\"status\\\": \\\"Queued for flight surgeon review\\\", \\\"delivered\\\": true, \\\"packet_parts_received\\\": [\\\"score\\\", \\\"score_sources\\\", \\\"scan_state\\\", \\\"symptom_report\\\", \\\"message_shown\\\"], \\\"ground_decision\\\": null, \\\"note\\\": \\\"The ground agent makes no clinical decision. A flight surgeon reviews the packet.\\\"}\"}]}},\"id\":\"f11146f0-0cb2-48bc-9892-00f44ce0658b\",\"jsonrpc\":\"2.0\"}"
   },
   {
    "case_id": "C05",
@@ -4838,8 +6993,8 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 2919,
-   "body": "{\"result\":{\"message\":{\"messageId\":\"82ad05cb-75d3-422a-ac77-4b8027a54a48\",\"contextId\":\"434bd4ae-3157-446e-8824-5e82667a5900\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"packet\\\": {\\\"from\\\": \\\"onboard-crew-medical-monitor\\\", \\\"sent_at_mission_s\\\": 5184000, \\\"score\\\": {\\\"case_id\\\": \\\"C05\\\", \\\"items\\\": [{\\\"group\\\": \\\"Age\\\", \\\"rule\\\": \\\"Over 40 years of age: +1 point\\\", \\\"points\\\": 1, \\\"value\\\": 47.0, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Family history\\\", \\\"rule\\\": \\\"None reported: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Thrombophilia\\\", \\\"rule\\\": \\\"Factor V Leiden heterozygous: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"fvl_het\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Blood type\\\", \\\"rule\\\": \\\"O/O: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": false, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Hormone use\\\", \\\"rule\\\": \\\"No hormone use: 0 points\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"IJV flow\\\", \\\"rule\\\": \\\"Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points\\\", \\\"points\\\": 4, \\\"value\\\": \\\"left: 8.5 cm/s\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"D-dimer\\\", \\\"rule\\\": \\\">60% increase from established in-flight D-dimer baseline level: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"+70.0% from baseline\\\", \\\"source\\\": \\\"VTE-2026\\\"}], \\\"preflight_points\\\": 3, \\\"inflight_points\\\": 6, \\\"total\\\": 9, \\\"nasa_reference_band\\\": \\\"> 6 points = need clinical assessment\\\", \\\"flags\\\": [], \\\"note\\\": \\\"Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.\\\", \\\"source\\\": \\\"VTE-2026\\\"}, \\\"schedule\\\": [{\\\"day\\\": 30, \\\"label\\\": \\\"L+30 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 60, \\\"label\\\": \\\"L+60 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}], \\\"next_scan\\\": {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, \\\"review_context\\\": {\\\"mission\\\": \\\"moon\\\", \\\"name\\\": \\\"Lunar mission\\\", \\\"communication\\\": \\\"Minor communication latencies\\\", \\\"evacuation\\\": \\\"Evacuation capabilities (3-11 days)\\\", \\\"ground_support\\\": \\\"Restrictions in onboard medical capability\\\", \\\"simulated_one_way_delay_s\\\": 14.0, \\\"earliest_ground_reply_s\\\": 28.0, \\\"summary\\\": \\\"Simulated delay 14 s each way: the earliest ground reply comes 28 s after sending.\\\", \\\"delay_basis\\\": \\\"upper end of 'Comm Latency 5-14 sec' (NTRS 20250002759)\\\", \\\"sources\\\": [\\\"TB-007\\\", \\\"NTRS-20250002759\\\"]}}, \\\"ground_ack\\\": {\\\"from\\\": \\\"ground-flight-surgeon-desk\\\", \\\"case_id\\\": \\\"C05\\\", \\\"received_at_mission_s\\\": 5184014.0, \\\"reply_reaches_crew_at_mission_s\\\": 5184028.0, \\\"status\\\": \\\"Queued for flight surgeon review\\\", \\\"ground_decision\\\": null, \\\"note\\\": \\\"The ground agent makes no clinical decision. A flight surgeon reviews the packet.\\\"}}\"}]}},\"id\":\"c0d4a9e0-97eb-40f2-998b-e3405048e5f8\",\"jsonrpc\":\"2.0\"}"
+   "bytes": 4065,
+   "body": "{\"result\":{\"message\":{\"messageId\":\"db55adb9-b32b-4944-ad8d-215b1538c7f1\",\"contextId\":\"cd066138-a14b-477e-93fc-7990d119ca7e\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"packet\\\": {\\\"from\\\": \\\"onboard-crew-medical-monitor\\\", \\\"sent_at_mission_s\\\": 5184000, \\\"score\\\": {\\\"case_id\\\": \\\"C05\\\", \\\"items\\\": [{\\\"group\\\": \\\"Age\\\", \\\"rule\\\": \\\"Over 40 years of age: +1 point\\\", \\\"points\\\": 1, \\\"value\\\": 47.0, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Family history\\\", \\\"rule\\\": \\\"None reported: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Thrombophilia\\\", \\\"rule\\\": \\\"Factor V Leiden heterozygous: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"fvl_het\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Blood type\\\", \\\"rule\\\": \\\"O/O: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": false, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Hormone use\\\", \\\"rule\\\": \\\"No hormone use: 0 points\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"IJV flow\\\", \\\"rule\\\": \\\"Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points\\\", \\\"points\\\": 4, \\\"value\\\": \\\"left: 8.5 cm/s\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"D-dimer\\\", \\\"rule\\\": \\\">60% increase from established in-flight D-dimer baseline level: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"+70.0% from baseline\\\", \\\"source\\\": \\\"VTE-2026\\\"}], \\\"preflight_points\\\": 3, \\\"inflight_points\\\": 6, \\\"total\\\": 9, \\\"nasa_reference_band\\\": \\\"> 6 points = need clinical assessment\\\", \\\"flags\\\": [], \\\"note\\\": \\\"Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.\\\", \\\"source\\\": \\\"VTE-2026\\\"}, \\\"score_sources\\\": [{\\\"id\\\": \\\"VTE-2026\\\", \\\"title\\\": \\\"NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)\\\", \\\"url\\\": \\\"https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf\\\"}], \\\"schedule\\\": [{\\\"day\\\": 30, \\\"label\\\": \\\"L+30 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 60, \\\"label\\\": \\\"L+60 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}], \\\"next_scan\\\": {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, \\\"review_context\\\": {\\\"mission\\\": \\\"moon\\\", \\\"name\\\": \\\"Lunar mission\\\", \\\"communication\\\": \\\"Minor communication latencies\\\", \\\"evacuation\\\": \\\"Evacuation capabilities (3-11 days)\\\", \\\"ground_support\\\": \\\"Restrictions in onboard medical capability\\\", \\\"simulated_one_way_delay_s\\\": 14.0, \\\"earliest_ground_reply_s\\\": 28.0, \\\"summary\\\": \\\"Simulated delay 14 s each way: the earliest ground reply comes 28 s after sending.\\\", \\\"delay_basis\\\": \\\"upper end of 'Comm Latency 5-14 sec' (NTRS 20250002759)\\\", \\\"sources\\\": [\\\"TB-007\\\", \\\"NTRS-20250002759\\\"]}, \\\"scan_state\\\": {\\\"label\\\": \\\"L+60 days\\\", \\\"day\\\": 60, \\\"left\\\": \\\"Low velocity (mean peak <10 cm/s anterograde)\\\", \\\"right\\\": \\\"Forward flow\\\", \\\"left_velocity_cm_s\\\": 8.5, \\\"right_velocity_cm_s\\\": 22.7, \\\"left_direction\\\": \\\"anterograde\\\", \\\"right_direction\\\": \\\"anterograde\\\", \\\"note\\\": \\\"These observations neither diagnose nor exclude thrombosis.\\\"}, \\\"symptom_report\\\": {\\\"level\\\": \\\"none_reported\\\", \\\"message\\\": \\\"No listed symptoms reported. This does not exclude thrombosis.\\\", \\\"ticked\\\": [], \\\"ticked_labels\\\": [], \\\"sudden_or_severe\\\": false, \\\"checklist_done\\\": true, \\\"adds_points\\\": 0}, \\\"message_shown\\\": \\\"No listed symptoms reported. This does not exclude thrombosis.\\\"}, \\\"ground_ack\\\": {\\\"from\\\": \\\"ground-flight-surgeon-desk\\\", \\\"case_id\\\": \\\"C05\\\", \\\"received_at_mission_s\\\": 5184014.0, \\\"reply_reaches_crew_at_mission_s\\\": 5184028.0, \\\"status\\\": \\\"Queued for flight surgeon review\\\", \\\"delivered\\\": true, \\\"packet_parts_received\\\": [\\\"score\\\", \\\"score_sources\\\", \\\"scan_state\\\", \\\"symptom_report\\\", \\\"message_shown\\\"], \\\"ground_decision\\\": null, \\\"note\\\": \\\"The ground agent makes no clinical decision. A flight surgeon reviews the packet.\\\"}}\"}]}},\"id\":\"10455cb8-5ca3-48e1-be76-94b38725460f\",\"jsonrpc\":\"2.0\"}"
   },
   {
    "case_id": "C05",
@@ -4859,7 +7014,7 @@
    "port_role": "onboard",
    "status": 200,
    "bytes": 547,
-   "body": "{\"name\":\"onboard-crew-medical-monitor\",\"description\":\"Scores VTE risk with NASA's published method and sends it to the ground\",\"supportedInterfaces\":[{\"url\":\"http://127.0.0.1:50532/\",\"protocolBinding\":\"JSONRPC\",\"protocolVersion\":\"1.0\"}],\"version\":\"0.1.0\",\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"skills\":[{\"id\":\"score-vte-nasa\",\"name\":\"score-vte-nasa\",\"description\":\"Scores VTE risk with NASA's published method and sends it to the ground\",\"tags\":[\"vte\",\"synthetic\"]}]}"
+   "body": "{\"name\":\"onboard-crew-medical-monitor\",\"description\":\"Scores VTE risk with NASA's published method and sends it to the ground\",\"supportedInterfaces\":[{\"url\":\"http://127.0.0.1:53530/\",\"protocolBinding\":\"JSONRPC\",\"protocolVersion\":\"1.0\"}],\"version\":\"0.1.0\",\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"skills\":[{\"id\":\"score-vte-nasa\",\"name\":\"score-vte-nasa\",\"description\":\"Scores VTE risk with NASA's published method and sends it to the ground\",\"tags\":[\"vte\",\"synthetic\"]}]}"
   },
   {
    "case_id": "C05",
@@ -4868,8 +7023,8 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 731,
-   "body": "{\"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"ce260e4f-3f53-4b00-aafa-f2d26f9369a9\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"case\\\": {\\\"id\\\": \\\"C05\\\", \\\"label\\\": \\\"Several factors plus stasis and a D-dimer rise\\\", \\\"mission_days\\\": 180, \\\"preflight\\\": {\\\"age\\\": 47, \\\"family_history\\\": \\\"none\\\", \\\"thrombophilia\\\": [\\\"fvl_het\\\"], \\\"abo_non_o\\\": false, \\\"hormone\\\": \\\"none\\\"}, \\\"inflight\\\": {\\\"mission_day\\\": 60, \\\"ijv\\\": {\\\"left\\\": {\\\"mean_peak_velocity_cm_s\\\": 8.5, \\\"retrograde\\\": false}, \\\"right\\\": {\\\"mean_peak_velocity_cm_s\\\": 21.2, \\\"retrograde\\\": false}}, \\\"ddimer_baseline\\\": 200, \\\"ddimer_now\\\": 340}}, \\\"mission\\\": \\\"mars\\\"}\"}]},\"configuration\":{}},\"id\":\"e592187e-a0cd-4513-90ce-714f2ec58613\",\"jsonrpc\":\"2.0\"}"
+   "bytes": 1622,
+   "body": "{\"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"a4297e1f-59db-4985-ad4a-d551bc7e719c\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"case\\\": {\\\"id\\\": \\\"C05\\\", \\\"label\\\": \\\"Several factors plus stasis and a D-dimer rise\\\", \\\"mission_days\\\": 180, \\\"preflight\\\": {\\\"age\\\": 47, \\\"family_history\\\": \\\"none\\\", \\\"thrombophilia\\\": [\\\"fvl_het\\\"], \\\"abo_non_o\\\": false, \\\"hormone\\\": \\\"none\\\"}, \\\"inflight\\\": {\\\"mission_day\\\": 60, \\\"ddimer_baseline\\\": 200, \\\"ddimer_now\\\": 340}, \\\"scans\\\": [{\\\"label\\\": \\\"Baseline\\\", \\\"day\\\": 0, \\\"in_flight\\\": false, \\\"recorded\\\": true, \\\"left\\\": {\\\"mean_peak_velocity_cm_s\\\": 19.8, \\\"direction\\\": \\\"anterograde\\\"}, \\\"right\\\": {\\\"mean_peak_velocity_cm_s\\\": 19.9, \\\"direction\\\": \\\"anterograde\\\"}}, {\\\"label\\\": \\\"L+30 days\\\", \\\"day\\\": 30, \\\"in_flight\\\": true, \\\"recorded\\\": true, \\\"left\\\": {\\\"mean_peak_velocity_cm_s\\\": 14.5, \\\"direction\\\": \\\"anterograde\\\"}, \\\"right\\\": {\\\"mean_peak_velocity_cm_s\\\": 24.1, \\\"direction\\\": \\\"anterograde\\\"}}, {\\\"label\\\": \\\"L+60 days\\\", \\\"day\\\": 60, \\\"in_flight\\\": true, \\\"recorded\\\": true, \\\"left\\\": {\\\"mean_peak_velocity_cm_s\\\": 8.5, \\\"direction\\\": \\\"anterograde\\\"}, \\\"right\\\": {\\\"mean_peak_velocity_cm_s\\\": 22.7, \\\"direction\\\": \\\"anterograde\\\"}}, {\\\"label\\\": \\\"R-42 days\\\", \\\"day\\\": 138, \\\"in_flight\\\": true, \\\"recorded\\\": false, \\\"left\\\": {\\\"mean_peak_velocity_cm_s\\\": null, \\\"direction\\\": null}, \\\"right\\\": {\\\"mean_peak_velocity_cm_s\\\": null, \\\"direction\\\": null}}], \\\"symptoms\\\": {\\\"ticked\\\": [], \\\"sudden_or_severe\\\": false, \\\"checklist_done\\\": true}}, \\\"mission\\\": \\\"mars\\\"}\"}]},\"configuration\":{}},\"id\":\"d1089b3e-ab1d-48cd-8cfb-44b63c95879e\",\"jsonrpc\":\"2.0\"}"
   },
   {
    "case_id": "C05",
@@ -4889,7 +7044,7 @@
    "port_role": "ground",
    "status": 200,
    "bytes": 535,
-   "body": "{\"name\":\"ground-flight-surgeon-desk\",\"description\":\"Receives VTE review packets and queues them for a flight surgeon\",\"supportedInterfaces\":[{\"url\":\"http://127.0.0.1:50531/\",\"protocolBinding\":\"JSONRPC\",\"protocolVersion\":\"1.0\"}],\"version\":\"0.1.0\",\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"skills\":[{\"id\":\"queue-vte-review\",\"name\":\"queue-vte-review\",\"description\":\"Receives VTE review packets and queues them for a flight surgeon\",\"tags\":[\"vte\",\"synthetic\"]}]}"
+   "body": "{\"name\":\"ground-flight-surgeon-desk\",\"description\":\"Receives VTE review packets and queues them for a flight surgeon\",\"supportedInterfaces\":[{\"url\":\"http://127.0.0.1:53529/\",\"protocolBinding\":\"JSONRPC\",\"protocolVersion\":\"1.0\"}],\"version\":\"0.1.0\",\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"skills\":[{\"id\":\"queue-vte-review\",\"name\":\"queue-vte-review\",\"description\":\"Receives VTE review packets and queues them for a flight surgeon\",\"tags\":[\"vte\",\"synthetic\"]}]}"
   },
   {
    "case_id": "C05",
@@ -4898,8 +7053,8 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2539,
-   "body": "{\"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"6b9dd2bf-c5bc-4463-960d-b7d378a090b9\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"from\\\": \\\"onboard-crew-medical-monitor\\\", \\\"sent_at_mission_s\\\": 5184000, \\\"score\\\": {\\\"case_id\\\": \\\"C05\\\", \\\"items\\\": [{\\\"group\\\": \\\"Age\\\", \\\"rule\\\": \\\"Over 40 years of age: +1 point\\\", \\\"points\\\": 1, \\\"value\\\": 47.0, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Family history\\\", \\\"rule\\\": \\\"None reported: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Thrombophilia\\\", \\\"rule\\\": \\\"Factor V Leiden heterozygous: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"fvl_het\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Blood type\\\", \\\"rule\\\": \\\"O/O: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": false, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Hormone use\\\", \\\"rule\\\": \\\"No hormone use: 0 points\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"IJV flow\\\", \\\"rule\\\": \\\"Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points\\\", \\\"points\\\": 4, \\\"value\\\": \\\"left: 8.5 cm/s\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"D-dimer\\\", \\\"rule\\\": \\\">60% increase from established in-flight D-dimer baseline level: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"+70.0% from baseline\\\", \\\"source\\\": \\\"VTE-2026\\\"}], \\\"preflight_points\\\": 3, \\\"inflight_points\\\": 6, \\\"total\\\": 9, \\\"nasa_reference_band\\\": \\\"> 6 points = need clinical assessment\\\", \\\"flags\\\": [], \\\"note\\\": \\\"Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.\\\", \\\"source\\\": \\\"VTE-2026\\\"}, \\\"schedule\\\": [{\\\"day\\\": 30, \\\"label\\\": \\\"L+30 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 60, \\\"label\\\": \\\"L+60 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}], \\\"next_scan\\\": {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, \\\"review_context\\\": {\\\"mission\\\": \\\"mars\\\", \\\"name\\\": \\\"Mars mission\\\", \\\"communication\\\": \\\"Extended communication latencies (0-40 minutes)\\\", \\\"evacuation\\\": \\\"No evacuation capability\\\", \\\"ground_support\\\": \\\"Limited ground medical support/autonomous Medical Care\\\", \\\"simulated_one_way_delay_s\\\": 2400.0, \\\"earliest_ground_reply_s\\\": 4800.0, \\\"summary\\\": \\\"Simulated delay 40 min each way: the earliest ground reply comes 80 min after sending.\\\", \\\"delay_basis\\\": \\\"upper end of '0-40 minutes' (TB-007)\\\", \\\"sources\\\": [\\\"TB-007\\\"]}}\"}]},\"configuration\":{}},\"id\":\"7e468327-ae75-4981-9755-94f5902485b4\",\"jsonrpc\":\"2.0\"}"
+   "bytes": 3550,
+   "body": "{\"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"39ab6b7b-91f3-47a7-ab96-5b57071f97ad\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"from\\\": \\\"onboard-crew-medical-monitor\\\", \\\"sent_at_mission_s\\\": 5184000, \\\"score\\\": {\\\"case_id\\\": \\\"C05\\\", \\\"items\\\": [{\\\"group\\\": \\\"Age\\\", \\\"rule\\\": \\\"Over 40 years of age: +1 point\\\", \\\"points\\\": 1, \\\"value\\\": 47.0, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Family history\\\", \\\"rule\\\": \\\"None reported: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Thrombophilia\\\", \\\"rule\\\": \\\"Factor V Leiden heterozygous: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"fvl_het\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Blood type\\\", \\\"rule\\\": \\\"O/O: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": false, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Hormone use\\\", \\\"rule\\\": \\\"No hormone use: 0 points\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"IJV flow\\\", \\\"rule\\\": \\\"Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points\\\", \\\"points\\\": 4, \\\"value\\\": \\\"left: 8.5 cm/s\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"D-dimer\\\", \\\"rule\\\": \\\">60% increase from established in-flight D-dimer baseline level: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"+70.0% from baseline\\\", \\\"source\\\": \\\"VTE-2026\\\"}], \\\"preflight_points\\\": 3, \\\"inflight_points\\\": 6, \\\"total\\\": 9, \\\"nasa_reference_band\\\": \\\"> 6 points = need clinical assessment\\\", \\\"flags\\\": [], \\\"note\\\": \\\"Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.\\\", \\\"source\\\": \\\"VTE-2026\\\"}, \\\"score_sources\\\": [{\\\"id\\\": \\\"VTE-2026\\\", \\\"title\\\": \\\"NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)\\\", \\\"url\\\": \\\"https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf\\\"}], \\\"schedule\\\": [{\\\"day\\\": 30, \\\"label\\\": \\\"L+30 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 60, \\\"label\\\": \\\"L+60 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}], \\\"next_scan\\\": {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, \\\"review_context\\\": {\\\"mission\\\": \\\"mars\\\", \\\"name\\\": \\\"Mars mission\\\", \\\"communication\\\": \\\"Extended communication latencies (0-40 minutes)\\\", \\\"evacuation\\\": \\\"No evacuation capability\\\", \\\"ground_support\\\": \\\"Limited ground medical support/autonomous Medical Care\\\", \\\"simulated_one_way_delay_s\\\": 2400.0, \\\"earliest_ground_reply_s\\\": 4800.0, \\\"summary\\\": \\\"Simulated delay 40 min each way: the earliest ground reply comes 80 min after sending.\\\", \\\"delay_basis\\\": \\\"upper end of '0-40 minutes' (TB-007)\\\", \\\"sources\\\": [\\\"TB-007\\\"]}, \\\"scan_state\\\": {\\\"label\\\": \\\"L+60 days\\\", \\\"day\\\": 60, \\\"left\\\": \\\"Low velocity (mean peak <10 cm/s anterograde)\\\", \\\"right\\\": \\\"Forward flow\\\", \\\"left_velocity_cm_s\\\": 8.5, \\\"right_velocity_cm_s\\\": 22.7, \\\"left_direction\\\": \\\"anterograde\\\", \\\"right_direction\\\": \\\"anterograde\\\", \\\"note\\\": \\\"These observations neither diagnose nor exclude thrombosis.\\\"}, \\\"symptom_report\\\": {\\\"level\\\": \\\"none_reported\\\", \\\"message\\\": \\\"No listed symptoms reported. This does not exclude thrombosis.\\\", \\\"ticked\\\": [], \\\"ticked_labels\\\": [], \\\"sudden_or_severe\\\": false, \\\"checklist_done\\\": true, \\\"adds_points\\\": 0}, \\\"message_shown\\\": \\\"No listed symptoms reported. This does not exclude thrombosis.\\\"}\"}]},\"configuration\":{}},\"id\":\"0caf6d21-3621-45f9-83b2-b62099420c01\",\"jsonrpc\":\"2.0\"}"
   },
   {
    "case_id": "C05",
@@ -4908,8 +7063,8 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552,
-   "body": "{\"result\":{\"message\":{\"messageId\":\"f76cf707-22e7-41fe-b11f-4316cad812a8\",\"contextId\":\"58e751e8-d639-495b-8bf5-eef6e1b4918e\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"from\\\": \\\"ground-flight-surgeon-desk\\\", \\\"case_id\\\": \\\"C05\\\", \\\"received_at_mission_s\\\": 5186400.0, \\\"reply_reaches_crew_at_mission_s\\\": 5188800.0, \\\"status\\\": \\\"Queued for flight surgeon review\\\", \\\"ground_decision\\\": null, \\\"note\\\": \\\"The ground agent makes no clinical decision. A flight surgeon reviews the packet.\\\"}\"}]}},\"id\":\"7e468327-ae75-4981-9755-94f5902485b4\",\"jsonrpc\":\"2.0\"}"
+   "bytes": 687,
+   "body": "{\"result\":{\"message\":{\"messageId\":\"3cbc2463-7965-4b07-87d8-f699cde348b0\",\"contextId\":\"b2ca8802-a2df-4992-80f5-8de0792e40cc\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"from\\\": \\\"ground-flight-surgeon-desk\\\", \\\"case_id\\\": \\\"C05\\\", \\\"received_at_mission_s\\\": 5186400.0, \\\"reply_reaches_crew_at_mission_s\\\": 5188800.0, \\\"status\\\": \\\"Queued for flight surgeon review\\\", \\\"delivered\\\": true, \\\"packet_parts_received\\\": [\\\"score\\\", \\\"score_sources\\\", \\\"scan_state\\\", \\\"symptom_report\\\", \\\"message_shown\\\"], \\\"ground_decision\\\": null, \\\"note\\\": \\\"The ground agent makes no clinical decision. A flight surgeon reviews the packet.\\\"}\"}]}},\"id\":\"0caf6d21-3621-45f9-83b2-b62099420c01\",\"jsonrpc\":\"2.0\"}"
   },
   {
    "case_id": "C05",
@@ -4918,8 +7073,8 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 2904,
-   "body": "{\"result\":{\"message\":{\"messageId\":\"90d56d00-fd38-4a51-9773-30853d5c3f2d\",\"contextId\":\"c1426ada-1dee-47b0-b175-ad311ec35044\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"packet\\\": {\\\"from\\\": \\\"onboard-crew-medical-monitor\\\", \\\"sent_at_mission_s\\\": 5184000, \\\"score\\\": {\\\"case_id\\\": \\\"C05\\\", \\\"items\\\": [{\\\"group\\\": \\\"Age\\\", \\\"rule\\\": \\\"Over 40 years of age: +1 point\\\", \\\"points\\\": 1, \\\"value\\\": 47.0, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Family history\\\", \\\"rule\\\": \\\"None reported: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Thrombophilia\\\", \\\"rule\\\": \\\"Factor V Leiden heterozygous: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"fvl_het\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Blood type\\\", \\\"rule\\\": \\\"O/O: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": false, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Hormone use\\\", \\\"rule\\\": \\\"No hormone use: 0 points\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"IJV flow\\\", \\\"rule\\\": \\\"Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points\\\", \\\"points\\\": 4, \\\"value\\\": \\\"left: 8.5 cm/s\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"D-dimer\\\", \\\"rule\\\": \\\">60% increase from established in-flight D-dimer baseline level: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"+70.0% from baseline\\\", \\\"source\\\": \\\"VTE-2026\\\"}], \\\"preflight_points\\\": 3, \\\"inflight_points\\\": 6, \\\"total\\\": 9, \\\"nasa_reference_band\\\": \\\"> 6 points = need clinical assessment\\\", \\\"flags\\\": [], \\\"note\\\": \\\"Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.\\\", \\\"source\\\": \\\"VTE-2026\\\"}, \\\"schedule\\\": [{\\\"day\\\": 30, \\\"label\\\": \\\"L+30 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 60, \\\"label\\\": \\\"L+60 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}], \\\"next_scan\\\": {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, \\\"review_context\\\": {\\\"mission\\\": \\\"mars\\\", \\\"name\\\": \\\"Mars mission\\\", \\\"communication\\\": \\\"Extended communication latencies (0-40 minutes)\\\", \\\"evacuation\\\": \\\"No evacuation capability\\\", \\\"ground_support\\\": \\\"Limited ground medical support/autonomous Medical Care\\\", \\\"simulated_one_way_delay_s\\\": 2400.0, \\\"earliest_ground_reply_s\\\": 4800.0, \\\"summary\\\": \\\"Simulated delay 40 min each way: the earliest ground reply comes 80 min after sending.\\\", \\\"delay_basis\\\": \\\"upper end of '0-40 minutes' (TB-007)\\\", \\\"sources\\\": [\\\"TB-007\\\"]}}, \\\"ground_ack\\\": {\\\"from\\\": \\\"ground-flight-surgeon-desk\\\", \\\"case_id\\\": \\\"C05\\\", \\\"received_at_mission_s\\\": 5186400.0, \\\"reply_reaches_crew_at_mission_s\\\": 5188800.0, \\\"status\\\": \\\"Queued for flight surgeon review\\\", \\\"ground_decision\\\": null, \\\"note\\\": \\\"The ground agent makes no clinical decision. A flight surgeon reviews the packet.\\\"}}\"}]}},\"id\":\"e592187e-a0cd-4513-90ce-714f2ec58613\",\"jsonrpc\":\"2.0\"}"
+   "bytes": 4050,
+   "body": "{\"result\":{\"message\":{\"messageId\":\"8bb9e259-9961-44e7-a1f3-9547511a20c2\",\"contextId\":\"602b365d-5718-49f8-bbe1-dc0f2903f694\",\"role\":\"ROLE_AGENT\",\"parts\":[{\"text\":\"{\\\"packet\\\": {\\\"from\\\": \\\"onboard-crew-medical-monitor\\\", \\\"sent_at_mission_s\\\": 5184000, \\\"score\\\": {\\\"case_id\\\": \\\"C05\\\", \\\"items\\\": [{\\\"group\\\": \\\"Age\\\", \\\"rule\\\": \\\"Over 40 years of age: +1 point\\\", \\\"points\\\": 1, \\\"value\\\": 47.0, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Family history\\\", \\\"rule\\\": \\\"None reported: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Thrombophilia\\\", \\\"rule\\\": \\\"Factor V Leiden heterozygous: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"fvl_het\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Blood type\\\", \\\"rule\\\": \\\"O/O: no points listed\\\", \\\"points\\\": 0, \\\"value\\\": false, \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"Hormone use\\\", \\\"rule\\\": \\\"No hormone use: 0 points\\\", \\\"points\\\": 0, \\\"value\\\": \\\"none\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"IJV flow\\\", \\\"rule\\\": \\\"Stasis (less than 10 cm/s blood flow velocity) or retrograde flow: +4 points\\\", \\\"points\\\": 4, \\\"value\\\": \\\"left: 8.5 cm/s\\\", \\\"source\\\": \\\"VTE-2026\\\"}, {\\\"group\\\": \\\"D-dimer\\\", \\\"rule\\\": \\\">60% increase from established in-flight D-dimer baseline level: +2 points\\\", \\\"points\\\": 2, \\\"value\\\": \\\"+70.0% from baseline\\\", \\\"source\\\": \\\"VTE-2026\\\"}], \\\"preflight_points\\\": 3, \\\"inflight_points\\\": 6, \\\"total\\\": 9, \\\"nasa_reference_band\\\": \\\"> 6 points = need clinical assessment\\\", \\\"flags\\\": [], \\\"note\\\": \\\"Reference for clinician review, following NASA's published method. Not a diagnosis, prediction or prescription.\\\", \\\"source\\\": \\\"VTE-2026\\\"}, \\\"score_sources\\\": [{\\\"id\\\": \\\"VTE-2026\\\", \\\"title\\\": \\\"NASA Risk of Venous Thromboembolism in Spaceflight. Outcomes of Working Group Meeting - April 2026 (NASA/SP-20260005258, REV1, 2 July 2026)\\\", \\\"url\\\": \\\"https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf\\\"}], \\\"schedule\\\": [{\\\"day\\\": 30, \\\"label\\\": \\\"L+30 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 60, \\\"label\\\": \\\"L+60 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}], \\\"next_scan\\\": {\\\"day\\\": 138, \\\"label\\\": \\\"R-42 days\\\", \\\"source\\\": \\\"MTB-007\\\"}, \\\"review_context\\\": {\\\"mission\\\": \\\"mars\\\", \\\"name\\\": \\\"Mars mission\\\", \\\"communication\\\": \\\"Extended communication latencies (0-40 minutes)\\\", \\\"evacuation\\\": \\\"No evacuation capability\\\", \\\"ground_support\\\": \\\"Limited ground medical support/autonomous Medical Care\\\", \\\"simulated_one_way_delay_s\\\": 2400.0, \\\"earliest_ground_reply_s\\\": 4800.0, \\\"summary\\\": \\\"Simulated delay 40 min each way: the earliest ground reply comes 80 min after sending.\\\", \\\"delay_basis\\\": \\\"upper end of '0-40 minutes' (TB-007)\\\", \\\"sources\\\": [\\\"TB-007\\\"]}, \\\"scan_state\\\": {\\\"label\\\": \\\"L+60 days\\\", \\\"day\\\": 60, \\\"left\\\": \\\"Low velocity (mean peak <10 cm/s anterograde)\\\", \\\"right\\\": \\\"Forward flow\\\", \\\"left_velocity_cm_s\\\": 8.5, \\\"right_velocity_cm_s\\\": 22.7, \\\"left_direction\\\": \\\"anterograde\\\", \\\"right_direction\\\": \\\"anterograde\\\", \\\"note\\\": \\\"These observations neither diagnose nor exclude thrombosis.\\\"}, \\\"symptom_report\\\": {\\\"level\\\": \\\"none_reported\\\", \\\"message\\\": \\\"No listed symptoms reported. This does not exclude thrombosis.\\\", \\\"ticked\\\": [], \\\"ticked_labels\\\": [], \\\"sudden_or_severe\\\": false, \\\"checklist_done\\\": true, \\\"adds_points\\\": 0}, \\\"message_shown\\\": \\\"No listed symptoms reported. This does not exclude thrombosis.\\\"}, \\\"ground_ack\\\": {\\\"from\\\": \\\"ground-flight-surgeon-desk\\\", \\\"case_id\\\": \\\"C05\\\", \\\"received_at_mission_s\\\": 5186400.0, \\\"reply_reaches_crew_at_mission_s\\\": 5188800.0, \\\"status\\\": \\\"Queued for flight surgeon review\\\", \\\"delivered\\\": true, \\\"packet_parts_received\\\": [\\\"score\\\", \\\"score_sources\\\", \\\"scan_state\\\", \\\"symptom_report\\\", \\\"message_shown\\\"], \\\"ground_decision\\\": null, \\\"note\\\": \\\"The ground agent makes no clinical decision. A flight surgeon reviews the packet.\\\"}}\"}]}},\"id\":\"d1089b3e-ab1d-48cd-8cfb-44b63c95879e\",\"jsonrpc\":\"2.0\"}"
   },
   {
    "case_id": "C06",
@@ -4946,7 +7101,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 734
+   "bytes": 1604
   },
   {
    "case_id": "C06",
@@ -4973,7 +7128,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2555
+   "bytes": 3534
   },
   {
    "case_id": "C06",
@@ -4982,7 +7137,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C06",
@@ -4991,7 +7146,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 2920
+   "bytes": 4034
   },
   {
    "case_id": "C06",
@@ -5018,7 +7173,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 735
+   "bytes": 1605
   },
   {
    "case_id": "C06",
@@ -5045,7 +7200,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2568
+   "bytes": 3547
   },
   {
    "case_id": "C06",
@@ -5054,7 +7209,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C06",
@@ -5063,7 +7218,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 2933
+   "bytes": 4047
   },
   {
    "case_id": "C06",
@@ -5090,7 +7245,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 735
+   "bytes": 1605
   },
   {
    "case_id": "C06",
@@ -5117,7 +7272,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2553
+   "bytes": 3532
   },
   {
    "case_id": "C06",
@@ -5126,7 +7281,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C06",
@@ -5135,7 +7290,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 2918
+   "bytes": 4032
   },
   {
    "case_id": "C07",
@@ -5162,7 +7317,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 739
+   "bytes": 1609
   },
   {
    "case_id": "C07",
@@ -5189,7 +7344,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2523
+   "bytes": 3534
   },
   {
    "case_id": "C07",
@@ -5198,7 +7353,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C07",
@@ -5207,7 +7362,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 2888
+   "bytes": 4034
   },
   {
    "case_id": "C07",
@@ -5234,7 +7389,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 740
+   "bytes": 1610
   },
   {
    "case_id": "C07",
@@ -5261,7 +7416,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2536
+   "bytes": 3547
   },
   {
    "case_id": "C07",
@@ -5270,7 +7425,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C07",
@@ -5279,7 +7434,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 2901
+   "bytes": 4047
   },
   {
    "case_id": "C07",
@@ -5306,7 +7461,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 740
+   "bytes": 1610
   },
   {
    "case_id": "C07",
@@ -5333,7 +7488,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2521
+   "bytes": 3532
   },
   {
    "case_id": "C07",
@@ -5342,7 +7497,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C07",
@@ -5351,7 +7506,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 2886
+   "bytes": 4032
   },
   {
    "case_id": "C08",
@@ -5378,7 +7533,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 721
+   "bytes": 1612
   },
   {
    "case_id": "C08",
@@ -5405,7 +7560,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2548
+   "bytes": 3527
   },
   {
    "case_id": "C08",
@@ -5414,7 +7569,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C08",
@@ -5423,7 +7578,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 2913
+   "bytes": 4027
   },
   {
    "case_id": "C08",
@@ -5450,7 +7605,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 722
+   "bytes": 1613
   },
   {
    "case_id": "C08",
@@ -5477,7 +7632,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2561
+   "bytes": 3540
   },
   {
    "case_id": "C08",
@@ -5486,7 +7641,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C08",
@@ -5495,7 +7650,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 2926
+   "bytes": 4040
   },
   {
    "case_id": "C08",
@@ -5522,7 +7677,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 722
+   "bytes": 1613
   },
   {
    "case_id": "C08",
@@ -5549,7 +7704,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2546
+   "bytes": 3525
   },
   {
    "case_id": "C08",
@@ -5558,7 +7713,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C08",
@@ -5567,7 +7722,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 2911
+   "bytes": 4025
   },
   {
    "case_id": "C09",
@@ -5594,7 +7749,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 743
+   "bytes": 1613
   },
   {
    "case_id": "C09",
@@ -5621,7 +7776,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2737
+   "bytes": 3716
   },
   {
    "case_id": "C09",
@@ -5630,7 +7785,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C09",
@@ -5639,7 +7794,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 3102
+   "bytes": 4216
   },
   {
    "case_id": "C09",
@@ -5666,7 +7821,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 744
+   "bytes": 1614
   },
   {
    "case_id": "C09",
@@ -5693,7 +7848,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2750
+   "bytes": 3729
   },
   {
    "case_id": "C09",
@@ -5702,7 +7857,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C09",
@@ -5711,7 +7866,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 3115
+   "bytes": 4229
   },
   {
    "case_id": "C09",
@@ -5738,7 +7893,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 744
+   "bytes": 1614
   },
   {
    "case_id": "C09",
@@ -5765,7 +7920,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2735
+   "bytes": 3714
   },
   {
    "case_id": "C09",
@@ -5774,7 +7929,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C09",
@@ -5783,7 +7938,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 3100
+   "bytes": 4214
   },
   {
    "case_id": "C10",
@@ -5810,7 +7965,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 570
+   "bytes": 1556
   },
   {
    "case_id": "C10",
@@ -5837,7 +7992,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2637
+   "bytes": 3490
   },
   {
    "case_id": "C10",
@@ -5846,7 +8001,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C10",
@@ -5855,7 +8010,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 3002
+   "bytes": 3990
   },
   {
    "case_id": "C10",
@@ -5882,7 +8037,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 571
+   "bytes": 1557
   },
   {
    "case_id": "C10",
@@ -5909,7 +8064,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2650
+   "bytes": 3503
   },
   {
    "case_id": "C10",
@@ -5918,7 +8073,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C10",
@@ -5927,7 +8082,7 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 3015
+   "bytes": 4003
   },
   {
    "case_id": "C10",
@@ -5954,7 +8109,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "onboard",
-   "bytes": 571
+   "bytes": 1557
   },
   {
    "case_id": "C10",
@@ -5981,7 +8136,7 @@
    "method": "POST",
    "path": "/",
    "port_role": "ground",
-   "bytes": 2635
+   "bytes": 3488
   },
   {
    "case_id": "C10",
@@ -5990,7 +8145,7 @@
    "path": "/",
    "port_role": "ground",
    "status": 200,
-   "bytes": 552
+   "bytes": 687
   },
   {
    "case_id": "C10",
@@ -5999,7 +8154,223 @@
    "path": "/",
    "port_role": "onboard",
    "status": 200,
-   "bytes": 3000
+   "bytes": 3988
+  },
+  {
+   "case_id": "C11",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C11",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C11",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 1643
+  },
+  {
+   "case_id": "C11",
+   "mission": "leo",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C11",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C11",
+   "mission": "leo",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 3656
+  },
+  {
+   "case_id": "C11",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 687
+  },
+  {
+   "case_id": "C11",
+   "mission": "leo",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 4156
+  },
+  {
+   "case_id": "C11",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C11",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C11",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 1644
+  },
+  {
+   "case_id": "C11",
+   "mission": "moon",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C11",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C11",
+   "mission": "moon",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 3669
+  },
+  {
+   "case_id": "C11",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 687
+  },
+  {
+   "case_id": "C11",
+   "mission": "moon",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 4169
+  },
+  {
+   "case_id": "C11",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "bytes": 0
+  },
+  {
+   "case_id": "C11",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 547
+  },
+  {
+   "case_id": "C11",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "onboard",
+   "bytes": 1644
+  },
+  {
+   "case_id": "C11",
+   "mission": "mars",
+   "dir": "request",
+   "method": "GET",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "bytes": 0
+  },
+  {
+   "case_id": "C11",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/.well-known/agent-card.json",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 535
+  },
+  {
+   "case_id": "C11",
+   "mission": "mars",
+   "dir": "request",
+   "method": "POST",
+   "path": "/",
+   "port_role": "ground",
+   "bytes": 3654
+  },
+  {
+   "case_id": "C11",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "ground",
+   "status": 200,
+   "bytes": 687
+  },
+  {
+   "case_id": "C11",
+   "mission": "mars",
+   "dir": "response",
+   "path": "/",
+   "port_role": "onboard",
+   "status": 200,
+   "bytes": 4154
   }
  ]
 }

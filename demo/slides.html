@@ -30,14 +30,17 @@ p, li { font-size:32px; line-height:1.35 }
 ul { padding-left:32px }
 li { margin-bottom:10px }
 a { color:var(--teal) }
+ol li { font-size:25px; margin-bottom:6px }
+.sim { position:absolute; left:0; right:0; top:0; background:#7a1d16; color:#fff; text-align:center; font-size:20px; padding:6px; letter-spacing:.04em }
 .meta p { font-size:30px; margin-bottom:8px }
 </style></head><body>
 
 <!-- 1 -->
 <section>
-  <p class="muted" style="font-size:24px">NASA Space Apps Challenge 2026 &middot; Boston (Virtual)</p>
-  <h1 id="app-name" style="margin-top:70px">VTE Watch</h1>
-  <p style="font-size:44px; margin:14px 0 56px; max-width:1000px">NASA's new blood-clot score, checkable in orbit and on the ground</p>
+  <div class="sim">SIMULATION: NOT FOR OPERATIONAL MEDICAL USE &middot; synthetic data</div>
+  <p class="muted" style="font-size:24px; margin-top:20px">NASA Space Apps Challenge 2026 &middot; Boston (Virtual)</p>
+  <h1 id="app-name" style="margin-top:84px">VTE Watch</h1>
+  <p style="font-size:44px; margin:14px 0 56px; max-width:1000px">NASA-referenced clot risk, organized for flight-surgeon review</p>
   <div class="meta">
     <p><b>Team:</b> Orbital Health Informatics</p>
     <p><b>Members:</b> <span id="members">{{MEMBERS}}</span></p>
@@ -48,7 +51,8 @@ a { color:var(--teal) }
 
 <!-- 2 -->
 <section>
-  <h2>The problem</h2>
+  <div class="sim">SIMULATION: NOT FOR OPERATIONAL MEDICAL USE &middot; synthetic data</div>
+  <h2 style="margin-top:20px">The problem</h2>
   <div class="cols">
     <div style="width:520px"><div class="big">8 of 31</div><p style="margin-top:8px">astronauts had a left jugular vein flow anomaly in flight</p><p class="muted" style="font-size:20px; margin-top:6px">NASA VTE report, July 2026</p></div>
     <div style="flex:1">
@@ -66,7 +70,8 @@ a { color:var(--teal) }
 
 <!-- 3 -->
 <section>
-  <h2>NASA's score, every point explained</h2>
+  <div class="sim">SIMULATION: NOT FOR OPERATIONAL MEDICAL USE &middot; synthetic data</div>
+  <h2 style="margin-top:20px">NASA's score, every point explained</h2>
   <div class="cols">
     <img class="shot" src="shots/score.jpg" style="height:560px" alt="Score breakdown for case C05">
     <div style="flex:1">
@@ -74,7 +79,7 @@ a { color:var(--teal) }
       <div class="big" style="font-size:120px">9 points</div>
       <p style="margin:6px 0 18px"><b>&gt; 6 points = need clinical assessment</b></p>
       <p>Every point shows NASA's rule, the input and the source.</p>
-      <p class="note" style="margin-top:22px">Reference for clinician review &mdash; not a diagnosis or prescription.</p>
+      <p class="note" style="margin-top:22px">The risk score is not a diagnostic test. New symptoms need their own assessment whatever the score.</p>
     </div>
   </div>
   <div class="n">3 / 7</div>
@@ -82,59 +87,65 @@ a { color:var(--teal) }
 
 <!-- 4 -->
 <section>
-  <h2>Same score. Different distance.</h2>
+  <div class="sim">SIMULATION: NOT FOR OPERATIONAL MEDICAL USE &middot; synthetic data</div>
+  <h2 style="margin-top:20px">Low score, new symptom: the app keeps them apart</h2>
   <div class="cols">
-    <img class="shot" src="shots/mission.jpg" style="height:500px" alt="Mission panel on Mars">
+    <img class="shot" src="shots/symptoms.jpg" style="width:640px" alt="Symptom checklist for case C11 with the emergency message">
     <div style="flex:1">
-      <p><b>9 points</b> at LEO, the Moon and Mars.</p>
-      <p style="margin-top:14px">The ground's reply reaches the crew after:</p>
-      <div class="kv" style="margin-top:14px; flex-direction:column; gap:10px">
-        <div class="card" style="text-align:left"><b style="display:inline; font-size:40px">3 s</b> <span>&nbsp;LEO</span></div>
-        <div class="card" style="text-align:left"><b style="display:inline; font-size:40px">28 s</b> <span>&nbsp;Moon</span></div>
-        <div class="card" style="text-align:left"><b style="display:inline; font-size:40px">80 min</b> <span>&nbsp;Mars</span></div>
-      </div>
+      <p class="muted" style="font-size:22px">Synthetic case C11</p>
+      <ol style="padding-left:30px; font-size:24px; line-height:1.28">
+        <li>NASA score: <b>1 point</b>, "no additional action".</li>
+        <li>Crew ticks <b>new change in vision</b>. It adds no points.</li>
+        <li>The checklist says, at once, onboard: <b>"Start your onboard medical emergency procedure now; do not wait for this app or a ground reply."</b></li>
+        <li>The packet to the ground carries the score, its sources, the scan state and the symptom report.</li>
+      </ol>
+      <p class="note" style="margin-top:14px; font-size:24px">Not a detector. No listed symptoms does not exclude thrombosis.</p>
     </div>
   </div>
-  <p class="muted" style="font-size:22px; margin-top:18px">Delay simulated at the upper end of NASA's published ranges.</p>
   <div class="n">4 / 7</div>
 </section>
 
 <!-- 5 -->
 <section>
-  <h2>Two agents, one human decision</h2>
-  <div class="flow" style="margin-top:6px">
-    <div class="box" style="width:330px">Onboard agent<small>scores with NASA's method</small></div>
-    <div class="arrow">A2A<br>&rarr;</div>
-    <div class="box" style="width:330px">Ground agent<small>queues; no clinical decision</small></div>
-    <div class="arrow">&rarr;</div>
-    <div class="box" style="width:330px; background:#e3f1f3">Flight surgeon<small>a human decides</small></div>
-  </div>
-  <div class="cols" style="margin-top:26px; align-items:center">
-    <img class="shot" src="shots/replay.jpg" style="height:350px" alt="A2A replay panel">
-    <p style="flex:1">Real A2A run (a2a-sdk 1.3.0), recorded and replayed in the app.</p>
+  <div class="sim">SIMULATION: NOT FOR OPERATIONAL MEDICAL USE &middot; synthetic data</div>
+  <h2 style="margin-top:20px">Two agents, one human decision</h2>
+  <div class="cols">
+    <img class="shot" src="shots/mission.jpg" style="height:560px" alt="Hand-off packet and simulated delay for case C11 on Mars">
+    <div style="flex:1">
+      <div class="flow" style="flex-direction:column; align-items:stretch; gap:6px">
+        <div class="box" style="font-size:26px">Onboard agent<small>packet: score, sources, scan state, symptom report, message shown</small></div>
+        <div class="arrow">A2A &darr; (real run, recorded)</div>
+        <div class="box" style="font-size:26px">Ground agent<small>queues; no clinical decision</small></div>
+        <div class="arrow">&darr;</div>
+        <div class="box" style="font-size:26px; background:#e3f1f3">Flight surgeon<small>a human decides</small></div>
+      </div>
+      <p style="font-size:21px; margin-top:10px">Simulated one-way delay 1.5 s, 14 s, 40 min: earliest reply 3 s, 28 s, 80 min (LEO, Moon, Mars). One-way delay is not clinical response time.</p>
+    </div>
   </div>
   <div class="n">5 / 7</div>
 </section>
 
 <!-- 6 -->
 <section>
-  <h2>NASA data, and the proof</h2>
+  <div class="sim">SIMULATION: NOT FOR OPERATIONAL MEDICAL USE &middot; synthetic data</div>
+  <h2 style="margin-top:20px">NASA data, and the proof</h2>
   <div class="kv" style="margin-bottom:26px">
     <div class="card"><b>3</b><span>NASA documents on the main path</span></div>
-    <div class="card"><b>10/10</b><span>synthetic cases match totals worked out by hand first</span></div>
-    <div class="card"><b>41</b><span>automated tests</span></div>
+    <div class="card"><b>11/11</b><span>synthetic cases match totals worked out by hand first</span></div>
+    <div class="card"><b>68</b><span>automated tests</span></div>
   </div>
   <ul style="margin-top:34px">
     <li>NASA/SP-20260005258 REV1 &middot; OCHMO-MTB-007 &middot; OCHMO-TB-007</li>
-    <li>The 10 cases cover every band and every rule edge.</li>
+    <li>The 11 cases cover every band, every rule edge and the demo case.</li>
   </ul>
-  <p class="note" style="margin-top:34px; font-size:28px"><b>Limits:</b> synthetic data; faithful to NASA's method, not a validated predictor.</p>
+  <p class="note" style="margin-top:34px; font-size:28px"><b>Limits:</b> synthetic data; it ranks and organizes NASA-referenced risk, it does not detect or predict clots, and no performance was measured.</p>
   <div class="n">6 / 7</div>
 </section>
 
 <!-- 7 -->
 <section>
-  <h2>Where it could go</h2>
+  <div class="sim">SIMULATION: NOT FOR OPERATIONAL MEDICAL USE &middot; synthetic data</div>
+  <h2 style="margin-top:20px">Where it could go</h2>
   <ul style="margin-top:10px">
     <li>The score next to onboard ultrasound scans on long missions.</li>
     <li>D-dimer scored once in-flight testing exists. NASA says there are no adequate in-flight methods today.</li>

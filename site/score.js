@@ -2,6 +2,8 @@
 // Faithful ES-module port of vte/score.py, vte/missions.py and vte/sources.py (the Python is the source of truth;
 // scripts/parity.mjs + tests/test_parity.py check that both give identical results). Plain JS, no dependencies.
 
+import { ijvFromScans } from "./trend.js";
+
 export const SRC = "VTE-2026";
 
 export const RULE_AGE_40 = "Over 40 years of age: +1 point";
@@ -31,7 +33,7 @@ export const HORMONE_POINTS = {
 };
 const FAMILY = ["none", "one_under_50", "two_plus"];
 
-const STASIS_CM_S = 10.0;
+export const STASIS_CM_S = 10.0;
 const DDIMER_RISE = 0.60;
 
 const BANDS = [
@@ -79,7 +81,7 @@ function item(group, rule, points, value) {
   return { group, rule, points, value, source: SRC };
 }
 
-function num(x, name, lo, hi) {
+export function num(x, name, lo, hi) {
   if (typeof x !== "number" || Number.isNaN(x)) throw new InputError(`${name} must be a number`);
   if (!(lo <= x && x <= hi)) throw new InputError(`${name} must be between ${fmtLim(lo)} and ${fmtLim(hi)}`);
   return x;
@@ -204,7 +206,9 @@ const sum = (items) => items.reduce((t, i) => t + i.points, 0);
 export function score(c) {
   if (!isObj(c) || !isObj(c.preflight)) throw new InputError("case must be an object with a 'preflight' object");
   const [preItems, preFlags] = scorePreflight(c.preflight);
-  const [inItems, inFlags] = scoreInflight(c.inflight);
+  let inflight = c.inflight;
+  if (has(c, "scans")) inflight = { ...(inflight || {}), ijv: ijvFromScans(c.scans) }; // +4 comes from the latest recorded scan the trend shows
+  const [inItems, inFlags] = scoreInflight(inflight);
   const items = [...preItems, ...inItems];
   const total = sum(items);
   return {

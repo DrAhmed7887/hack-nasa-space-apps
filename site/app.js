@@ -1,5 +1,7 @@
 // AI-assisted: written with Claude Code (Anthropic) for the NASA Space Apps 2026 entry. Synthetic data only.
 // UI for the VTE score calculator, mission hand-off and A2A replay. The score comes from score.js (port of vte/score.py).
+import { SYMPTOMS, assess, emptyReport } from "./symptoms.js";
+import { classify, ijvFromScans, latestInFlight, scanState, trendRows, FORWARD, LOW, RETRO, NOT_MEASURED, TREND_NOTE } from "./trend.js";
 import { score, scanSchedule, nextScan, reviewContext, fmtSeconds, MISSIONS, SOURCES, InputError } from "./score.js";
 
 const APP_NAME = "VTE Watch"; // working name: change it here only
@@ -21,7 +23,34 @@ function h(tag, attrs, ...kids) {
 document.title = APP_NAME;
 $("app-name").textContent = APP_NAME;
 
-const state = { replay: null, stock: {}, caseId: null, stockSig: null, mission: DEFAULT_MISSION };
+const state = { replay: null, stock: {}, caseId: null, stockSig: null, mission: DEFAULT_MISSION, scans: [], slot: 1 };
+
+const blankSide = () => ({ mean_peak_velocity_cm_s: null, direction: null });
+const DEFAULT_SCANS = [["Baseline", 0, false, true], ["L+30 days", 30, true, false], ["L+60 days", 60, true, false], ["R-42 days", 138, true, false]]
+  .map(([label, day, in_flight, recorded]) => ({ label, day, in_flight, recorded, left: blankSide(), right: blankSide() }));
+
+// The form's IJV fields describe one scan slot: the newest recorded in-flight scan, else the first in-flight slot.
+function slotIndex(scans) {
+  let idx = -1;
+  scans.forEach((sc, i) => { if (sc.in_flight && sc.recorded && (classify(sc.left) !== NOT_MEASURED || classify(sc.right) !== NOT_MEASURED)) idx = i; });
+  if (idx >= 0) return idx;
+  const first = scans.findIndex((sc) => sc.in_flight);
+  return first >= 0 ? first : 0;
+}
+
+function readSymptoms() {
+  return {
+    ticked: [...document.querySelectorAll('input[name="sym"]:checked')].map((x) => x.value),
+    sudden_or_severe: $("sym-severe").checked,
+    checklist_done: $("sym-done").checked,
+  };
+}
+function fillSymptoms(r) {
+  r = r || emptyReport();
+  document.querySelectorAll('input[name="sym"]').forEach((x) => (x.checked = (r.ticked || []).includes(x.value)));
+  $("sym-severe").checked = !!r.sudden_or_severe;
+  $("sym-done").checked = !!r.checklist_done;
+}
 
 // ---------- form <-> case ----------
 const numOrNull = (id) => {
@@ -41,19 +70,25 @@ function readForm() {
       hormone: $("hormone").value,
     },
     mission_days: numOrNull("mission_days"),
-    inflight: { mission_day: numOrNull("mission_day"), ijv: null, ddimer_baseline: numOrNull("ddb"), ddimer_now: numOrNull("ddn") },
+    inflight: { mission_day: numOrNull("mission_day"), ddimer_baseline: numOrNull("ddb"), ddimer_now: numOrNull("ddn") },
+    scans: structuredClone(state.scans),
+    symptoms: readSymptoms(),
   };
-  if (!$("noscan").checked) {
-    const ijv = {};
+  if ($("noscan").checked) {
+    for (const sc of c.scans) if (sc.in_flight) Object.assign(sc, { recorded: false, left: blankSide(), right: blankSide() });
+  } else {
+    const sc = c.scans[state.slot];
+    let any = false;
     for (const side of ["left", "right"]) {
       const v = numOrNull(side + "_v");
       const r = $(side + "_r").checked;
-      if (v !== null || r) ijv[side] = { mean_peak_velocity_cm_s: v, retrograde: r };
+      sc[side] = v !== null || r ? { mean_peak_velocity_cm_s: v, direction: r ? "retrograde" : "anterograde" } : blankSide();
+      any = any || v !== null || r;
     }
-    if (!Object.keys(ijv).length) {
+    if (!any) {
       throw new InputError("Enter at least one IJV velocity, tick retrograde flow, or tick \"No in-flight IJV ultrasound yet\".");
     }
-    c.inflight.ijv = ijv;
+    sc.recorded = true;
   }
   return c;
 }
@@ -68,12 +103,15 @@ function fillForm(c) {
   $("hormone").value = p.hormone || "none";
   set("mission_days", c.mission_days);
   set("mission_day", f.mission_day);
-  $("noscan").checked = !f.ijv;
+  state.scans = structuredClone(c.scans || DEFAULT_SCANS);
+  state.slot = slotIndex(state.scans);
+  $("noscan").checked = ijvFromScans(state.scans) === null;
   for (const side of ["left", "right"]) {
-    const s = (f.ijv || {})[side];
+    const s = state.scans[state.slot][side];
     set(side + "_v", s ? s.mean_peak_velocity_cm_s : null);
-    $(side + "_r").checked = !!(s && s.retrograde);
+    $(side + "_r").checked = !!(s && s.direction === "retrograde");
   }
+  fillSymptoms(c.symptoms);
   set("ddb", f.ddimer_baseline);
   set("ddn", f.ddimer_now);
   syncIjvDisabled();
@@ -122,6 +160,9 @@ function render() {
   }
   lastScore = res;
   renderScore(res);
+  $("score-safety").replaceChildren(SAFETY_SCORE, h("br"), SAFETY_SINUS);
+  renderSymptoms(c, res);
+  renderTrend(c, res);
   renderSchedule(c, res);
   renderMission(c, res);
   renderReplay(c, res);
@@ -149,6 +190,47 @@ function renderScore(res) {
   out.append(h("p", { class: "hint" }, res.note));
 }
 
+const SAFETY_SCORE = "The risk score is not a diagnostic test. New symptoms need their own assessment whatever the score.";
+const SAFETY_SINUS = "The NASA jugular ultrasound protocol does not exclude a clot in the brain's venous sinuses.";
+const SAFETY_DELAY = "One-way delay is not clinical response time: a reply also needs a person to read, decide and answer.";
+
+function renderSymptoms(c, res) {
+  const out = $("sym-out");
+  out.replaceChildren();
+  if (!c) return;
+  const a = assess(c.symptoms);
+  out.append(
+    h("p", { class: "sym-msg " + a.level }, a.message),
+    h("p", { class: "hint" }, a.ticked.length ? `Reported: ${a.ticked_labels.join("; ")}${a.sudden_or_severe ? "; marked sudden or severe" : ""}.` : (a.sudden_or_severe ? "Marked sudden or severe." : "No symptom ticked."),
+      res ? ` The NASA score above stays at ${res.total} point${res.total === 1 ? "" : "s"}: symptoms add none.` : ""));
+}
+
+const LABEL_CLASS = { [FORWARD]: "fwd", [LOW]: "low", [RETRO]: "ret", [NOT_MEASURED]: "nm" };
+function sideDetail(sc, side) {
+  const x = sc[side] || {};
+  if (!sc.recorded) return "";
+  const v = x.mean_peak_velocity_cm_s ?? null;
+  return [v !== null ? `${v} cm/s` : null, x.direction].filter(Boolean).join(", ");
+}
+
+function renderTrend(c, res) {
+  const out = $("trend-out");
+  out.replaceChildren();
+  if (!c) return;
+  const rows = trendRows(c.scans);
+  const latest = latestInFlight(c.scans);
+  out.append(
+    h("ul", { class: "trend" }, c.scans.map((sc, i) => {
+      const r = rows[i];
+      return h("li", { class: sc === latest ? "scored" : "" },
+        h("span", { class: "when" }, sc.label, sc.in_flight ? "" : " (pre-flight)"),
+        sc === latest ? h("span", { class: "tagx" }, "Used for the score") : null,
+        ["left", "right"].map((side) => h("span", { class: "side " + LABEL_CLASS[r[side]] }, h("b", {}, side + " IJV"), r[side], sideDetail(sc, side) ? h("small", {}, h("br"), sideDetail(sc, side)) : null)));
+    })),
+    h("p", { class: "hint" }, TREND_NOTE, " Colour is only a hint; the words carry the meaning."),
+    h("p", { class: "hint" }, res ? `The score's IJV row (${res.items.find((i) => i.group === "IJV flow").points ? "+4" : "0"}) is read from the scan marked above: the same latest recorded in-flight scan.` : ""));
+}
+
 function renderSchedule(c, res) {
   const out = $("sched-out");
   out.replaceChildren();
@@ -172,6 +254,32 @@ function currentRun(c) {
   return state.replay.runs.find((r) => r.case_id === state.caseId && r.mission === state.mission) || null;
 }
 
+const run0 = (c) => currentRun(c);
+
+function buildPacket(c, res) {
+  const a = assess(c.symptoms);
+  const ids = [...new Set(res.items.map((i) => i.source))];
+  return { score: res, score_sources: ids.map((id) => ({ id, title: SOURCES[id].title, url: SOURCES[id].url })), scan_state: scanState(c.scans), symptom_report: a, message_shown: a.message };
+}
+
+function renderPacket(out, c, res, run) {
+  if (!res || !c) return;
+  const p = run ? run.packet : buildPacket(c, res);
+  const st = p.scan_state;
+  const sr = p.symptom_report;
+  const item = (k, v) => h("li", {}, h("b", {}, k), v);
+  out.append(
+    h("h3", {}, "What the ground receives in the packet"),
+    h("p", { class: "hint" }, run ? "From the recorded run." : "Built in the browser with the same fields (this case is not the stock recording)."),
+    h("ul", { class: "pkt" },
+      item("NASA score", `${p.score.total} point${p.score.total === 1 ? "" : "s"}: ${p.score.nasa_reference_band}`),
+      item("Sources", p.score_sources.map((x) => x.id).join(", ")),
+      item("Latest scan state", st.label ? `${st.label}: left ${st.left}; right ${st.right}. ${st.note}` : st.note),
+      item("Symptom report", `${sr.ticked_labels.length ? sr.ticked_labels.join("; ") : "none ticked"}${sr.sudden_or_severe ? "; sudden or severe" : ""}${sr.checklist_done ? "; checklist done today" : "; checklist not marked done"}. Adds no points.`),
+      item("Message shown to the crew", p.message_shown)),
+    h("p", { class: "hint" }, "The crew sees that message at once, onboard. It never waits for the ground, and the ground agent makes no clinical decision."));
+}
+
 function renderMission(c, res) {
   const out = $("mission-out");
   out.replaceChildren();
@@ -181,14 +289,17 @@ function renderMission(c, res) {
       [["Destination", ctx.name], ["Communication", ctx.communication], ["Evacuation", ctx.evacuation], ["Ground support", ctx.ground_support],
        ["Simulated one-way delay", `${fmtSeconds(ctx.simulated_one_way_delay_s)} (simulation; ${ctx.delay_basis})`], ["Earliest ground reply", fmtSeconds(ctx.earliest_ground_reply_s)]]
         .map(([k, v]) => h("div", {}, h("dt", {}, k), h("dd", {}, v)))),
+    h("p", { class: "hint" }, SAFETY_DELAY),
     h("p", { class: "hint" }, "Sources: ", ctx.sources.map((s, i) => [i ? ", " : "", sourceLink(s)]))
   );
 
   if (res) {
     out.append(h("p", {}, "The score does not change with distance. Only the review context does."));
     out.append(h("div", { class: "same", "aria-label": "Score by mission" },
-      Object.keys(MISSIONS).map((m) => h("span", { class: m === state.mission ? "on" : "" }, `${MISSIONS[m].name}: ${res.total} points, ${res.nasa_reference_band.split(" = ")[1] || "no band"}`))));
+      Object.keys(MISSIONS).map((m) => h("span", { class: m === state.mission ? "on" : "" }, `${MISSIONS[m].name}: ${res.total} point${res.total === 1 ? "" : "s"}, ${res.nasa_reference_band.split(" = ")[1] || "no band"}`))));
   }
+
+  renderPacket(out, c, res, run0(c, res));
 
   // timestamps: from the recording for stock cases, computed with the same rule otherwise
   const run = currentRun(c);
@@ -210,7 +321,9 @@ function renderMission(c, res) {
       h("button", { type: "button", id: "replay-anim" }, "Replay animation"),
       h("span", { class: "hint" }, "The animation is short on purpose; the clock below shows the simulated delay.")));
   out.append(flight);
-  if (sent !== null) {
+  if ($("fail-handoff").checked) {
+    out.append(h("p", { class: "notice", role: "status" }, "Simulated failure: the ground was not reached, so nothing was delivered. The message shown to the crew above is unchanged; the packet would be re-sent when the link returns."));
+  } else if (sent !== null) {
     out.append(
       h("dl", { class: "clock" },
         h("div", {}, h("dt", {}, "Packet sent from the spacecraft"), h("dd", {}, fmtClock(sent), ` (${fmtInt(sent)} s)`)),
@@ -317,6 +430,7 @@ async function init() {
     state.replay = null;
   }
 
+  $("sym-checks").replaceChildren(...SYMPTOMS.map((x) => h("label", {}, h("input", { type: "checkbox", name: "sym", value: x.id }), ` ${x.label}`)));
   const pick = $("case-pick");
   const ids = Object.keys(state.stock);
   if (ids.length) {
@@ -327,11 +441,14 @@ async function init() {
     pick.replaceChildren(h("option", { value: "" }, "Stock cases unavailable (replay.json not loaded)"));
     pick.disabled = true;
     $("case-note").textContent = "Enter values by hand below.";
-    fillForm({ preflight: { age: 35, family_history: "none", thrombophilia: [], abo_non_o: false, hormone: "none" }, mission_days: 180, inflight: { mission_day: 30, ijv: null } });
+    fillForm({ preflight: { age: 35, family_history: "none", thrombophilia: [], abo_non_o: false, hormone: "none" }, mission_days: 180, inflight: { mission_day: 30 }, scans: DEFAULT_SCANS, symptoms: emptyReport() });
   }
 
   pick.addEventListener("change", () => { selectCase(pick.value); render(); });
   $("form").addEventListener("input", onEdit);
+  $("sym-form").addEventListener("input", onEdit);
+  $("sym-clear").addEventListener("click", () => { fillSymptoms(emptyReport()); onEdit(); });
+  $("fail-handoff").addEventListener("change", render);
   $("form").addEventListener("change", () => { syncIjvDisabled(); onEdit(); });
   document.querySelectorAll('input[name="mission"]').forEach((r) => r.addEventListener("change", () => { setMission(r.value); render(); }));
   render();
