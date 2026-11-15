@@ -68,3 +68,12 @@ test("AC7: no apixaban recorded means landing hold NOT_APPLICABLE", () => {
 test("AC9: signoff defaults to no decision", () => {
   assert.equal(runCase(byId("C05"), extrasFor("C05")).packet.signoff.decision, null);
 });
+
+test("EVA/DCS medicine context (NASA/SP-20260009389) shown with apixaban only, as context with no rule", async () => {
+  const { medicationReview, EVA_DCS_CONTEXT } = await import("../../site/v3/meds.js");
+  const { V3_SOURCES } = await import("../../site/v3/sources.js");
+  assert.ok(V3_SOURCES[EVA_DCS_CONTEXT.source].quote.includes("significantly increases bleeding risks"));
+  for (const regimen of ["prophylaxis", "treatment"]) assert.equal(medicationReview({ meds: { regimen }, plan: null, today: 10 }).eva_dcs_context, EVA_DCS_CONTEXT);
+  assert.equal(medicationReview({ meds: { regimen: "none" }, plan: null, today: 10 }).eva_dcs_context, null);
+  assert.match(EVA_DCS_CONTEXT.text, /no DCS or EVA pain-medicine rules/);
+});

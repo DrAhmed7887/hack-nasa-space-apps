@@ -2,6 +2,11 @@
 // Exact quotes behind every v3 rule. Each rule in the engine names one of these ids. Team physician sign-off: see docs/V3_RULES.md.
 
 export const V3_SOURCES = {
+  "SP-9389-eva-meds": {
+    doc: "NASA/SP-20260009389, Risks of Decompression Sickness and Venous Thromboembolism during Spaceflight and Patent Foramen Ovale Implications, Outcomes of Working Group Meeting, August 2026 (published Sept 2026), PDF pp.9-10",
+    url: "https://ntrs.nasa.gov/citations/20260009389",
+    quote: "guidance is needed for the pre- and post-EVA use of analgesics (acetaminophen, ibuprofen, naproxen, celecoxib), as these medications have the potential to mask DCS symptoms. ... NASA currently administers aspirin prior to EVAs to mitigate DCS risk. ... Clear guidelines are necessary to address the concurrent use of aspirin and prophylactic apixaban (used for Venous Thromboembolism [VTE] prevention), as combining them significantly increases bleeding risks.",
+  },
   "MTB-007-p12": {
     doc: "NASA OCHMO-MTB-007 Venous Thrombosis in Spaceflight (8-Jan-26), p.12",
     url: "https://www.nasa.gov/wp-content/uploads/2026/01/ochmo-mtb-007-venous-thrombosis-in-spaceflight.pdf",
