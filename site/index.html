@@ -1,0 +1,117 @@
+<!doctype html>
+<!-- AI-assisted: written with Claude Code (Anthropic) for the NASA Space Apps 2026 entry. Synthetic data only. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>VTE Watch</title>
+<meta name="description" content="Tracks an astronaut's blood-clot (VTE) risk with NASA's published score, then hands it to the ground with the mission's real communication delay. Synthetic data.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Ccircle cx=%278%27 cy=%278%27 r=%277%27 fill=%27%230b6e7f%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <h1 id="app-name">VTE Watch</h1>
+    <p class="purpose">Tracks an astronaut's blood-clot (VTE) risk with NASA's published score, then hands it to the ground with the mission's real communication delay.</p>
+    <p class="notice" role="note"><strong>Synthetic data.</strong> A reference for clinician review, following NASA's published method &mdash; not a diagnosis, prediction or prescription.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section aria-labelledby="h-input">
+    <h2 id="h-input">1. Crew case</h2>
+    <div class="field">
+      <label for="case-pick">Synthetic case</label>
+      <select id="case-pick"></select>
+      <p class="hint" id="case-note"></p>
+    </div>
+    <form id="form" class="grid" autocomplete="off" novalidate>
+      <fieldset>
+        <legend>Pre-flight</legend>
+        <div class="field"><label for="age">Age (years)</label><input id="age" type="number" inputmode="decimal" step="any"></div>
+        <div class="field"><label for="family">Family history of unprovoked VTE</label>
+          <select id="family">
+            <option value="none">None reported</option>
+            <option value="one_under_50">One first-degree relative under 50</option>
+            <option value="two_plus">Two or more first-degree relatives (one under 50)</option>
+          </select></div>
+        <div class="field"><span class="lbl" id="thr-l">Thrombophilia</span>
+          <div class="checks" role="group" aria-labelledby="thr-l">
+            <label><input type="checkbox" name="thr" value="fvl_het"> Factor V Leiden, heterozygous</label>
+            <label><input type="checkbox" name="thr" value="fvl_hom"> Factor V Leiden, homozygous</label>
+            <label><input type="checkbox" name="thr" value="protein_c"> Protein C deficiency</label>
+            <label><input type="checkbox" name="thr" value="protein_s"> Protein S deficiency</label>
+            <label><input type="checkbox" name="thr" value="at3"> Antithrombin III deficiency</label>
+            <label><input type="checkbox" name="thr" value="prothrombin_het"> Prothrombin gene mutation, heterozygous</label>
+          </div></div>
+        <div class="field"><label class="inline"><input id="abo" type="checkbox"> Non-O allele of the ABO genotype</label></div>
+        <div class="field"><label for="hormone">Hormone use</label>
+          <select id="hormone">
+            <option value="none">No hormone use</option>
+            <option value="low">Low / no increased risk hormone</option>
+            <option value="some">Some increased risk hormone</option>
+            <option value="moderate">Moderate increased risk hormone</option>
+          </select></div>
+      </fieldset>
+      <fieldset>
+        <legend>In-flight</legend>
+        <div class="field"><label for="mission_day">Mission day</label><input id="mission_day" type="number" inputmode="numeric" step="1"></div>
+        <div class="field"><label for="mission_days">Mission length (days)</label><input id="mission_days" type="number" inputmode="numeric" step="1"></div>
+        <div class="field"><label class="inline"><input id="noscan" type="checkbox"> No in-flight IJV ultrasound yet</label></div>
+        <div id="ijv-fields">
+          <div class="field"><label for="left_v">Left IJV mean peak velocity (cm/s)</label><input id="left_v" type="number" inputmode="decimal" step="any">
+            <label class="inline"><input id="left_r" type="checkbox"> Left: retrograde flow</label></div>
+          <div class="field"><label for="right_v">Right IJV mean peak velocity (cm/s)</label><input id="right_v" type="number" inputmode="decimal" step="any">
+            <label class="inline"><input id="right_r" type="checkbox"> Right: retrograde flow</label></div>
+        </div>
+        <div class="field"><label for="ddb">D-dimer, in-flight baseline (leave blank if not measured)</label><input id="ddb" type="number" inputmode="decimal" step="any"></div>
+        <div class="field"><label for="ddn">D-dimer, now (same units)</label><input id="ddn" type="number" inputmode="decimal" step="any"></div>
+      </fieldset>
+    </form>
+  </section>
+
+  <section aria-labelledby="h-score">
+    <h2 id="h-score">2. NASA VTE risk score</h2>
+    <p id="score-error" class="error" role="alert" hidden></p>
+    <div id="score-out"></div>
+  </section>
+
+  <section aria-labelledby="h-sched">
+    <h2 id="h-sched">3. Ultrasound scan schedule</h2>
+    <div id="sched-out"></div>
+  </section>
+
+  <section aria-labelledby="h-mission">
+    <h2 id="h-mission">4. Mission and hand-off to the ground</h2>
+    <div class="seg" role="radiogroup" aria-label="Mission">
+      <label><input type="radio" name="mission" value="leo"> LEO</label>
+      <label><input type="radio" name="mission" value="moon"> Moon</label>
+      <label><input type="radio" name="mission" value="mars"> Mars</label>
+    </div>
+    <div id="mission-out"></div>
+  </section>
+
+  <section aria-labelledby="h-replay">
+    <h2 id="h-replay">5. A2A replay</h2>
+    <p class="replay-label"><strong>Replay of a recorded real A2A run (agents/handoff.py, a2a-sdk 1.3.0).</strong> Two local agents exchanged these HTTP messages; nothing below is sent live.</p>
+    <p id="replay-status" class="hint"></p>
+    <div id="replay-out"></div>
+  </section>
+
+  <section aria-labelledby="h-src">
+    <h2 id="h-src">Sources</h2>
+    <ul id="sources" class="sources"></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI-assisted: built with Claude Code (Anthropic). Synthetic data only; no real patient or astronaut data.</p>
+    <p>No NASA logos or mission identifiers. This is an independent entry that follows NASA's published documents.</p>
+  </div>
+</footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>
