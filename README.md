@@ -76,6 +76,7 @@ This follows the Space Apps rules on AI ("SI") use.
 - **The idea comes from the team.** The team physicians chose the target (VTE in spaceflight), the mission-distance angle and the v3 architecture (an eight-component, no-agent design from the team's own specification, which replaced the earlier A2A agents on 15 Nov). At the team's request, AI tools also critiqued and compared the team's own candidate ideas; no AI tool proposed the core idea.
 - **Claude Code (Anthropic)** helped with research checks (each fact traced to its NASA source), code, tests and editing.
 - **A teammate used ChatGPT (OpenAI)** to explore features after the team chose VTE; the features were adapted and checked against NASA sources with Claude Code.
+- **The v3.1 and v3.2 implementation specifications were drafted with ChatGPT (OpenAI)** from the team's chosen design and checked by the team; the team physician signed the rules (`docs/V3_RULES.md`). One v3.2 item was not adopted: it scored a D-dimer rise of "≥60%", but NASA's table says ">60%", which the code keeps.
 - **Other models** (Qwen, GPT, Gemini) were asked to compare and critique the team's own candidate directions in a private review.
 - **Where it shows:** every code file starts with an "AI-assisted" header, every data JSON carries an `_ai_assisted` key, and other data files are listed in the data card. CI fails if a file is missing its mark (`scripts/check_ai_mark.py`).
 - No AI-generated images, video or audio are used. No NASA logos, flags or mission identifiers.
