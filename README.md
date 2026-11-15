@@ -80,3 +80,11 @@ This follows the Space Apps rules on AI ("SI") use.
 - **Other models** (Qwen, GPT, Gemini) were asked to compare and critique the team's own candidate directions in a private review.
 - **Where it shows:** every code file starts with an "AI-assisted" header, every data JSON carries an `_ai_assisted` key, and other data files are listed in the data card. CI fails if a file is missing its mark (`scripts/check_ai_mark.py`).
 - No AI-generated images or video are used. **The 30-second demo film (`demo/video/`, built with HyperFrames from real app screenshots of the synthetic cases) uses an AI-generated voiceover and music track, both made with ElevenLabs (`eleven_v4` voice, `music_v2_5` music, script `demo/video/scripts/elevenlabs_audio.py`); both are labelled on screen in every frame.** No NASA logos, flags or mission identifiers.
+
+## License
+
+Open source under the [MIT License](LICENSE): the code, the synthetic data and the docs. Two exceptions:
+- The NASA reports and resources listed above are NASA's own publications. We cite and link them; we don't relicense them.
+- The AI-generated voiceover and music in the demo film (`demo/video/assets/voice/`, and the music inside `site/demo/VTE_Watch_30s.mp4`) were made with ElevenLabs and stay under ElevenLabs' terms.
+
+Not a medical device. Simulation only, not for operational medical use (see Limits).
