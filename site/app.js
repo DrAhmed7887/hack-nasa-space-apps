@@ -168,7 +168,54 @@ function render() {
   renderSchedule(c, res);
   renderMission(c, res);
   renderV3(c, res);
+  renderWatch(c, res);
   syncUrl();
+}
+
+// ---------- Agent watch: one summary of the engine's own output (no new logic; every value comes from runCase/score) ----------
+const WATCH_CASES = [["C12", "Worsening scan trend"], ["C11", "Low score, new symptom"], ["C05", "Several risk factors"], ["C10", "Scan not done yet"]];
+const STATE_WORDS = {
+  RED_FLAG_OVERRIDE: "Emergency symptom: onboard procedure now",
+  DETERIORATING: "Worsening: surgeon review",
+  WATCH: "Watch: surgeon review at next contact",
+  DATA_INSUFFICIENT: "Data needed before any trend call",
+  STABLE: "No configured pattern; does not exclude thrombosis",
+};
+function renderWatchChips() {
+  const box = $("watch-chips");
+  box.replaceChildren(...WATCH_CASES.filter(([id]) => Object.hasOwn(state.stock, id)).map(([id, label]) => {
+    const b = h("button", { type: "button", class: "chip", "data-case": id, "aria-pressed": String(state.caseId === id && currentSigMatches()) }, h("b", {}, id), ` ${label}`);
+    b.addEventListener("click", () => { const pick = $("case-pick"); pick.value = id; pick.dispatchEvent(new Event("change")); });
+    return b;
+  }));
+}
+function renderWatch(c, res) {
+  const out = $("watch-out");
+  out.replaceChildren();
+  document.querySelectorAll("#watch-chips .chip").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.case === state.caseId && currentSigMatches())));
+  if (!c || !res || !lastRun) { out.append(h("p", { class: "hint" }, "Fix the case input below to see the agent's view.")); return; }
+  const p = lastRun.packet, d = p.longitudinal_assessment;
+  const latest = latestInFlight(c.scans);
+  const left = latest ? classify(latest.left) : NOT_MEASURED;
+  const lv = latest?.left?.mean_peak_velocity_cm_s ?? null;
+  const blocking = p.missing_or_blocking || [];
+  const tile = (k, v, sub, cls = "") => h("div", { class: "tile " + cls }, h("div", { class: "k" }, k), h("div", { class: "v" }, v), sub ? h("div", { class: "sub" }, sub) : null);
+  out.append(
+    h("div", { class: "watch-grid" },
+      h("div", { class: "state-card st-" + d.state },
+        h("div", { class: "k" }, "Agent state"),
+        h("div", { class: "state" }, d.state.replaceAll("_", " ")),
+        h("div", { class: "words" }, STATE_WORDS[d.state] || ""),
+        h("p", { class: "action" }, d.action),
+        h("ul", { class: "why" }, (d.why || []).slice(0, 4).map((w) => h("li", {}, w))),
+        h("p", { class: "by" }, "Decided by: the flight surgeon. The agent only flags and prompts.")),
+      h("div", { class: "side-col" }, h("div", { class: "tiles" },
+        tile("NASA VTE score", `${res.total} pt${res.total === 1 ? "" : "s"}`, `NASA band, for clinician review: ${res.nasa_reference_band}`),
+        tile("Latest left IJV (duplex)", lv !== null ? `${lv} cm/s` : "—", latest ? `${{ [FORWARD]: "Forward flow", [LOW]: "Below 10 cm/s", [RETRO]: "Retrograde", [NOT_MEASURED]: "Not measured" }[left]} · ${latest.label.split(" (")[0]}` : "No in-flight scan yet", left === LOW || left === RETRO ? "warn" : ""),
+        tile("Symptoms today", p.symptom_report.ticked.length ? `${p.symptom_report.ticked.length} reported` : "None ticked", p.symptom_report.ticked.length ? p.symptom_report.ticked.join("; ") : p.symptom_report.message_shown, lastRun.packet.longitudinal_assessment.emergency ? "err" : ""),
+        tile("Record", p.packet_status.replaceAll("_", " "), blocking.length ? blocking.slice(0, 2).join("; ") : "No blocking data problems", blocking.length ? "warn" : "")),
+        velocityChart(c.scans) || h("p", { class: "hint" }, "Velocity chart appears once two or more scans are recorded."))),
+    h("p", { class: "hint" }, "Every value above comes from the sections below: NASA's score (2), symptoms (3), scans (4) and the clinical engine (8). ", h("a", { href: "#v3" }, "Open the full record and flight-surgeon packet")));
 }
 
 function renderScore(res) {
@@ -567,6 +614,7 @@ async function init() {
   }
 
   pick.addEventListener("change", () => { state.signoff = null; selectCase(pick.value); render(); });
+  renderWatchChips();
   $("form").addEventListener("input", onEdit);
   $("sym-form").addEventListener("input", onEdit);
   $("sym-clear").addEventListener("click", () => { fillSymptoms(emptyReport()); onEdit(); });
