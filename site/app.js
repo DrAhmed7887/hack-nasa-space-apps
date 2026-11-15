@@ -229,8 +229,8 @@ function renderTrend(c, res) {
         sc === latest ? h("span", { class: "tagx" }, "Used for the score") : null,
         ["left", "right"].map((side) => h("span", { class: "side " + LABEL_CLASS[r[side]] }, h("b", {}, side + " IJV"), r[side], sideDetail(sc, side) ? h("small", {}, h("br"), sideDetail(sc, side)) : null)));
     })),
-    velocityChart(c.scans),
     h("p", { class: "hint" }, TREND_NOTE, " Colour is only a hint; the words carry the meaning."),
+    velocityChart(c.scans),
     h("p", { class: "hint" }, res ? `The score's IJV row (${res.items.find((i) => i.group === "IJV flow").points ? "+4" : "0"}) is read from the scan marked above: the same latest recorded in-flight scan.` : ""));
 }
 
