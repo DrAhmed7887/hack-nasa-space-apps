@@ -21,6 +21,6 @@ Every claim or number that appears in the README, the project page, the slides o
 | Symptom checklist adds no points; the emergency / report-today / none-reported rule | README, app | Rule signed by the team physician 15 Nov. NASA basis: OCHMO-MTB-007 "eyelid edema, mydriasis, headache, and SANS symptoms should be considered as part of the risk assessment"; NASA gives no points. `tests/test_symptoms.py` (each branch, no points, JS parity) | 15 Nov |
 | "No listed symptoms reported. This does not exclude thrombosis." | app | Our wording; `tests/test_symptoms.py::test_no_all_clear_wording_anywhere` | 15 Nov |
 | Packet carries the score, its sources, the latest scan state, the symptom report and the message shown; a failed hand-off is reported | README, app | `tests/test_handoff.py` (packet parts, demo case C11, failed hand-off) | 15 Nov |
-| "Lawrence used ChatGPT (OpenAI) to explore features after the team chose VTE" | README | Team statement, 15 Nov | 15 Nov |
+| "A teammate used ChatGPT (OpenAI) to explore features after the team chose VTE" | README | Team statement, 15 Nov | 15 Nov |
 
 _AI-assisted: this file was drafted with Claude Code and is checked by the team._

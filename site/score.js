@@ -180,7 +180,7 @@ function scoreInflight(inf) {
       if (v === null && !retro) flags.push(`${side} IJV velocity not recorded.`);
     }
     if (hits.length) items.push(item("IJV flow", RULE_STASIS, 4, hits.join("; ")));
-    else items.push(item("IJV flow", "No stasis (<10 cm/s) or retrograde flow found: 0 points", 0, "normal"));
+    else items.push(item("IJV flow", "No stasis (<10 cm/s) or retrograde flow found: 0 points", 0, "no stasis or retrograde flow"));
   }
 
   let base = inf.ddimer_baseline === undefined ? null : inf.ddimer_baseline;
