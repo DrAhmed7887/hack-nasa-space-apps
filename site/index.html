@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
 <title>VTE Watch</title>
-<meta name="description" content="Ranks and organizes NASA-referenced blood-clot (VTE) risk for flight-surgeon review, then hands it to the ground with a simulated communication delay. Synthetic data.">
+<meta name="description" content="Organizes NASA-referenced blood-clot (VTE) risk, scans, symptoms and medication checks over the mission for flight-surgeon review, with every safety check running onboard. Synthetic data.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Ccircle cx=%278%27 cy=%278%27 r=%277%27 fill=%27%235cc8da%27/%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -15,7 +15,7 @@
 <header class="top">
   <div class="wrap">
     <h1 id="app-name">VTE Watch</h1>
-    <p class="purpose">Ranks and organizes NASA-referenced blood-clot (VTE) risk for flight-surgeon review, then hands it to the ground with a simulated communication delay.</p>
+    <p class="purpose">Organizes NASA-referenced blood-clot (VTE) risk, scans, symptoms and medication checks over the mission for flight-surgeon review, with every safety check running onboard.</p>
     <p class="notice" role="note"><strong>Synthetic data.</strong> A reference for clinician review, following NASA's published method &mdash; not a diagnosis, prediction or prescription. It does not detect clots.</p>
   </div>
 </header>
@@ -82,7 +82,7 @@
 
   <section aria-labelledby="h-sym">
     <h2 id="h-sym">3. Daily symptom report <span class="tagline">(separate from the score; adds no points)</span></h2>
-    <p class="hint">NASA gives no points for symptoms. This checklist is shown on its own and travels in the hand-off packet.</p>
+    <p class="hint">NASA gives no points for symptoms. This checklist is shown on its own and travels in the flight-surgeon packet.</p>
     <form id="sym-form" autocomplete="off">
       <div id="sym-checks" class="checks" role="group" aria-label="Symptoms since the last check"></div>
       <label class="inline sev"><input id="sym-severe" type="checkbox"> Any of these is sudden or severe</label>
@@ -109,21 +109,19 @@
   </section>
 
   <section aria-labelledby="h-mission">
-    <h2 id="h-mission">7. Mission and hand-off to the ground</h2>
+    <h2 id="h-mission">7. Mission context</h2>
     <div class="seg" role="radiogroup" aria-label="Mission">
       <label><input type="radio" name="mission" value="leo"> LEO</label>
       <label><input type="radio" name="mission" value="moon"> Moon</label>
       <label><input type="radio" name="mission" value="mars"> Mars</label>
     </div>
-    <label class="inline"><input id="fail-handoff" type="checkbox"> Simulate a failed hand-off (ground not reached)</label>
     <div id="mission-out"></div>
   </section>
 
-  <section aria-labelledby="h-replay">
-    <h2 id="h-replay">8. A2A replay</h2>
-    <p class="replay-label"><strong>SIMULATED: replay of a recorded A2A run (agents/handoff.py, a2a-sdk 1.3.0).</strong> Two local agents on one computer exchanged these HTTP messages; the communication delay is simulated and nothing below is sent live.</p>
-    <p id="replay-status" class="hint"></p>
-    <div id="replay-out"></div>
+  <section aria-labelledby="h-v3" id="v3">
+    <h2 id="h-v3">8. Clinical engine and flight-surgeon packet</h2>
+    <p class="hint">Append-only record with provenance &rarr; four timelines &rarr; NASA score (unchanged), trend state, symptom guardrail and flow-response log &rarr; safety interlocks &rarr; medication and landing check &rarr; signed packet. No autonomous agents: every clinical decision is the flight surgeon's.</p>
+    <div id="v3-out"></div>
   </section>
 
   <section aria-labelledby="h-src">

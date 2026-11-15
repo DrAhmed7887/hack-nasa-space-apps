@@ -78,7 +78,7 @@ def ijv_from_scans(scans: list) -> dict | None:
 
 
 def scan_state(scans: list) -> dict:
-    """Latest scan state for the hand-off packet."""
+    """Latest scan state for the flight-surgeon packet."""
     scan = latest_in_flight(scans)
     if scan is None:
         return {"label": None, "left": NOT_MEASURED, "right": NOT_MEASURED, "note": "No in-flight scan recorded yet. " + TREND_NOTE}

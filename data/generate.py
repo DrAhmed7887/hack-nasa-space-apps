@@ -99,7 +99,9 @@ def main(out: Path) -> None:
     }
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(doc, indent=1) + "\n")
-    print(f"wrote {len(rows)} cases to {out}")
+    site_copy = Path(__file__).resolve().parents[1] / "site" / "cases.json"  # the static app reads this copy
+    site_copy.write_text(json.dumps(doc, indent=1) + "\n")
+    print(f"wrote {len(rows)} cases to {out} and {site_copy.name}")
 
 
 if __name__ == "__main__":
