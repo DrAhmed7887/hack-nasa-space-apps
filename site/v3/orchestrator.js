@@ -25,7 +25,7 @@ export const WARNINGS = Object.freeze([
   "A normal or incomplete scan does not exclude cerebral venous sinus thrombosis.",
   "A missing wearable signal is not evidence of normal flow.",
   "Wearable Doppler is not validated against the NASA duplex threshold in this application.",
-  "A positive flow response does not prove thrombosis is absent or future risk is reduced.",
+  "Forward flow during a manoeuvre does not prove thrombosis is absent or future risk is reduced.",
   "Medication changes require an authorised clinician.",
   "Communication delay does not grant medication authority to the application.",
 ]);

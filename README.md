@@ -36,12 +36,12 @@ Astronauts on long missions can develop clots in the internal jugular vein (IJV)
 | Scan trend | `vte/trend.py`, `site/trend.js` | Neutral labels; velocity and direction stored separately; feeds the score's +4 |
 | Symptom checklist | `vte/symptoms.py`, `site/symptoms.js` | Signed rule, no points; Python and JS tested for parity |
 | v3 clinical engine | `site/v3/` (`store.js`, `timeline.js`, `states.js`, `orchestrator.js`, `meds.js`, `pipeline.js`, `sources.js`) | Pure functions in the browser, no network calls; rules and sources in `docs/V3_RULES.md` |
-| v3 scenario inputs | `site/v3_extras.json` | Synthetic SEC grades, wearable readings, flow-response study, IJV ratio, medication, landing plan, kit inventory (C05, C11, C04) |
+| v3 scenario inputs | `site/v3_extras.json` | Synthetic SEC grades, wearable readings, flow-response study, IJV diameters, medication, landing plan, inventory (C04, C05, C11, C12), and the 12th case **C12** (longitudinal demo) |
 | Synthetic cases | `data/generate.py` → `data/crew_cases.json` | 11 cases with scan series and symptom reports, seeded and calibrated to NASA's published 31-astronaut cohort (normal flow drawn from the reported 18–70 cm/s no-stasis range; boundaries from the <10 cm/s rule); see [DATA_CARD.md](DATA_CARD.md) |
 | Web app | `site/` | Static; recalculates in the browser (`site/score.js`, tested against Python) |
 | Tests | `tests/`, `tests/v3/` | Python: hand-worked expected totals, NASA rule edges, JS/Python parity. Node (`node --test tests/v3/*.test.mjs`): the v3 acceptance criteria |
 
-**Measured:** all 11 synthetic cases match totals worked out by hand from the NASA table before the first run (`tests/test_score.py`).
+**Measured:** all 11 synthetic cases match totals worked out by hand from the NASA table before the first run (`tests/test_score.py`), and so does C12, the v3 longitudinal case in `site/v3_extras.json` (6 points; `tests/v3/v31.test.mjs`).
 
 ## Real NASA data (context only)
 The app has a panel with real group summaries (n, min, max, mean; no per-person values) from the Inspiration4 crew: Fibrinogen and PF4 (OSD-575) and platelet count (OSD-569), before and after a 3-day flight, none in flight. It is context only: not used in the risk score, and it says nothing about any individual. Data are courtesy of the NASA Open Science Data Repository (https://osdr.nasa.gov/bio/repo). Details and privacy rule: [DATA_CARD.md](DATA_CARD.md). Rebuild: `python data/i4_summary.py <folder with the two OSDR files>`.

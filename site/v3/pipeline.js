@@ -90,7 +90,12 @@ export function runCase(c, extras = {}, opts = {}) {
   const frStudy = [...timelines.ultrasound].reverse().find((e) => e.observation_type === "FLOW_RESPONSE_STUDY" && isUsable(e, o.acceptSimulated));
   const flow = flowLifecycle({ study: frStudy, indicated: flowIndicated(visits), redFlag: trend.state === STATES.RED_FLAG_OVERRIDE });
   const decision = orchestrate({ trend, flow });
-  const meds = medicationReview({ meds: extras.meds, plan: extras.plan, today });
+  const meds = medicationReview({ meds: extras.meds, plan: extras.plan, today, concern: [STATES.DETERIORATING, STATES.RED_FLAG_OVERRIDE].includes(trend.state) });
+  // NASA's two documents differ on prophylaxis for stasis without other risk factors (clinical review, round 2).
+  const pre = c.preflight || {};
+  const stasisPts = nasa.items.find((i) => i.group === "IJV flow")?.points || 0;
+  const nasaDocsNote = nasa.total >= 4 && nasa.total <= 6 && stasisPts === 4 && (pre.family_history || "none") === "none" && !(pre.thrombophilia || []).length && ["none", "low"].includes(pre.hormone || "none")
+    ? "NASA documents differ: SP-20260005258 band 4-6 = prophylactic apixaban; OCHMO-MTB-007 p.12: stasis without family history, thrombophilia or hormones → \"monitored more often, and hydration should be ensured\". The flight surgeon decides." : null;
   const milestones = milestoneStatus(timelines, schedule, { acceptSimulated: o.acceptSimulated });
   const anatomy = anatomyWatch(extras.anatomy);
   const ctx = reviewContext(opts.mission || "mars");
@@ -107,7 +112,7 @@ export function runCase(c, extras = {}, opts = {}) {
       estimate_source: "ILLUSTRATIVE (OCHMO-TB-007, NTRS 20250002759)", workflow_state: "LOCAL_ACTION_AVAILABLE_GROUND_REVIEW_DEFERRED", ground_review_mode: "ASYNCHRONOUS",
       autonomy_scope: "SAFETY_INTERLOCKS_AND_LOCAL_GUIDANCE_ONLY", medication_authority: "HUMAN_FLIGHT_SURGEON_REQUIRED" },
     engine_versions: ENGINE_VERSIONS,
-    nasa_score: { total: nasa.total, band: nasa.nasa_reference_band, factors: nasa.items.map((i) => ({ group: i.group, points: i.points, rule: i.rule, input: i.value ?? null, source: i.source })) },
+    nasa_score: { total: nasa.total, band: nasa.nasa_reference_band, nasa_documents_note: nasaDocsNote, factors: nasa.items.map((i) => ({ group: i.group, points: i.points, rule: i.rule, input: i.value ?? null, source: i.source })) },
     symptom_report: { level: symptoms.level, ticked: symptoms.ticked_labels, sudden_or_severe: symptoms.sudden_or_severe, checklist_done: symptoms.checklist_done, message_shown: symptoms.message, adds_points: 0 },
     longitudinal_assessment: decision,
     milestones,

@@ -27,6 +27,15 @@ export const MIN_INFLIGHT_STUDIES = 2; // for a DETERIORATING call: two in-fligh
 export const sideClass = (obs) => (obs ? classify({ mean_peak_velocity_cm_s: obs.payload.velocity ?? null, direction: obs.payload.direction ?? null }) : NOT_MEASURED);
 const abnormal = (c) => c === LOW || c === RETRO;
 const BLOCK_TREND = ["STALE", "CONFLICT", "CHAIN_BROKEN", "MISSION_DAY_UNSET"];
+export const BIG_FALL = 0.5; // PROPOSED_LOCAL: a fall of 50% or more from the previous scan on the same side is worth a look
+
+// What the NASA band means for the reader. Never weaker than NASA; 4-6 uses the spec's "consideration" wording.
+export function bandNote(total, band) {
+  if (total > 6) return `NASA band: ${band}. Clinical assessment required (flight surgeon). This state does not lower that priority.`;
+  if (total >= 4) return `NASA band: ${band}. Spec wording: "prophylactic apixaban consideration — clinician review required". The flight surgeon reviews this band.`;
+  if (total >= 2) return `NASA band: ${band}. The flight surgeon acts on the band.`;
+  return null;
+}
 
 function abnormalSides(visit) {
   return ["left", "right"].filter((s) => abnormal(sideClass(visit[s]))).map((s) => `${s} IJV ${sideClass(visit[s]).toLowerCase()}`);
@@ -39,9 +48,11 @@ export function trendState({ visits, symptoms, total, band, blocking }) {
   const latest = visits[visits.length - 1];
   const known = latest ? abnormalSides(latest) : [];
   const bad = blocking.filter((i) => BLOCK_TREND.includes(i.code));
+  const note = bandNote(total, band);
   if (bad.length || inflight.length === 0) {
     const why = bad.length ? bad.map((i) => i.detail) : ["No usable in-flight scan yet. A single scan can still give NASA's +4."];
     if (known.length) why.unshift(`Last scan (day ${latest.day}) showed ${known.join(" and ")}: do not read this as normal.`);
+    if (note) why.push(note);
     return { state: STATES.DATA_INSUFFICIENT, why };
   }
   const why = [];
@@ -55,15 +66,23 @@ export function trendState({ visits, symptoms, total, band, blocking }) {
     const gPrev = [...earlierInflight].reverse().map((v) => v[side]?.payload.sec_grade ?? null).find((x) => x !== null) ?? null;
     if (g !== null && gPrev !== null && g > gPrev && g >= 3) { deteriorating = true; why.push(`${side} IJV: SEC grade rose ${gPrev} to ${g} between in-flight scans.`); }
   }
-  if (deteriorating) return { state: STATES.DETERIORATING, why };
+  if (deteriorating) return { state: STATES.DETERIORATING, why: note ? [...why, note] : why };
   const secHigh = ["left", "right"].some((s) => (latest[s]?.payload.sec_grade ?? 0) >= 3);
   if (known.length) why.push(inflight.length < MIN_INFLIGHT_STUDIES ? `New in-flight finding vs the pre-flight baseline: ${known.join(" and ")}.` : `Latest scan: ${known.join(" and ")}.`);
   if (secHigh) why.push("Latest scan SEC grade 3 or 4.");
+  const prev = visits[visits.length - 2];
+  for (const side of ["left", "right"]) {
+    const v = latest[side]?.payload.velocity ?? null, pv = prev?.[side]?.payload.velocity ?? null;
+    if (v !== null && pv && !abnormal(sideClass(latest[side])) && (pv - v) / pv >= BIG_FALL) {
+      why.push(`${side} IJV ${v} cm/s${v === 10 ? ": at NASA's threshold (not below it)" : ""}, a ${Math.round(((pv - v) / pv) * 100)}% fall from the previous scan (day ${prev.day}${prev.day <= 0 ? ", pre-flight; some fall is expected with the fluid shift" : ""}). Below-threshold criteria not met; does not exclude stasis.`);
+    }
+  }
   if (symptoms && symptoms.level === "report_today") why.push("Non-emergency symptom reported.");
   if (symptoms && symptoms.level === "not_done") why.push("Symptom checklist not done today.");
-  if (total >= 2) why.push(`No configured deterioration pattern, but the NASA band applies: ${band}. The flight surgeon acts on the band.`);
+  if (note) why.push(`No configured deterioration pattern. ${note}`);
   if (why.length) return { state: STATES.WATCH, why };
-  return { state: STATES.STABLE, why: [`NASA score ${total}; serial scans show no configured deterioration pattern; SEC grade below 3; no listed symptoms. Not proof of no thrombosis.`] };
+  const secKnown = ["left", "right"].some((s) => (latest[s]?.payload.sec_grade ?? null) !== null);
+  return { state: STATES.STABLE, why: [`NASA score ${total}; serial scans show no configured deterioration pattern; ${secKnown ? "SEC grade below 3" : "SEC grade not recorded"}; no listed symptoms. Not proof of no thrombosis.`] };
 }
 
 // Team rule (PROPOSED_LOCAL): an assessment may be offered when the latest scan is low/retrograde or SEC 3-4.
@@ -83,6 +102,8 @@ export function flowLifecycle({ study, indicated, redFlag }) {
   }
   const base = { order_id: study.payload.order_id || null, ordered_by_role: study.payload.ordered_by_role || null, protocol: study.payload.protocol_id || "mission-approved protocol" };
   if (!base.order_id || !base.ordered_by_role) return { ...base, status: FLOW.INCOMPLETE, note: "Not authorised: no flight-surgeon order recorded, so no result is shown." };
+  if (study.payload.exclusions_cleared !== true) return { ...base, status: FLOW.INCOMPLETE, note: "Exclusion checks not recorded (thrombus assessment, haemodynamic stability, signal quality): no result shown." };
+  base.exclusion_checks = study.payload.exclusion_checks || null;
   const before = classify({ mean_peak_velocity_cm_s: study.payload.before?.velocity ?? null, direction: study.payload.before?.direction ?? null });
   const after = classify({ mean_peak_velocity_cm_s: study.payload.after?.velocity ?? null, direction: study.payload.after?.direction ?? null });
   if (!abnormal(before) || after === NOT_MEASURED) {

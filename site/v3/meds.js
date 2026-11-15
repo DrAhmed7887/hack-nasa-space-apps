@@ -33,13 +33,13 @@ export const INTERACTIONS = Object.freeze({
   sertraline: BLEED("SSRI"), escitalopram: BLEED("SSRI"), venlafaxine: BLEED("SNRI"),
 });
 
-export function medicationReview({ meds, plan, today }) {
+export function medicationReview({ meds, plan, today, concern = false }) {
   const regimen = own(REGIMENS, meds?.regimen) ? meds.regimen : "none";
   const out = {
     regimen, regimen_label: REGIMENS[regimen].label, regimen_source: REGIMENS[regimen].source,
     recorded_by_role: meds?.recorded_by_role || null,
     interactions: [], landing: null, evas: [], inventory: [],
-    bleeding_context: { text: "Terrestrial reference estimate — approximately 1.4% per year major bleeding in the AVERROES atrial-fibrillation study population (mean age 70, apixaban 5 mg twice daily, not the 2.5 mg prophylaxis dose). This is not an individual astronaut's predicted bleeding risk and is not a direct estimate for spaceflight prophylaxis.", source: "SP-p11-averroes" },
+    bleeding_context: { text: "NASA's table (SP p.11) lists AVERROES (apixaban 5 mg vs aspirin): major bleeding 1.4% vs 1.2%. Terrestrial reference; different population and dose (not 2.5 mg prophylaxis); not an individual or spaceflight estimate.", source: "SP-p11-averroes" },
     signoff_required: true,
   };
   if (regimen !== "none") {
@@ -70,7 +70,8 @@ export function medicationReview({ meds, plan, today }) {
   }
   if (regimen === "prophylaxis" && signed) {
     for (const d of plan.eva_days || []) {
-      out.evas.push({ eva_day: d, text: `High-risk EVA on day ${d}: NASA reference is to stop prophylaxis 24 h before (no later than day ${d - 1}) or per an individual PK/PD plan, and restart after the EVA.`, source: EVA_HOLD.source });
+      if (Number.isFinite(today) && d < today) { out.evas.push({ eva_day: d, text: `EVA on day ${d} is in the past; no reference shown.`, source: null }); continue; }
+      out.evas.push({ eva_day: d, text: `High-risk EVA on day ${d}: NASA reference is to stop prophylaxis 24 h before (no later than day ${d - 1}) or per an individual PK/PD plan, and restart after the EVA.${concern ? " Thrombosis not yet excluded; if found, NASA reference is no EVA or ARED for at least 30 days (MTB-007 p.12). The flight surgeon decides whether the EVA proceeds." : ""}`, source: EVA_HOLD.source });
     }
   }
   if (regimen === "treatment") {

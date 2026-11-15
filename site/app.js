@@ -1,7 +1,7 @@
 // AI-assisted: written with Claude Code (Anthropic) for the NASA Space Apps 2026 entry. Synthetic data only.
 // UI for the VTE score calculator, the v3 clinical engine panel and the flight-surgeon packet. The score comes from score.js (port of vte/score.py).
 import { SYMPTOMS, assess, emptyReport } from "./symptoms.js";
-import { classify, ijvFromScans, latestInFlight, scanState, trendRows, FORWARD, LOW, RETRO, NOT_MEASURED, TREND_NOTE } from "./trend.js";
+import { classify, ijvFromScans, latestInFlight, trendRows, FORWARD, LOW, RETRO, NOT_MEASURED, TREND_NOTE } from "./trend.js";
 import { score, scanSchedule, nextScan, reviewContext, fmtSeconds, MISSIONS, SOURCES, InputError } from "./score.js";
 import { runCase, packetSummary, SIGNOFF_DECISIONS } from "./v3/pipeline.js";
 import { V3_SOURCES } from "./v3/sources.js";
@@ -306,6 +306,7 @@ function renderV3(c, res) {
   const nodes = [
     h("p", { class: "sym-msg " + (STATE_CLASS[d.state] || "") }, h("b", {}, d.state.replaceAll("_", " ")), ": ", d.action),
     h("ul", { class: "hint" }, d.why.map((w) => h("li", {}, w))),
+    ...(p.nasa_score.nasa_documents_note ? [h("p", { class: "notice" }, p.nasa_score.nasa_documents_note)] : []),
     h("p", { class: "notice" }, h("b", {}, `Venous Flow Response Assessment: ${fr.status.replaceAll("_", " ")}. `),
       fr.before ? `Order ${fr.order_id} (${fr.ordered_by_role}, ${fr.protocol}): ${fr.before} → ${fr.after}. ` : "", fr.note || "", fr.action ? ` ${fr.action}` : ""),
     h("p", { class: "hint" }, "Bounded states, never a score: NASA's points above are unchanged by anything in this panel. Trend rules are the team's (PROPOSED_LOCAL), not clinically validated."),
@@ -340,7 +341,7 @@ function renderV3(c, res) {
   out.append(h("h3", {}, "Medication safety and landing (every change needs flight-surgeon sign-off)"),
     h("ul", { class: "pkt" },
       item("Recorded regimen", `${m.regimen_label}${m.recorded_by_role ? ` (recorded by ${m.recorded_by_role})` : ""}. `, v3src(m.regimen_source)),
-      item("Landing", m.landing.label ? h("b", {}, m.landing.label, " ") : "", m.landing.text, m.landing.days_until != null ? ` Days until that point: ${m.landing.days_until}.` : "", m.landing.differs ? ` ${m.landing.differs}` : "", m.landing.source ? [" ", v3src(m.landing.source)] : ""),
+      item("Landing", m.landing.label ? h("b", {}, m.landing.label, " ") : "", m.landing.text, m.landing.days_until != null ? (m.landing.days_until >= 0 ? ` Days until that point: ${m.landing.days_until}.` : " That day has already passed: the flight surgeon reviews the plan.") : "", m.landing.differs ? ` ${m.landing.differs}` : "", m.landing.source ? [" ", v3src(m.landing.source)] : ""),
       ...m.evas.map((x) => item("EVA", x.text, " ", v3src(x.source))),
       ...m.interactions.map((x) => item(`Interaction check: ${x.drug.replaceAll("_", " ")}`, `${x.class ? x.class + ", " + x.effect + ". " : ""}${x.flag} ${x.dose_note || ""} `, v3src(x.source))),
       item("Bleeding context", m.bleeding_context.text, " ", v3src(m.bleeding_context.source)),
@@ -351,7 +352,7 @@ function renderV3(c, res) {
   const dq = p.data_quality;
   out.append(h("h3", {}, "Data quality, provenance and the Flight-Surgeon Packet"),
     h("p", { class: p.packet_status === "INCOMPLETE" ? "error" : "hint" }, `Packet ${p.packet_id}: ${p.packet_status.replaceAll("_", " ")}. `,
-      p.packet_status === "INCOMPLETE" ? `Not decision-ready: ${p.missing_or_blocking.join("; ")}.` : p.packet_status === "SIGNED" ? "Signed (simulation; never operational)." : "Evidence complete; awaiting flight-surgeon review."),
+      p.packet_status === "INCOMPLETE" ? `Not decision-ready: ${p.missing_or_blocking.join("; ")}.` : p.packet_status === "SIGNED" ? "Signed (simulation; never operational)." : "No blocking data gaps found by the configured checks; awaiting flight-surgeon review."),
     h("p", { class: "hint" }, `Provenance: ${Object.entries(p.provenance).map(([k, v]) => `${k} ${v}`).join(", ")}. Audit chain ${dq.audit_chain.ok ? "intact" : "BROKEN at " + dq.audit_chain.broken_at}. Unresolved conflicts: ${dq.unresolved_conflicts}. Ground review: ${p.comms_profile.ground_review_mode.toLowerCase()}, medication authority: human flight surgeon.`),
     h("details", {}, h("summary", {}, `Data-quality notes (${dq.issues.length})`), h("ul", { class: "hint" }, dq.issues.map((i) => h("li", {}, `${i.code}${i.blocking ? " (blocking)" : ""}: ${i.detail}`)))),
     h("div", { class: "flight-bar" },
@@ -524,7 +525,7 @@ async function init() {
   $("sym-form").addEventListener("input", onEdit);
   $("sym-clear").addEventListener("click", () => { fillSymptoms(emptyReport()); onEdit(); });
   $("form").addEventListener("change", () => { syncIjvDisabled(); onEdit(); });
-  document.querySelectorAll('input[name="mission"]').forEach((r) => r.addEventListener("change", () => { setMission(r.value); render(); }));
+  document.querySelectorAll('input[name="mission"]').forEach((r) => r.addEventListener("change", () => { state.signoff = null; setMission(r.value); render(); }));
   render();
 }
 

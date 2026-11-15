@@ -46,7 +46,7 @@ test("C09 (10 points) is never STABLE", () => {
   const r = runCase(byId("C09"));
   assert.equal(r.nasa.total, 10);
   assert.notEqual(r.trend.state, STATES.STABLE);
-  assert.match(r.trend.why.join(" "), new RegExp(r.nasa.nasa_reference_band.slice(0, 12).replace(/[()+.]/g, ".")));
+  assert.ok(r.trend.why.join(" ").includes(r.nasa.nasa_reference_band), "why must name the full NASA band");
 });
 test("C07 (day 30, single in-flight scan) is WATCH, not DETERIORATING, with the pre-flight baseline wording", () => {
   const r = runCase(byId("C07"));
@@ -104,7 +104,7 @@ test("mission_day null: INCOMPLETE with MISSION_DAY_UNSET", () => {
 });
 
 // ---- flow lifecycle ----
-const study = (o = {}) => ({ payload: { order_id: "O1", ordered_by_role: "flight surgeon", before: { velocity: 5, direction: "anterograde" }, after: { velocity: 20, direction: "anterograde" }, ...o } });
+const study = (o = {}) => ({ payload: { order_id: "O1", ordered_by_role: "flight surgeon", exclusions_cleared: true, before: { velocity: 5, direction: "anterograde" }, after: { velocity: 20, direction: "anterograde" }, ...o } });
 test("flowLifecycle: every status", () => {
   assert.equal(flowLifecycle({ study: null, indicated: false, redFlag: false }).status, FLOW.NOT_INDICATED);
   assert.equal(flowLifecycle({ study: null, indicated: true, redFlag: false }).status, FLOW.INDICATED_PENDING_AUTHORIZATION);
@@ -116,6 +116,21 @@ test("flowLifecycle: every status", () => {
   assert.equal(flowLifecycle({ study: study({ order_id: null }), indicated: true, redFlag: false }).status, FLOW.INCOMPLETE);
   assert.equal(flowLifecycle({ study: study({ before: { velocity: 30, direction: "anterograde" } }), indicated: true, redFlag: false }).status, FLOW.INCOMPLETE);
   assert.equal(flowLifecycle({ study: study({ after: {} }), indicated: true, redFlag: false }).status, FLOW.INCOMPLETE);
+  // spec v3.1 §9.2: no result unless the exclusion checks are recorded as cleared
+  const noEx = flowLifecycle({ study: study({ exclusions_cleared: undefined }), indicated: true, redFlag: false });
+  assert.equal(noEx.status, FLOW.INCOMPLETE);
+  assert.match(noEx.note, /Exclusion checks not recorded/);
+});
+test("round-2 clinical: C06 (fall to exactly 10.0) is WATCH, never STABLE; missing SEC says 'not recorded'; >6 band keeps priority", () => {
+  const c06 = runCase(byId("C06"), {});
+  assert.equal(c06.trend.state, STATES.WATCH);
+  assert.match(c06.trend.why.join(" "), /at NASA's threshold \(not below it\)/);
+  const c01 = runCase(byId("C01"), {});
+  if (c01.trend.state === STATES.STABLE) assert.match(c01.trend.why.join(" "), /SEC grade not recorded/);
+  for (const id of ["C07", "C09"]) assert.match(runCase(byId(id), {}).trend.why.join(" "), /does not lower that priority/);
+  const c04 = runCase(byId("C04"), extrasFor("C04"));
+  assert.match(c04.trend.why.join(" "), /prophylactic apixaban consideration — clinician review required/);
+  assert.match(c04.packet.nasa_score.nasa_documents_note || "", /monitored more often, and hydration should be ensured/);
 });
 test("flowIndicated: latest in-flight low/retrograde or SEC>=3; baseline-only or normal is false", () => {
   assert.equal(flowIndicated([visit(0, [5], [5])]), false);

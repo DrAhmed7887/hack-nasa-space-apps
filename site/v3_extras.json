@@ -11,7 +11,7 @@
    "scans": [
     {"label": "Baseline", "day": 0, "in_flight": false, "recorded": true, "left": {"mean_peak_velocity_cm_s": 32.0, "direction": "anterograde"}, "right": {"mean_peak_velocity_cm_s": 41.0, "direction": "anterograde"}},
     {"label": "L+30 days", "day": 30, "in_flight": true, "recorded": true, "left": {"mean_peak_velocity_cm_s": 17.5, "direction": "anterograde"}, "right": {"mean_peak_velocity_cm_s": 44.0, "direction": "anterograde"}},
-    {"label": "L+47 (unscheduled)", "day": 47, "in_flight": true, "recorded": true, "left": {"mean_peak_velocity_cm_s": 8.0, "direction": "anterograde"}, "right": {"mean_peak_velocity_cm_s": 39.0, "direction": "anterograde"}},
+    {"label": "L+47 (unscheduled, flight-surgeon ordered after L+30 slowing)", "day": 47, "in_flight": true, "recorded": true, "left": {"mean_peak_velocity_cm_s": 8.0, "direction": "anterograde"}, "right": {"mean_peak_velocity_cm_s": 39.0, "direction": "anterograde"}},
     {"label": "L+60 days", "day": 60, "in_flight": true, "recorded": false, "left": {"mean_peak_velocity_cm_s": null, "direction": null}, "right": {"mean_peak_velocity_cm_s": null, "direction": null}},
     {"label": "R-42 days", "day": 138, "in_flight": true, "recorded": false, "left": {"mean_peak_velocity_cm_s": null, "direction": null}, "right": {"mean_peak_velocity_cm_s": null, "direction": null}}
    ],
@@ -22,6 +22,7 @@
    "sec": {"Baseline": {"left": 1, "right": 1}, "L+30 days": {"left": 2, "right": 1}, "L+60 days": {"left": 4, "right": 1}},
    "wearable": [{"day": 45, "velocity": 18.0}, {"day": 52, "velocity": 14.5}, {"day": 59, "velocity": 11.0}],
    "flow_response": {"day": 60, "order_id": "FS-ORD-0007", "ordered_by_role": "flight surgeon", "protocol_id": "SYNTH-PROTOCOL-01 (mission-approved, synthetic)",
+                     "exclusions_cleared": true, "exclusion_checks": {"thrombus_assessment": "NOT_SEEN_ON_THIS_EXAM (clinician-entered, synthetic)", "haemodynamics": "stable", "signal_quality": "GOOD"},
                      "before": {"velocity": 8.5, "direction": "anterograde"}, "after": {"velocity": 16.0, "direction": "anterograde"}},
    "anatomy": {"right_mm": 12.1, "left_mm": 7.1, "ratio_type": "DIAMETER", "metric_definition_status": "CONFIRMED"},
    "meds": {"regimen": "prophylaxis", "recorded_by_role": "flight surgeon", "concomitant": ["itraconazole", "ibuprofen"]},
@@ -39,7 +40,7 @@
    "plan": null
   },
   "C12": {
-   "sec": {"Baseline": {"left": 1, "right": 1}, "L+30 days": {"left": 2, "right": 1}, "L+47 (unscheduled)": {"left": 3, "right": 1}},
+   "sec": {"Baseline": {"left": 1, "right": 1}, "L+30 days": {"left": 2, "right": 1}, "L+47 (unscheduled, flight-surgeon ordered after L+30 slowing)": {"left": 3, "right": 1}},
    "ddimer_baseline_day": 14,
    "anatomy": {"right_mm": 11.5, "left_mm": 7.1, "ratio_type": "DIAMETER", "metric_definition_status": "CONFIRMED"},
    "meds": {"regimen": "none"}

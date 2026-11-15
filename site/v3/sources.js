@@ -45,7 +45,7 @@ export const V3_SOURCES = {
   "SP-p21-ratio": {
     doc: "NASA/SP-20260005258 REV1 (July 2026), p.21",
     url: "https://www.nasa.gov/wp-content/uploads/2026/06/risk-venous-thromboembolism-assessment-sp20260005258.pdf",
-    quote: "IJV cross-sectional area right/left ratio provides a pre-flight indicator of those who will not develop stasis. Additional data and analysis are needed to determine if the ratio can be used to predict those who will develop stasis.",
+    quote: "when right to left ratio of IJV diameters at the skull base were <1.55 cm (of 15 individuals), no stasis or retrograde flow was observed ... When the ratio was >1.55 cm, 50% (8/16 individuals) experienced stasis (<10 cm/s) and/or retrograde flow. ... IJV cross-sectional area right/left ratio provides a pre-flight indicator of those who will not develop stasis. Additional data and analysis are needed to determine if the ratio can be used to predict those who will develop stasis.",
   },
   "SP-p37-ddimer": {
     doc: "NASA/SP-20260005258 REV1 (July 2026), p.37",
