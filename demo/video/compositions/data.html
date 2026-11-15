@@ -1,0 +1,74 @@
+<template>
+<!-- AI-assisted: written with Claude Code (Anthropic) for the NASA Space Apps 2026 entry. Numbers are the engine's own output on the 12 synthetic cases (site/v3/pipeline.js), checked 15 Nov 2026. -->
+  <style>
+    #data { position:absolute; inset:0; background:#080d12; color:#e9eff4; font-family:Inter, sans-serif; overflow:hidden }
+    #dt-head { position:absolute; left:120px; top:92px; font-size:60px; font-weight:900; letter-spacing:-1.5px }
+    #dt-head span { color:#5cc8da }
+    #dt-sub { position:absolute; left:124px; top:172px; font-family:"JetBrains Mono", monospace; font-size:28px; color:#8d9ca8 }
+    #dt-row { position:absolute; left:120px; right:120px; top:250px; height:250px; display:flex; gap:14px }
+    .dt-t { flex:1; border:2px solid #2b3b48; border-radius:12px; background:#0f1820; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative }
+    .dt-t b { font-size:84px; font-weight:900; line-height:1; font-variant-numeric:tabular-nums }
+    .dt-t small { font-family:"JetBrains Mono", monospace; font-size:24px; color:#8d9ca8; margin-top:10px }
+    .dt-t em { position:absolute; bottom:12px; font-style:normal; font-size:20px; color:#8d9ca8; font-family:"JetBrains Mono", monospace }
+    #dt-low { position:absolute; left:120px; top:520px; font-size:34px; font-weight:700; color:#9fb0bd }
+    #dt-low b { color:#e9eff4 }
+    #dt-flags { position:absolute; left:120px; right:120px; top:600px; display:flex; gap:24px }
+    .dt-f { flex:1; border-radius:14px; padding:22px 26px; background:#0f1820; border-left:8px solid #e8a33d }
+    .dt-f.r { border-left-color:#e5574b }
+    .dt-f.s { border-left-color:#3a4b58 }
+    .dt-f .id { font-family:"JetBrains Mono", monospace; font-size:28px; color:#8d9ca8 }
+    .dt-f .st { font-family:"JetBrains Mono", monospace; font-size:30px; font-weight:700; margin-top:6px }
+    .dt-f .w { font-size:34px; font-weight:700; margin-top:10px; line-height:1.2 }
+    #dt-big { position:absolute; right:120px; top:78px; font-size:120px; font-weight:900; letter-spacing:-4px; color:#e8a33d; line-height:1 }
+    #dt-big small { font-size:44px; color:#e9eff4; letter-spacing:-1px; font-weight:800 }
+    #dt-foot { position:absolute; left:120px; right:120px; top:930px; font-family:"JetBrains Mono", monospace; font-size:28px; color:#8d9ca8 }
+  </style>
+  <div id="data" data-composition-id="data" data-width="1920" data-height="1080">
+    <div id="dt-head" class="clip" data-start="0" data-duration="30">NASA score alone <span>vs VTE Watch</span></div>
+    <div id="dt-sub" class="clip" data-start="0" data-duration="30">our 12 synthetic test cases &middot; NASA points per case</div>
+    <div id="dt-row" class="clip" data-start="0" data-duration="30">
+      <div class="dt-t lo" id="dt-c01"><b>0</b><small>C01</small></div>
+      <div class="dt-t lo" id="dt-c02"><b>1</b><small>C02</small></div>
+      <div class="dt-t" id="dt-c03"><b>3</b><small>C03</small></div>
+      <div class="dt-t" id="dt-c04"><b>5</b><small>C04</small></div>
+      <div class="dt-t" id="dt-c05"><b>9</b><small>C05</small><em>2 drug flags</em></div>
+      <div class="dt-t lo" id="dt-c06"><b>0</b><small>C06</small></div>
+      <div class="dt-t" id="dt-c07"><b>7</b><small>C07</small></div>
+      <div class="dt-t" id="dt-c08"><b>4</b><small>C08</small></div>
+      <div class="dt-t" id="dt-c09"><b>10</b><small>C09</small></div>
+      <div class="dt-t lo" id="dt-c10"><b>1</b><small>C10</small></div>
+      <div class="dt-t lo" id="dt-c11"><b>1</b><small>C11</small></div>
+      <div class="dt-t" id="dt-c12"><b>6</b><small>C12</small></div>
+    </div>
+    <div id="dt-low" class="clip" data-start="0" data-duration="30"><b>5 cases score 0&ndash;1 point.</b> The score alone shows no extra action.</div>
+    <div id="dt-flags" class="clip" data-start="0" data-duration="30">
+      <div class="dt-f" id="dt-f06"><div class="id">C06 &middot; 0 points</div><div class="st" style="color:#e8a33d">WATCH</div><div class="w">Left IJV flow fell 75% from pre-flight, to NASA's 10 cm/s line</div></div>
+      <div class="dt-f" id="dt-f10"><div class="id">C10 &middot; 1 point</div><div class="st" style="color:#e8a33d">DATA_INSUFFICIENT</div><div class="w">No in-flight scan: packet blocked as INCOMPLETE</div></div>
+      <div class="dt-f r" id="dt-f11"><div class="id">C11 &middot; 1 point</div><div class="st" style="color:#ff8f84">RED_FLAG_OVERRIDE</div><div class="w">New change in vision: emergency procedure now</div></div>
+      <div class="dt-f s" id="dt-f01"><div class="id">C01, C02 &middot; 0&ndash;1 point</div><div class="st" style="color:#9fb0bd">STABLE</div><div class="w">No false alarm</div></div>
+    </div>
+    <div id="dt-big" class="clip" data-start="0" data-duration="30">3 <small>of 5 flagged</small></div>
+    <div id="dt-foot" class="clip" data-start="0" data-duration="30">Rule-based flags for flight-surgeon review, not diagnoses &middot; synthetic data &middot; no accuracy measured</div>
+  </div>
+  <script>
+    const T_LOW = 1.55, T_BIG = 5.05, T_F06 = 5.45, T_F10 = 7.2, T_F11 = 8.3, T_F01 = 9.0; // voice anchors (s)
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#dt-head", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.4, ease: "expo.out" }, 0);
+    tl.fromTo("#dt-sub", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.2);
+    tl.fromTo("#dt-row .dt-t", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out", stagger: 0.05 }, 0.2);
+    tl.to("#dt-row .dt-t:not(.lo)", { opacity: 0.28, duration: 0.4, ease: "power2.inOut" }, T_LOW);
+    tl.fromTo("#dt-row .lo", { borderColor: "#2b3b48" }, { borderColor: "#5cc8da", duration: 0.3 }, T_LOW);
+    tl.fromTo("#dt-low", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "expo.out" }, T_LOW + 0.1);
+    tl.to("#dt-low", { opacity: 0, duration: 0.2, ease: "power3.in" }, T_F06 - 0.25);
+    tl.fromTo("#dt-big", { opacity: 0, scale: 1.2 }, { opacity: 1, scale: 1, duration: 0.4, ease: "expo.out" }, T_BIG);
+    tl.fromTo("#dt-f06", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out" }, T_F06);
+    tl.fromTo("#dt-c06", { borderColor: "#5cc8da" }, { borderColor: "#e8a33d", duration: 0.3 }, T_F06);
+    tl.fromTo("#dt-f10", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out" }, T_F10);
+    tl.fromTo("#dt-c10", { borderColor: "#5cc8da" }, { borderColor: "#e8a33d", duration: 0.3 }, T_F10);
+    tl.fromTo("#dt-f11", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out" }, T_F11);
+    tl.fromTo("#dt-c11", { borderColor: "#5cc8da" }, { borderColor: "#e5574b", duration: 0.3 }, T_F11);
+    tl.fromTo("#dt-f01", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out" }, T_F01);
+    tl.fromTo("#dt-foot", { opacity: 0 }, { opacity: 1, duration: 0.3 }, T_F06 + 0.3);
+    window.__timelines["data"] = tl;
+  </script>
+</template>

@@ -5,19 +5,19 @@
   "lines": [
     {
       "id": "hook",
-      "text": "In NASA's own data, 8 of 31 astronauts had abnormal jugular-vein flow in flight."
+      "text": "Eight of thirty-one astronauts in NASA's study had abnormal jugular-vein flow in flight."
     },
     {
       "id": "problem",
       "text": "Near Mars, a clot can't wait: NASA lists delays of up to 40 minutes, and no evacuation."
     },
     {
-      "id": "diagnosis",
-      "text": "NASA's new risk score is one snapshot. Scans, symptoms and medicines keep changing."
+      "id": "data",
+      "text": "In our twelve test cases, five scored low. VTE Watch still flagged three: a seventy-five percent flow drop, a missing scan, and an emergency symptom."
     },
     {
       "id": "solution",
-      "text": "VTE Watch keeps that score unchanged, tracks every scan, flags emergency symptoms onboard, and checks blood thinners before landing. The flight surgeon signs every decision."
+      "text": "Scans and symptoms go in, checks run onboard, and the flight surgeon signs every decision."
     }
   ],
   "bgm": {

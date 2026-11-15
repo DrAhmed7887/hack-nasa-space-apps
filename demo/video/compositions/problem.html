@@ -32,8 +32,7 @@
   <script>
     const tl = gsap.timeline({ paused: true });
     const n = { v: 0 };
-    tl.fromTo("#pb-earth", { x: -60, opacity: 0.4 }, { x: 0, opacity: 1, duration: 0.6, ease: "expo.out" }, 0);
-    tl.fromTo("#pb-mars", { x: 60, opacity: 0.4 }, { x: 0, opacity: 1, duration: 0.6, ease: "expo.out" }, 0);
+    tl.fromTo("#pb-mars", { x: 260, opacity: 0 }, { x: 0, opacity: 1, duration: 0.8, ease: "expo.out" }, 0);
     tl.fromTo("#pb-line", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.6, ease: "power2.inOut" }, 0.1);
     tl.fromTo("#pb-dot", { x: 0 }, { x: 1032, duration: 3.2, ease: "none" }, 0.5);
     tl.fromTo(n, { v: 0 }, { v: 40, duration: 3.2, ease: "none", onUpdate: () => { document.querySelector("#pb-num").textContent = String(Math.round(n.v)); } }, 0.5);

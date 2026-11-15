@@ -1,63 +1,65 @@
 <template>
 <!-- AI-assisted: written with Claude Code (Anthropic) for the NASA Space Apps 2026 entry. -->
   <style>
-    #hook { position:absolute; inset:0; background:#eef2f5; color:#0b1a22; font-family:Inter, sans-serif; overflow:hidden }
-    #hook-num { position:absolute; left:150px; top:150px; font-size:230px; font-weight:900; letter-spacing:-6px; line-height:1 }
-    #hook-num .of { color:#4f5f6b; font-weight:700; font-size:120px; letter-spacing:-2px }
-    #hook-num .amber { color:#a8650c }
-    #hook-cap { position:absolute; left:156px; top:405px; font-size:40px; font-weight:500; color:#24323c; max-width:1200px; line-height:1.25 }
-    #hook-cap b { color:#0b1a22; font-weight:800 }
-    #hook-strip { position:absolute; left:150px; right:150px; bottom:220px; height:190px; display:flex; gap:18px; align-items:flex-end }
-    .hk-bar { flex:1; height:100%; border-radius:12px; background:#c9d3da }
-    #hook-src { position:absolute; left:156px; bottom:150px; font-family:"JetBrains Mono", monospace; font-size:28px; color:#4f5f6b }
+    #hook { position:absolute; inset:0; background:#04070a; color:#e9eff4; font-family:Inter, sans-serif; overflow:hidden }
+    #hk-earth { position:absolute; left:150px; top:330px; width:300px; height:300px; border-radius:50%;
+      background:radial-gradient(circle at 35% 35%, #7fd0e6 0%, #2a7aa8 38%, #123b5c 75%, #0a1f33 100%) }
+    #hk-ring { position:absolute; inset:0 }
+    .hk-dot { position:absolute; width:22px; height:22px; border-radius:50%; background:#3a4b58 }
+    #hk-num { position:absolute; left:760px; top:300px; font-size:240px; font-weight:900; letter-spacing:-7px; line-height:1 }
+    #hk-num .a { color:#e8a33d } #hk-num .of { font-size:120px; color:#8d9ca8; font-weight:700; letter-spacing:-2px }
+    #hk-cap { position:absolute; left:768px; top:560px; font-size:46px; font-weight:600; line-height:1.25; max-width:1000px }
+    #hk-cap b { color:#e8a33d }
+    #hk-src { position:absolute; left:768px; top:720px; font-family:"JetBrains Mono", monospace; font-size:28px; color:#8d9ca8 }
   </style>
   <div id="hook" data-composition-id="hook" data-width="1920" data-height="1080">
-    <div id="hook-strip" class="clip" data-start="0" data-duration="20">
-      <div class="hk-bar" id="hk-b0"></div>
-      <div class="hk-bar" id="hk-b1"></div>
-      <div class="hk-bar hk-hit" id="hk-b2"></div>
-      <div class="hk-bar" id="hk-b3"></div>
-      <div class="hk-bar" id="hk-b4"></div>
-      <div class="hk-bar" id="hk-b5"></div>
-      <div class="hk-bar hk-hit" id="hk-b6"></div>
-      <div class="hk-bar" id="hk-b7"></div>
-      <div class="hk-bar" id="hk-b8"></div>
-      <div class="hk-bar hk-hit" id="hk-b9"></div>
-      <div class="hk-bar" id="hk-b10"></div>
-      <div class="hk-bar" id="hk-b11"></div>
-      <div class="hk-bar" id="hk-b12"></div>
-      <div class="hk-bar hk-hit" id="hk-b13"></div>
-      <div class="hk-bar" id="hk-b14"></div>
-      <div class="hk-bar" id="hk-b15"></div>
-      <div class="hk-bar" id="hk-b16"></div>
-      <div class="hk-bar hk-hit" id="hk-b17"></div>
-      <div class="hk-bar" id="hk-b18"></div>
-      <div class="hk-bar" id="hk-b19"></div>
-      <div class="hk-bar" id="hk-b20"></div>
-      <div class="hk-bar" id="hk-b21"></div>
-      <div class="hk-bar hk-hit" id="hk-b22"></div>
-      <div class="hk-bar" id="hk-b23"></div>
-      <div class="hk-bar" id="hk-b24"></div>
-      <div class="hk-bar hk-hit" id="hk-b25"></div>
-      <div class="hk-bar" id="hk-b26"></div>
-      <div class="hk-bar" id="hk-b27"></div>
-      <div class="hk-bar" id="hk-b28"></div>
-      <div class="hk-bar hk-hit" id="hk-b29"></div>
-      <div class="hk-bar" id="hk-b30"></div>
+    <div id="hk-earth" class="clip" data-start="0" data-duration="20"></div>
+    <div id="hk-ring" class="clip" data-start="0" data-duration="20">
+      <i class="hk-dot" style="left:289.0px; top:254.0px"></i>
+      <i class="hk-dot hk-hit" style="left:332.3px; top:258.4px"></i>
+      <i class="hk-dot" style="left:373.8px; top:271.4px"></i>
+      <i class="hk-dot" style="left:411.8px; top:292.5px"></i>
+      <i class="hk-dot" style="left:444.8px; top:320.9px"></i>
+      <i class="hk-dot hk-hit" style="left:471.5px; top:355.3px"></i>
+      <i class="hk-dot" style="left:490.6px; top:394.3px"></i>
+      <i class="hk-dot" style="left:501.5px; top:436.4px"></i>
+      <i class="hk-dot" style="left:503.7px; top:479.9px"></i>
+      <i class="hk-dot hk-hit" style="left:497.1px; top:522.9px"></i>
+      <i class="hk-dot" style="left:482.0px; top:563.7px"></i>
+      <i class="hk-dot" style="left:459.0px; top:600.6px"></i>
+      <i class="hk-dot hk-hit" style="left:429.0px; top:632.1px"></i>
+      <i class="hk-dot" style="left:393.3px; top:657.0px"></i>
+      <i class="hk-dot" style="left:353.4px; top:674.1px"></i>
+      <i class="hk-dot" style="left:310.8px; top:682.9px"></i>
+      <i class="hk-dot hk-hit" style="left:267.2px; top:682.9px"></i>
+      <i class="hk-dot" style="left:224.6px; top:674.1px"></i>
+      <i class="hk-dot" style="left:184.7px; top:657.0px"></i>
+      <i class="hk-dot" style="left:149.0px; top:632.1px"></i>
+      <i class="hk-dot hk-hit" style="left:119.0px; top:600.6px"></i>
+      <i class="hk-dot" style="left:96.0px; top:563.7px"></i>
+      <i class="hk-dot" style="left:80.9px; top:522.9px"></i>
+      <i class="hk-dot" style="left:74.3px; top:479.9px"></i>
+      <i class="hk-dot hk-hit" style="left:76.5px; top:436.4px"></i>
+      <i class="hk-dot" style="left:87.4px; top:394.3px"></i>
+      <i class="hk-dot" style="left:106.5px; top:355.3px"></i>
+      <i class="hk-dot" style="left:133.2px; top:320.9px"></i>
+      <i class="hk-dot hk-hit" style="left:166.2px; top:292.5px"></i>
+      <i class="hk-dot" style="left:204.2px; top:271.4px"></i>
+      <i class="hk-dot" style="left:245.7px; top:258.4px"></i>
     </div>
-    <div id="hook-num" class="clip" data-start="0" data-duration="20"><span class="amber">8</span><span class="of"> of </span>31</div>
-    <div id="hook-cap" class="clip" data-start="0" data-duration="20">astronauts with a <b>left jugular-vein flow anomaly</b> in flight</div>
-    <div id="hook-src" class="clip" data-start="0" data-duration="20">NASA/SP-20260005258 REV1 &middot; one bar per astronaut</div>
+    <div id="hk-num" class="clip" data-start="0" data-duration="20"><span class="a">8</span><span class="of"> of </span>31</div>
+    <div id="hk-cap" class="clip" data-start="0" data-duration="20">astronauts had <b>abnormal jugular-vein flow</b> in flight</div>
+    <div id="hk-src" class="clip" data-start="0" data-duration="20">NASA/SP-20260005258 REV1 &middot; one dot per astronaut</div>
   </div>
   <script>
     const tl = gsap.timeline({ paused: true });
-    tl.fromTo("#hook-strip .hk-bar", { scaleY: 0.55, transformOrigin: "50% 100%" }, { scaleY: 1, duration: 0.7, ease: "expo.out", stagger: 0.012 }, 0);
-    tl.fromTo("#hook-strip .hk-hit", { backgroundColor: "#c9d3da" }, { backgroundColor: "#e8a33d", duration: 0.25, ease: "power2.out", stagger: 0.11 }, 1.1);
-    tl.fromTo("#hook-num", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "expo.out" }, 0.35);
-    tl.fromTo("#hook-cap", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "expo.out" }, 1.0);
-    tl.fromTo("#hook-src", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 1.6);
-    tl.to("#hook-strip .hk-bar:not(.hk-hit)", { opacity: 0.4, duration: 0.6, ease: "power2.inOut" }, 3.0);
-    tl.fromTo("#hook-strip .hk-hit", { scaleY: 1 }, { scaleY: 1.12, duration: 0.6, ease: "expo.out", stagger: 0.04 }, 3.1);
+    tl.fromTo("#hk-earth", { scale: 1.5, x: 260 }, { scale: 1, x: 0, duration: 1.2, ease: "power2.inOut" }, 0);
+    tl.fromTo("#hk-ring .hk-dot", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.35, ease: "expo.out", stagger: 0.025 }, 0.5);
+    tl.fromTo("#hk-num", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "expo.out" }, 0.9);
+    tl.fromTo("#hk-ring .hk-hit", { backgroundColor: "#3a4b58", scale: 1 }, { backgroundColor: "#e8a33d", scale: 1.35, duration: 0.25, ease: "expo.out", stagger: 0.12 }, 1.6);
+    tl.fromTo("#hk-cap", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "expo.out" }, 1.9);
+    tl.fromTo("#hk-src", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 2.4);
+    tl.to("#hk-ring", { rotation: 12, transformOrigin: "300px 480px", duration: 6, ease: "none" }, 0);
     window.__timelines["hook"] = tl;
   </script>
 </template>
