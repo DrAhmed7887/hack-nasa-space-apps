@@ -29,7 +29,7 @@ NASA-derived, label-derived, PROPOSED_LOCAL (team rule, not clinically validated
 Before v3 the suite had 79 tests. The 5 tests in `tests/test_handoff.py` tested the A2A agents, which the spec requires to be removed (§2.1); they were removed with them. The remaining 74 Python tests pass unchanged except one path list in `tests/test_i4_context.py` (the deleted `vte/packet.py` swapped for the v3 files). The v3.1 criteria are tested in `tests/v3/`.
 
 ## Not built (documented for later)
-Five-stage manoeuvre logger with abort and adverse-event capture, astronaut and flight-surgeon split views, encryption at rest and role-based access, ground acknowledgement, D-dimer assay comparability metadata, sync-conflict resolution UI.
+Five-stage manoeuvre logger with abort and adverse-event capture, astronaut and flight-surgeon split views, encryption at rest and role-based access, ground acknowledgement, D-dimer assay comparability metadata, sync-conflict resolution UI, saving the record between sessions and importing new observations (added 15 Nov after an external review; no rule changed).
 
 ## Sign-off
 Rules 2, 4-8 are PROPOSED_LOCAL team rules, not clinically validated. **Signed by the team physician on 15 Nov 2026, 13:18 Valencia time** ("Yes, I sign them"), as written in this file at commit e0017de. Signing approves them for this synthetic-data prototype only; it is not clinical validation.

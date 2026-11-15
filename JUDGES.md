@@ -17,5 +17,8 @@ Every fix that a review or a judge-style check asks for, with its cost, so the t
 
 | Item | Found by | Hours | Status |
 |---|---|---|---|
+| README said duplicate data make the packet INCOMPLETE; the code blocks only conflicting values (an identical duplicate changes no value) | external review, 15 Nov | 0.1 | fixed: wording narrowed in README and CLAIMS |
+| The record is rebuilt each run; no saving between sessions, no import | external review, 15 Nov | 3-4 to build | labelled as a limit in README, CLAIMS and V3_RULES "Not built" |
+| Say who uses it (astronaut, crew medical officer, flight surgeon) and why VTE | external review, 15 Nov | 0.2 | README "Who uses it, and why VTE" |
 
 _AI-assisted: this file was drafted with Claude Code and is checked by the team._
