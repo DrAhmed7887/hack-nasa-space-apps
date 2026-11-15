@@ -1,10 +1,10 @@
-# VTE Watch: astronaut blood-clot risk, scored the way NASA publishes it
+# VTE Watch: NASA-referenced clot risk, organized for flight-surgeon review
 
 An entry for the **NASA Space Apps Challenge 2026**, challenge [Create Health Monitoring Software for Astronauts on Space Missions](https://www.spaceappschallenge.org/2026/challenges/health-monitoring-software/) (Boston local event, virtual). Team: Orbital Health Informatics.
 
 **Try it:** the app link goes here once GitHub Pages is live. No login. **Rebuild everything:** `bash scripts/reproduce.sh` (offline, no keys).
 
-> Synthetic data only. The score is a **reference for clinician review**, following NASA's published method. It is not a diagnosis, a prediction or a prescription.
+> **SIMULATION: NOT FOR OPERATIONAL MEDICAL USE.** Synthetic data only. VTE Watch ranks and organizes NASA-referenced risk for flight-surgeon review. It does not detect, diagnose or predict clots, and the risk score is not a diagnostic test. New symptoms need their own assessment whatever the score.
 
 ## The problem
 Astronauts on long missions can develop clots in the internal jugular vein (IJV). In NASA's own data, 8 of 31 astronauts had a left IJV flow anomaly in flight. In July 2026 NASA published a **VTE Risk Score for Astronauts** (NASA/SP-20260005258 REV1) that adds pre-flight factors to in-flight ultrasound and D-dimer findings, with four action bands. Further from Earth, the ground's answer takes longer to arrive: near real time in low Earth orbit, up to 40 minutes each way at Mars, where NASA lists "No evacuation capability" (OCHMO-TB-007).
@@ -12,7 +12,7 @@ Astronauts on long missions can develop clots in the internal jugular vein (IJV)
 ## What it does
 1. **Scores** a crew member with NASA's table, word for word: each point is shown with the NASA rule it comes from, the input value and a link to the source. The total maps to NASA's band, shown as a reference for the clinician.
 2. **Schedules** the IJV ultrasound scans from OCHMO-MTB-007 (L+30, L+60, R-42 days) and shows the next one due.
-3. **Hands off** the review packet from an onboard agent to a ground agent over **A2A** (Agent2Agent protocol 1.0), with the mission's communication delay. The score and band stay the same at LEO, the Moon and Mars; what changes is when the ground's reply can reach the crew (3 s, 28 s, 80 min round trip, simulated at the upper end of NASA's published ranges).
+3. **Hands off** the review packet from an onboard agent to a ground agent over **A2A** (Agent2Agent protocol 1.0), with the mission's communication delay. The score and band stay the same at LEO, the Moon and Mars; what changes is the earliest time a ground reply could reach the crew (3 s, 28 s, 80 min round trip, simulated at the upper end of NASA's published ranges). One-way delay is not clinical response time.
 
 The ground agent makes **no clinical decision**: it queues the packet for a human flight surgeon.
 

@@ -6,16 +6,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>VTE Watch</title>
-<meta name="description" content="Tracks an astronaut's blood-clot (VTE) risk with NASA's published score, then hands it to the ground with the mission's real communication delay. Synthetic data.">
+<meta name="description" content="Ranks and organizes NASA-referenced blood-clot (VTE) risk for flight-surgeon review, then hands it to the ground with a simulated communication delay. Synthetic data.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Ccircle cx=%278%27 cy=%278%27 r=%277%27 fill=%27%230b6e7f%27/%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="sim-banner" role="note"><strong>SIMULATION: NOT FOR OPERATIONAL MEDICAL USE</strong></div>
 <header class="top">
   <div class="wrap">
     <h1 id="app-name">VTE Watch</h1>
-    <p class="purpose">Tracks an astronaut's blood-clot (VTE) risk with NASA's published score, then hands it to the ground with the mission's real communication delay.</p>
-    <p class="notice" role="note"><strong>Synthetic data.</strong> A reference for clinician review, following NASA's published method &mdash; not a diagnosis, prediction or prescription.</p>
+    <p class="purpose">Ranks and organizes NASA-referenced blood-clot (VTE) risk for flight-surgeon review, then hands it to the ground with a simulated communication delay.</p>
+    <p class="notice" role="note"><strong>Synthetic data.</strong> A reference for clinician review, following NASA's published method &mdash; not a diagnosis, prediction or prescription. It does not detect clots.</p>
   </div>
 </header>
 
@@ -76,6 +77,7 @@
     <h2 id="h-score">2. NASA VTE risk score</h2>
     <p id="score-error" class="error" role="alert" hidden></p>
     <div id="score-out"></div>
+    <p class="safety" id="score-safety"></p>
   </section>
 
   <section aria-labelledby="h-sched">
@@ -95,7 +97,7 @@
 
   <section aria-labelledby="h-replay">
     <h2 id="h-replay">5. A2A replay</h2>
-    <p class="replay-label"><strong>Replay of a recorded real A2A run (agents/handoff.py, a2a-sdk 1.3.0).</strong> Two local agents exchanged these HTTP messages; nothing below is sent live.</p>
+    <p class="replay-label"><strong>SIMULATED: replay of a recorded A2A run (agents/handoff.py, a2a-sdk 1.3.0).</strong> Two local agents on one computer exchanged these HTTP messages; the communication delay is simulated and nothing below is sent live.</p>
     <p id="replay-status" class="hint"></p>
     <div id="replay-out"></div>
   </section>

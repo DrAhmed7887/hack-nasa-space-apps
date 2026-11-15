@@ -122,6 +122,7 @@ function render() {
   }
   lastScore = res;
   renderScore(res);
+  $("score-safety").replaceChildren(SAFETY_SCORE, h("br"), SAFETY_SINUS);
   renderSchedule(c, res);
   renderMission(c, res);
   renderReplay(c, res);
@@ -148,6 +149,10 @@ function renderScore(res) {
   if (res.flags.length) out.append(h("ul", { class: "flags", "aria-label": "Review flags" }, res.flags.map((f) => h("li", {}, f))));
   out.append(h("p", { class: "hint" }, res.note));
 }
+
+const SAFETY_SCORE = "The risk score is not a diagnostic test. New symptoms need their own assessment whatever the score.";
+const SAFETY_SINUS = "The NASA jugular ultrasound protocol does not exclude a clot in the brain's venous sinuses.";
+const SAFETY_DELAY = "One-way delay is not clinical response time: a reply also needs a person to read, decide and answer.";
 
 function renderSchedule(c, res) {
   const out = $("sched-out");
@@ -181,6 +186,7 @@ function renderMission(c, res) {
       [["Destination", ctx.name], ["Communication", ctx.communication], ["Evacuation", ctx.evacuation], ["Ground support", ctx.ground_support],
        ["Simulated one-way delay", `${fmtSeconds(ctx.simulated_one_way_delay_s)} (simulation; ${ctx.delay_basis})`], ["Earliest ground reply", fmtSeconds(ctx.earliest_ground_reply_s)]]
         .map(([k, v]) => h("div", {}, h("dt", {}, k), h("dd", {}, v)))),
+    h("p", { class: "hint" }, SAFETY_DELAY),
     h("p", { class: "hint" }, "Sources: ", ctx.sources.map((s, i) => [i ? ", " : "", sourceLink(s)]))
   );
 
